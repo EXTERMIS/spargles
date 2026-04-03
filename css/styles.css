@@ -381,7 +381,7 @@ justify-content: center;
     position: absolute;
     width: 85%;
   
-    top: -5.5vh;
+    bottom: -15vh;
 }
 
 .scroll-section-anchor {
@@ -389,11 +389,11 @@ justify-content: center;
   
   width: 100%;
   height: 70%;
+
+  margin-top: 7%;
   
   display: flex;
   flex-direction: row;
-  
-
 }
 
 .scroll-section {
