@@ -457,24 +457,3 @@ justify-content: center;
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
 }
-
-.S-GAME {
-  background-image: url("https://cdn.glitch.global/453141a9-03da-4a42-8a32-dd1ed98de004/597d910bf603b13c67149b8abaac55b2.gif?v=1716754423873");
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
-}
-
-.S-GALL {
-  background-image: url("https://cdn.glitch.global/453141a9-03da-4a42-8a32-dd1ed98de004/1Untitled.png?v=1729971291511");
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
-}
-
-.S-SHOP {
-  background-image: url("https://cdn.glitch.global/453141a9-03da-4a42-8a32-dd1ed98de004/SEXY%20PIXEL%20GIFS%20-%20GIFs.gif?v=1717262710695");
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
-}
