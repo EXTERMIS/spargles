@@ -124,6 +124,12 @@ header img {
   color: black;
 }
 
+.navbutton p:active {
+  box-shadow: 0 0 20px 5px #ffffff;
+  background: white;
+  color: black;
+}
+
 .login {
   position: absolute;
   height: 6%;
