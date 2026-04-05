@@ -1,130 +1,22 @@
-<!DOCTYLE html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>Spargles Shop</title>
-    <link rel="stylesheet" href="/All Pages/nav.css" />
-    <link rel="stylesheet" href="/All Pages/footer.css" />
-    <link rel="stylesheet" href="shop/shop.css" />
-    <link rel="icon" href="https://cdn.glitch.global/453141a9-03da-4a42-8a32-dd1ed98de004/qqqqq.png?v=1706564169050" />
-    <script src="/All Pages/main.js"></script>
-
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
-
-  <body>
-    <!-- 
-
-    NAVBAR START
-
--->
-    <nav class="navbar">
-      <div class="logo">
-        <i class="fa-solid fa-font-awesome"></i>
-        <a onclick="home()">
-          <img
-            src="https://cdn.glitch.global/453141a9-03da-4a42-8a32-dd1ed98de004/image.png?v=1706644187779"
-            alt="logo"
-            class="logo-img"
-          />
-        </a>
-      </div>
-      <div class="menu">
-        <div class="menu-links">
-          <a onclick="home()">
-            <img
-              src="https://cdn.glitch.global/453141a9-03da-4a42-8a32-dd1ed98de004/homw.png?v=1707786223361"
-              alt="home"
-          /></a>
-          <a onclick="game()">
-            <img
-              src="https://cdn.glitch.global/453141a9-03da-4a42-8a32-dd1ed98de004/games.png?v=1707786228094"
-              alt="games"
-          /></a>
-          <a onclick="shop()">
-            <img
-              src="https://cdn.glitch.global/453141a9-03da-4a42-8a32-dd1ed98de004/shopfix.png?v=1707786234250"
-              alt="shop"
-          /></a>
-          <a onclick="project()">
-            <img
-              src="https://cdn.glitch.global/453141a9-03da-4a42-8a32-dd1ed98de004/projectswide.png?v=1707784693658"
-              alt="projects"
-          /></a>
-          <a onclick="forum()">
-            <img
-              src="https://cdn.glitch.global/453141a9-03da-4a42-8a32-dd1ed98de004/forums.png?v=1707785542456"
-              alt="forums"
-          /></a>
-        </div>
-        <button class="log-in">
-          <img
-            src="https://cdn.glitch.global/453141a9-03da-4a42-8a32-dd1ed98de004/login.png?v=1708718198636"
-            alt="login"
-          />
-        </button>
-      </div>
-      <div class="menu-btn">
-        <i class="fa-solid fa-bars"></i>
-      </div>
-    </nav>
-
-    <!-- 
-
-    NAVBAR END
-
--->
-
-    <div class="scrollarea"></div>
-
-    <!-- 
-
-    FOOTER START
-
--->
-    <footer>
-      <img
-        class="logo-footer"
-        alt="Footer Logo"
-        src="https://cdn.glitch.global/453141a9-03da-4a42-8a32-dd1ed98de004/image.png?v=1706644187779"
-      />
-      <img
-        class="catpic"
-        alt="hiddencat"
-        src="https://cdn.glitch.global/453141a9-03da-4a42-8a32-dd1ed98de004/SPARG.png?v=1696117501807"
-      />
-      <div class="socials">
-        <a class="link-button" onclick="twitter()">
-          <img
-            src="https://cdn.glitch.global/453141a9-03da-4a42-8a32-dd1ed98de004/twitter%20(1).png?v=1709071147153"
-            alt="twitter"
-        /></a>
-
-        <a class="link-button" onclick="instagram()">
-          <img
-            src="https://cdn.glitch.global/453141a9-03da-4a42-8a32-dd1ed98de004/instagram.png?v=1709071151383"
-            alt="instagram"
-        /></a>
-
-        <a class="link-button" onclick="youtube()">
-          <img
-            src="https://cdn.glitch.global/453141a9-03da-4a42-8a32-dd1ed98de004/youtube.png?v=1709071883158"
-            alt="youtube"
-        /></a>
-
-        <a class="link-button" onclick="tiktok()">
-          <img
-            src="https://cdn.glitch.global/453141a9-03da-4a42-8a32-dd1ed98de004/tik-tok.png?v=1709071156740"
-            alt="tiktok"
-        /></a>
-      </div>
-    </footer>
-    <!-- 
-
-    FOOTER END
-
--->
-  </body>
+    <head>
+        <title>Spargles Wares</title>
+        <link rel="icon" href="/images/Tab-Icon.png">
+        <link rel="stylesheet" href="/style.css">
+    </head>
+    <body>
+        <img class="logo" src="/images/spargles.png" alt="Spargles Logo" onclick="main()">
+        <navbar-wrapper>
+            <navbar>
+                    <navbar-buttons-container>
+                        <div class="Nav-Button"><p>New Items!</p></div>
+                        <div class="Nav-Button"><p>Hoodies</p></div>
+                        <div class="Nav-Button"><p>Shirts</p></div>
+                    </navbar-buttons-6container>
+            </navbar>
+        </navbar-wrapper>
+        <img class="cart" src="images/cart.png" alt="Cart" onclick="cart()">
+        <script src="/script.js"></script>
+    </body>
 </html>
-
