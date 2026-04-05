@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link
-      rel="icon"
-      href="/images/Tab-Icon.png"
-    />
-    <link rel="stylesheet" href="/css1/style.css">
-    <script type="text/javascript" src="/js/main1.js"></script>
 
+  <head>
     <title>Spargles</title>
+    <link rel="icon" href="/images/Tab-Icon.png"/>
+    <link rel="stylesheet" href="/css1/style.css">
+    <script type="text/javascript" src="js/main1.js"></script>
   </head>
+
   <body>  
-    <img
-      class="bg-img"
-      src="/images/BG.jpg"
-      alt="#"
-    />
+     <!-- Background Image -->
+    <img class="bg-img" src="/images/BG.jpg" alt="Background Image"/>
+
     <div class="welcome-gif">
       <div class="navbar">
+
+         <!-- Buttons in Navbar -->
         <div class="navbutton" onclick="home()"><p>HOME</p></div>
         <div class="navbutton" onclick="shop()"><p>SHOP</p></div>
         <div class="navbutton" onclick="games()"><p>GAMES</p></div>
@@ -25,91 +23,40 @@
         <div class="navbutton" onclick="programs()"><p>PROGRAMS</p></div>
         <div class="navbutton" onclick="personal()"><p>PERSONAL</p></div>
       </div>
-      <img
-        alt="welcome-table-image"
-        class="welcome-table-image fade-text"
-        src="/images/Spargles.png"
-      />
+
+       <!-- Logo -->
+      <img alt="welcome-table-image" class="welcome-table-image fade-text" src="/images/Spargles.png"/>
+
+       <!-- Buttons outside Navbar -->
       <div class="login right1" onclick="signup()"><p>SIGNUP</p></div>
       <div class="login right2" onclick="login()"><p>LOGIN</p></div>
+
+    <!-- Fading Text -->
       <div class="pls-scroll fade-text">Scroll</div>
     </div>
+
+    <!-- Area allowed for scrolling on page -->
     <div class="scroll-container">
       <div class="scroll-area"></div>
     </div>
 
     <div class="fade-element Scroll-Content1">
       <div class="Scroll-Content-Text-Title">
-        <img
-          class="Title-Img"
-          src="/images/Spargles-Featured.png"
-        />
+        <img class="Title-Img" src="/images/Spargles-Featured.png"/>
       </div>
       <div class="scroll-section-anchor">
-        <div class="scroll-section S-PRO">
-          <div class="scrollnavbutton" onclick="project()"><p>WHAT WE DO?</p></div>
+        <div class="scroll-section wel-to-spar" style="background-image: url('/images/Wel-to-spar.png'); background-size: cover; background-position: center;">
+          <div class="scrollnavbutton" onclick="home()"><p>WELCOME TO SPARGLES!</p></div>
         </div>
-
-        <div class="scroll-section S-GAME">
-          <div class="scrollnavbutton" onclick="game()"><p>SHOP</p></div>
+        <div class="scroll-section wel-to-spar" style="background-image: url('/Icons/Mee\ Mee\ Bug\ Trials.png'); background-size: cover; background-position: center;">
+          <div class="scrollnavbutton" onclick="games()"><p>BOBTO Games!!</p></div>
         </div>
-
-        <div class="scroll-section S-GALL">
-          <div class="scrollnavbutton" onclick="gallery()"><p>THE CHIP</p></div>
-        </div>
-
-        <div class="scroll-section S-SHOP">
-          <div class="scrollnavbutton" onclick="shop()"><p>GALLERY</p></div>
+        <div class="scroll-section wel-to-spar" style="background-image: url('/images/Shop-Img.png'); background-size: cover; background-position: center;">
+          <div class="scrollnavbutton" onclick="shop()"><p>Spargles Wares!</p></div>
         </div>
       </div>
     </div>
-
     <script>
-      document.addEventListener("scroll", function () {
-        const scrollPosition = window.pageYOffset;
-        const fadeText = document.querySelector(".fade-text");
-        const fadeEffect = 1 - (scrollPosition * 3.5) / window.innerHeight;
-
-        fadeText.style.opacity = fadeEffect >= 0 ? fadeEffect : 0;
-      });
-
-      window.addEventListener("scroll", function () {
-        var element = document.querySelector(".pls-scroll");
-        var scrollPosition = window.scrollY * 2;
-        var fadeStart = 100; // Start fading at this scroll position
-        var fadeEnd = 300; // Fully faded by this scroll position
-
-        if (scrollPosition >= fadeStart && scrollPosition <= fadeEnd) {
-          var opacity =
-            1 - (scrollPosition - fadeStart) / (fadeEnd - fadeStart);
-          element.style.opacity = opacity;
-        } else if (scrollPosition > fadeEnd) {
-          element.style.opacity = 0;
-        } else {
-          element.style.opacity = 1;
-        }
-      });
-
-      window.addEventListener("scroll", function () {
-        var element = document.querySelector(".bg-img");
-        var scrollPosition = window.scrollY;
-        var maxScroll = document.body.scrollHeight - window.innerHeight;
-
-        // Calculate opacity: 1.0 when at the top, 0.25 when scrolled to the bottom
-        var opacity = 1.0 - (scrollPosition / maxScroll) * 0.75;
-
-        // Limit opacity to 0.25 (25%)
-        if (opacity < 0.25) {
-          opacity = 0.25;
-        }
-
-        element.style.opacity = opacity;
-      });
-
-      window.onbeforeunload = function () {
-        window.scrollTo(0, 0);
-      };
-
       const fadeElements = document.querySelectorAll(".fade-element"); // Select all elements with the class
       let lastScrollTop = 0;
 
@@ -139,4 +86,5 @@
       });
     </script>
   </body>
+
 </html>
