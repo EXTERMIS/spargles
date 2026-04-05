@@ -6,7 +6,7 @@ function shop() {
   window.location.assign("https://shop.spargles.com");
 }
 
-function game() {
+function games() {
   window.location.assign("https://games.spargles.com");
 }
 
