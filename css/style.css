@@ -485,8 +485,8 @@ justify-content: center;
     position: absolute;
     margin: auto;
     
-    top: -38vh;
-	right: 5vw;
+    top: -39vh;
+	right: 6.25vw;
 
     animation-duration: 3s;
     animation-name: slide-in-welcome-image;
