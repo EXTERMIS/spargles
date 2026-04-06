@@ -22,6 +22,7 @@
 body {
   color: #f2f2f2;
   background-color: #1a1a1a;
+  background-image: url('/images/BG.jpg');
 
   font-family: "Teko", sans-serif;
   font-style: normal;
@@ -395,8 +396,6 @@ justify-content: center;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-  
-
 }
 
 .scroll-section {
@@ -462,27 +461,34 @@ justify-content: center;
 
 @media screen and (max-width: 500px) {
   body {
-    font-size: 200px;
+    color: #f2f2f2;
+    background-color: #1a1a1a;
+
+    font-family: "Teko", sans-serif;
+    font-style: normal;
+    font-size: 50px;
+
+    display: flex;
+    justify-content: center;
+    
+    margin: auto;
+  }
+
+  .Title-Img {
+    position: absolute;
+    width: 250%;
+  
+    bottom: -15vh;
   }
 
   .welcome-table-image {
-    position: relative;
-    margin: auto;  
+    position: absolute;
+    margin: auto;
     
-    width: 80vw;
-    height: auto;
-    
+    top: -45vh;
+
     animation-duration: 3s;
     animation-name: slide-in-welcome-image;
-  }
-
-  .bg-img {
-    position: fixed;
-    
-    background-size: cover;
-
-    opacity: 1; /* Start at 100% opacity */
-    transition: opacity 0.3s ease-out; /* Smooth transition */
   }
 
   .navbar {
@@ -502,19 +508,104 @@ justify-content: center;
   }
   
   .navbutton {
-    margin-left: 1vw;
-    margin-top: 1vw;
+    height: 100%;
+    width: 9.5%;
+    flex-wrap: wrap;
+    font-size: 6.5vw;
+    margin-left: 2vw;
+    margin-top: 3vw;
   }
 
   .navbutton p.active {
     background: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
   }
+
+  .scroll-section {
+    position: relative;
+    width: 40%;
+    height: 50%;
+    
+    margin-top: 10%;
+    margin-bottom: 40%;
+    margin: 2.5%;
+    
+    border-radius: 10px;
+    z-index: 100;
+    outline: #ffffff solid 1px;
+    transition: .15s;
+  }
+
+  .scroll-section-anchor {
+    position: relative;
+    top: 12.5vh;
+    
+    width: 100%;
+    height: 70%;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .scrollnavbutton {
+    height: 100%;
+    width: 100%;
+    
+    margin-left: auto;
+    margin-right: auto; 
+
+    color: #f2f2f2;
+
+    position: relative;
+    bottom: -2.5vh;
+      
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: flex-end;
+
+    border-radius: 9px;
+
+    background: transparent;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 3.7vw;
+
+    cursor: pointer;
+  }
+
+  .pls-scroll {
+    position: absolute;
+    bottom: 1vh;
+      
+    font-size: 12vw;
+    text-align: center;
+    font-family: "Teko", sans-serif;
+    
+    animation-duration: 1.5s;
+    animation-name: scrollfade;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    
+    opacity: 1; /* Initial opacity */
+    transition: opacity 2.5s ease-out; /* Smooth transition */
+  }
 }
 
 @media screen and (max-width: 800px) {
   body {
+    color: #f2f2f2;
+    background-color: #1a1a1a;
+
+    font-family: "Teko", sans-serif;
+    font-style: normal;
     font-size: 50px;
+
+    display: flex;
+    justify-content: center;
+    
+    margin: auto;
   }
 
   .navbar {
@@ -533,10 +624,12 @@ justify-content: center;
   }
 
   .navbutton {
+    height: 100%;
+    width: 9.5%;
     flex-wrap: wrap;
-    font-size: 2.5vw;
+    font-size: 6.5vw;
     margin-left: 2vw;
-    margin-top: 1vw;
+    margin-top: 3vw;
   }
 
   .welcome-table-image {
@@ -545,8 +638,7 @@ justify-content: center;
     
     width: 60vw;
     height: auto;
-    
-    animation-duration: 3s;
-    animation-name: slide-in-welcome-image;
+
+    animation-name: none;
   }
 }
