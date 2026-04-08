@@ -65,29 +65,27 @@ header img {
 
 .navbar {
   position: absolute;
-  top: 0.25vw;
-  left: 0%;
+  top: 1vw;
 
-  width: 100%;
+
+  width: 50vw;
   height: 6%;
 
-  background-color: transparent;
+  background-color: #ffffff2f;
 
   display: flex;
   flex-wrap: row;
-  justify-content: left;
-}
+  justify-content: center;
+  align-items: center;
 
-.right1 {
-  right: 6vw;
-}
-.right2 {
-  right: 0vw;
+  border-radius: 15px;
+  box-shadow: 0 0 15px 5px #ffffff48;
 }
 
 .navbutton {
-  height: 100%;
-  width: 7.5%;
+  position: relative;
+  height: 65%;
+  width: 7vw;
 
   color: #f2f2f2;
 
@@ -96,35 +94,31 @@ header img {
   text-align: center;
   align-items: flex-end;
 
-  border-radius: 9px;
+  border-radius: 9px 9px 12px 12px;
 
   background: transparent;
   font-family: "Bebas Neue", sans-serif;
   font-size: 1.6vw;
 
   margin-right: 12px;
+  margin: auto;
 
   cursor: pointer;
 }
 
 .navbutton p{
   font-family: "Bebas Neue", sans-serif;
-  border-radius: 5px;
+  border-radius: 9px 9px 20px 20px;
   width: 80%;
 
   transition: 0.15s;
 
 }
 
-.navbutton p:hover {
-  box-shadow: 0 0 20px 5px #ffffff;
-  background: white;
-  color: black;
-}
-
-.navbutton p.active {
-  box-shadow: 0 0 20px 5px #ffffff;
-  background: white;
+.navbutton:hover {
+  box-shadow: 0 0 20px 5px #ffffff4c;
+  border-radius: 9px 9px 30px 30px;
+  background: rgba(255, 255, 255, 0.856);
   color: black;
 }
 
@@ -485,8 +479,7 @@ justify-content: center;
     position: absolute;
     margin: auto;
     
-    top: -39vh;
-	right: 6.25vw;
+    top: -45vh;
 
     animation-duration: 3s;
     animation-name: slide-in-welcome-image;
