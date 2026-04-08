@@ -1,87 +1,130 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <title>Spargles</title>
-    <link rel="icon" href="/images/Tab-Icon.png"/>
-    <link rel="stylesheet" href="/css/style.css">
-    <script type="text/javascript" src="js/main1.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
+<head>
+  <title>Spargles</title>
+  <link rel="icon" href="/images/Tab-Icon.png" />
+  <link rel="stylesheet" href="/css/style.css">
+  <script type="text/javascript" src="/js/main1.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 
-  <body>  
-     <!-- Background Image -->
-    <img class="bg-img" src="/images/BG.jpg" alt="Background Image"/>
+<body>
+  <!-- Background Image -->
+  <img class="bg-img" src="/images/BG.jpg" alt="Background Image" />
 
-    <div class="welcome-gif">
-      <div class="navbar">
-
-         <!-- Buttons in Navbar -->
-        <div class="navbutton" onclick="home()"><p>HOME</p></div>
-        <div class="navbutton" onclick="shop()"><p>SHOP</p></div>
-        <div class="navbutton" onclick="games()"><p>GAMES</p></div>
-        <div class="navbutton" onclick="gallery()"><p>GALLERY</p></div>
-        <div class="navbutton" onclick="programs()"><p>PROGRAMS</p></div>
-        <div class="navbutton" onclick="personal()"><p>PERSONAL</p></div>
+  <div class="welcome-gif">
+    <div class="navbar">
+      <!-- Buttons in Navbar -->
+      <div class="navbutton" onclick="home()">
+        <p>HOME</p>
       </div>
+      <div class="navbutton" onclick="shop()">
+        <p>SHOP</p>
+      </div>
+      <div class="navbutton" onclick="games()">
+        <p>GAMES</p>
+      </div>
+      <div class="navbutton" onclick="gallery()">
+        <p>GALLERY</p>
+      </div>
+      <div class="navbutton" onclick="programs()">
+        <p>PROGRAMS</p>
+      </div>
+      <div class="navbutton" onclick="personal()">
+        <p>PERSONAL</p>
+      </div>
+    </div>
 
-       <!-- Logo -->
-      <img alt="welcome-table-image" class="welcome-table-image fade-text" src="/images/Spargles.png"/>
+    <!-- Logo -->
+    <img alt="welcome-table-image" class="welcome-table-image fade-text" src="/images/Spargles.png" />
 
     <!-- Fading Text -->
-      <div class="pls-scroll fade-text">Scroll</div>
-    </div>
+    <div class="pls-scroll fade-text">Scroll</div>
+  </div>
 
-    <!-- Area allowed for scrolling on page -->
-    <div class="scroll-container">
-      <div class="scroll-area"></div>
-    </div>
+  <!-- Area allowed for scrolling on page -->
+  <div class="scroll-container">
+    <div class="scroll-area"></div>
+  </div>
 
-    <div class="fade-element Scroll-Content1">
-      <div class="Scroll-Content-Text-Title">
-        <img class="Title-Img" src="/images/Spargles-Featured.png"/>
-      </div>
-      <div class="scroll-section-anchor">
-        <div class="scroll-section wel-to-spar" style="background-image: url('/images/Wel-to-spar.png'); background-size: cover; background-position: center;">
-          <div class="scrollnavbutton" onclick="home()"><p>WELCOME TO SPARGLES!</p></div>
-        </div>
-        <div class="scroll-section wel-to-spar" style="background-image: url('/icons/Mee\ Mee\ Bug\ Trials.png'); background-size: cover; background-position: center;">
-          <div class="scrollnavbutton" onclick="games()"><p>BOBTO Games!!</p></div>
-        </div>
-        <div class="scroll-section wel-to-spar" style="background-image: url('/images/Shop-Img.png'); background-size: cover; background-position: center;">
-          <div class="scrollnavbutton" onclick="shop()"><p>Spargles Wares!</p></div>
+  <div class="fade-element Scroll-Content1">
+    <div class="Scroll-Content-Text-Title">
+      <img class="Title-Img" src="/images/Spargles-Featured.png" />
+    </div>
+    <div class="scroll-section-anchor">
+      <div class="scroll-section wel-to-spar"
+        style="background-image: url('images/Wel-to-spar.png'); background-size: cover; background-position: center;">
+        <div class="scrollnavbutton" onclick="home()">
+          <p>WELCOME TO SPARGLES!</p>
         </div>
       </div>
+      <div class="scroll-section wel-to-spar"
+        style="background-image: url('Icons/Mee\ Mee\ Bug\ Trials.png'); background-size: cover; background-position: center;">
+        <div class="scrollnavbutton" onclick="games()">
+          <p>BOBTO Games!!</p>
+        </div>
+      </div>
+      <div class="scroll-section wel-to-spar"
+        style="background-image: url('images/Shop-Img.png'); background-size: cover; background-position: center;">
+        <div class="scrollnavbutton" onclick="shop()">
+          <p>Spargles Wares!</p>
+        </div>
+      </div>
     </div>
-    <script>
-      const fadeElements = document.querySelectorAll(".fade-element"); // Select all elements with the class
-      let lastScrollTop = 0;
+  </div>
 
-      window.addEventListener("scroll", function () {
-        const scrollPosition = window.scrollY;
-        const windowHeight = window.innerHeight;
+  <footer class="footer">
+    <div class="stars"></div>
+    <div class="shooting-stars"></div>
 
-        fadeElements.forEach((fadeElement) => {
-          if (scrollPosition > lastScrollTop) {
-            // Scrolling down: fade in quickly and reach full opacity
-            fadeElement.style.opacity = Math.min(
-              1,
-              scrollPosition / (windowHeight / 2)
-            );
-            fadeElement.style.transition = "opacity 0.2s ease"; // Quicker fade in
-          } else {
-            // Scrolling up: gradually fade out based on scroll
-            let opacity = (scrollPosition - 100) / (windowHeight - 100);
-            if (opacity < 0) opacity = 0;
-            fadeElement.style.opacity = opacity;
-            fadeElement.style.transition = "opacity 0.5s ease"; // Slower fade out
-          }
-        });
+    <div class="footer-content">
+      <h2 class="logo">Spargles</h2>
+      <p class="tagline">Shining bright in the digital night ✨</p>
 
-        // Update last scroll position
-        lastScrollTop = scrollPosition <= 0 ? 0 : scrollPosition;
+      <div class="links">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </div>
+
+      <p class="copyright">© 2026 Spargles</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+  <script>
+    const fadeElements = document.querySelectorAll(".fade-element"); // Select all elements with the class
+    let lastScrollTop = 0;
+
+    window.addEventListener("scroll", function () {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+
+      fadeElements.forEach((fadeElement) => {
+        if (scrollPosition > lastScrollTop) {
+          // Scrolling down: fade in quickly and reach full opacity
+          fadeElement.style.opacity = Math.min(
+            1,
+            scrollPosition / (windowHeight / 2)
+          );
+          fadeElement.style.transition = "opacity 0.2s ease"; // Quicker fade in
+        } else {
+          // Scrolling up: gradually fade out based on scroll
+          let opacity = (scrollPosition - 100) / (windowHeight - 100);
+          if (opacity < 0) opacity = 0;
+          fadeElement.style.opacity = opacity;
+          fadeElement.style.transition = "opacity 0.5s ease"; // Slower fade out
+        }
       });
-    </script>
-  </body>
+
+      // Update last scroll position
+      lastScrollTop = scrollPosition <= 0 ? 0 : scrollPosition;
+    });
+  </script>
+</body>
 
 </html>
