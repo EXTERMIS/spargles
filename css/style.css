@@ -253,6 +253,16 @@ body {
 
   border-radius: 150px;
   cursor: pointer;
+
+  transition: transform 0.15s ease;
+}
+
+.mascot img.active {
+  transform: scale(0.9);
+}
+
+.mascot img.pop {
+  transform: scale(1.2);
 }
 
 .Content-Wrapper {
@@ -279,6 +289,7 @@ body {
   margin-bottom: auto;
 
   border-radius: 100px;
+  transition: 0.2s ease;
 }
 
 .content-image img {
@@ -332,3 +343,4 @@ body {
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.9),
                0 0 20px rgba(255, 255, 255, 0.8);
 }
+
