@@ -55,6 +55,7 @@ function mascotClick(element) {
 
   // count clicks
   clickCount++;
+  console.log(clickCount)
   // check for 101 clicks
   if (clickCount === 101) {
     const img = document.querySelector('.content-image img');
