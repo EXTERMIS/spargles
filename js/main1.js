@@ -34,6 +34,28 @@ function personal() {
   window.location.assign("https://personal.spargles.com");
 }
 
+function contact() {
+  window.location.assign("https://contact.spargles.com");
+}
+
+const clickSound = new Audio("audio/ping.mp3");
+
+function mascotClick(element) {
+  clickSound.volume = 0.1;
+  clickSound.currentTime = 0; // restart if spam clicked
+  clickSound.play();
+  element.classList.add('active');
+
+  setTimeout(() => {
+    element.classList.remove('active');
+    element.classList.add('pop');
+
+    setTimeout(() => {
+      element.classList.remove('pop');
+    }, 150);
+  }, 150);
+}
+
 document.addEventListener("scroll", function () {
         const scrollPosition = window.pageYOffset;
         const fadeText = document.querySelector(".fade-text");
@@ -78,3 +100,4 @@ document.addEventListener("scroll", function () {
       window.onbeforeunload = function () {
         window.scrollTo(0, 0);
       };
+
