@@ -1,0 +1,79 @@
+.navbar {
+  position: absolute;
+  top: 1vw;
+
+
+  width: 50vw;
+  height: 6%;
+
+  background-color: #ffffff2f;
+
+  display: flex;
+  flex-wrap: row;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 15px;
+  box-shadow: 0 0 15px 5px #ffffff48;
+  outline: #ffffff22 1px solid;
+}
+
+.navbutton {
+  position: relative;
+  height: 70%;
+  width: 7vw;
+
+  color: #f2f2f2;
+  background-color: #9d00ff67;
+
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: flex-end;
+
+  border-radius: 9px 9px 12px 12px;
+
+  background: transparent;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.6vw;
+
+  margin-right: 12px;
+  margin: auto;
+
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.navbutton p {
+  font-family: "Bebas Neue", sans-serif;
+  width: 80%;
+
+  transition: 0.5s;
+
+}
+
+.navbutton:hover {
+  box-shadow: 0 0 20px 5px #ffffff4c;
+  background: rgba(255, 255, 255, 0.856);
+  color: black;
+}
+
+footer {
+  position: absolute;
+  bottom: -177%;
+  width: 100%;
+  height: 5vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 2vh;
+  background-color: #1a1a1a;
+}
+
+.footer-button {
+  position: absolute;
+  right: 5%;
+  cursor: pointer;
+}
