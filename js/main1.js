@@ -60,13 +60,13 @@ function mascotClick(element) {
     const img = document.querySelector('.content-image img');
     
     // change the image
-    img.src = "images/wedding.png"; // <-- replace with your image
+    img.src = "/images/wedding.png"; // <-- replace with your image
   }
   if (clickCount === 102) {
     const img = document.querySelector('.content-image img');
     
     // change the image
-    img.src = "images/Placeholder.png"; // <-- replace with your image
+    img.src = "/images/Placeholder.png"; // <-- replace with your image
   }
 }
 
