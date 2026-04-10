@@ -1,7 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Jersey+25+Charted&family=Teko:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Changa:wght@200..800&family=Pixelify+Sans:wght@400..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Jersey+10&display=swap");
-
 ::-webkit-scrollbar {
   display: none;
   -ms-overflow-style: none;
@@ -30,13 +26,6 @@ body {
   margin: auto;
 }
 
-mark {
-  background-color: transparent;
-  color: #f89cff;
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 45px;
-}
-
 .bg-img {
   position: fixed;
 
@@ -49,89 +38,6 @@ mark {
   /* Smooth transition */
 }
 
-.navbar {
-  position: absolute;
-  top: 1vw;
-
-
-  width: 50vw;
-  height: 6%;
-
-  background-color: #ffffff2f;
-
-  display: flex;
-  flex-wrap: row;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 15px;
-  box-shadow: 0 0 15px 5px #ffffff48;
-  outline: #ffffff22 1px solid;
-}
-
-.navbutton {
-  position: relative;
-  height: 70%;
-  width: 7vw;
-
-  color: #f2f2f2;
-  background-color: #9d00ff67;
-
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  align-items: flex-end;
-
-  border-radius: 9px 9px 12px 12px;
-
-  background: transparent;
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 1.6vw;
-
-  margin-right: 12px;
-  margin: auto;
-
-  cursor: pointer;
-  transition: 0.5s;
-}
-
-.navbutton p {
-  font-family: "Bebas Neue", sans-serif;
-  width: 80%;
-
-  transition: 0.5s;
-
-}
-
-.navbutton:hover {
-  box-shadow: 0 0 20px 5px #ffffff4c;
-  background: rgba(255, 255, 255, 0.856);
-  color: black;
-}
-
-.login {
-  position: absolute;
-  height: 6%;
-  width: 7%;
-
-  color: #f2f2f2;
-
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  align-items: flex-end;
-
-  border-radius: 9px;
-
-  background: transparent;
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 1.7vw;
-
-  margin-right: 14px;
-
-  cursor: pointer;
-}
-
 .welcome-gif {
   position: absolute;
   width: 100%;
@@ -141,51 +47,6 @@ mark {
   justify-content: center;
 
   top: 0%;
-}
-
-.welcome-info {
-  position: absolute;
-  top: 1vw;
-  left: -2vw;
-  padding: 15px 30px;
-
-  cursor: pointer;
-
-  height: 5.5vw;
-  width: 15.5vw;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.welcome-image {
-  transition: transform 0.5s ease-in-out;
-}
-
-.welcome-image:hover {
-  animation: zoomInOut 2s ease-in-out infinite;
-}
-
-
-@keyframes zoomInOut {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.05);
-    /* Adjust the zoom level */
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
-.welcome-gif-img {
-  width: 100%;
-  height: 100%;
 }
 
 .welcome-table-image {
@@ -211,17 +72,7 @@ mark {
   }
 }
 
-.welcome-table-image-project {
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  top: 6vh;
-
-  width: 24vw;
-  height: 12vw;
-}
-
-.pls-scroll {
+.Fade-Scroll-Text {
   position: absolute;
   bottom: 1vh;
 
@@ -250,18 +101,6 @@ mark {
 
 .fade-text {
   transition: opacity 1s ease-out;
-}
-
-.Scroll-Content1 {
-  position: absolute;
-  bottom: -100%;
-  left: 0%;
-
-  width: 100%;
-  height: 100%;
-
-  justify-content: center;
-
 }
 
 .fade-element {
@@ -376,208 +215,120 @@ mark {
   color: black;
 }
 
-footer {
+
+.Scroll-Content1 {
   position: absolute;
-  bottom: -102%;
+  bottom: -100%;
+  left: 0%;
+
   width: 100%;
-  height: 5vh;
+  height: 100%;
+
+  justify-content: center;
+}
+
+.Scroll-Content2 {
+  position: absolute;
+  bottom: -175%;
+  left: 0%;
+
+  width: 100%;
+  height: 75%;
 
   display: flex;
   justify-content: center;
   align-items: center;
-
-  font-size: 2vh;
-  background-color: #1a1a1a;
 }
 
-.footer-button {
+.mascot img {
   position: absolute;
-  right: 5%;
+  width: 20vw;
+  height: auto;
+
+  bottom: 10%;
+  right: -2%;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  border-radius: 150px;
   cursor: pointer;
 }
 
-@media screen and (max-width: 500px) {
-  body {
-    color: #f2f2f2;
-    background-color: #1a1a1a;
+.Content-Wrapper {
+  position: absolute;
+  top: 0%;
+  left: 0%;
 
-    font-family: "Teko", sans-serif;
-    font-style: normal;
-    font-size: 50px;
+  width: 85%;
+  height: 100%;
 
-    display: flex;
-    justify-content: center;
-
-    margin: auto;
-  }
-
-  .Title-Img {
-    position: absolute;
-    width: 250%;
-
-    bottom: -15vh;
-  }
-
-  .welcome-table-image {
-    position: absolute;
-    margin: auto;
-
-    top: -45vh;
-
-    animation-duration: 3s;
-    animation-name: slide-in-welcome-image;
-  }
-
-  .navbar {
-    position: absolute;
-    top: 5vw;
-    left: 0%;
-
-    width: 20%;
-    height: 30%;
-
-    background-color: transparent;
-
-    display: flex;
-    flex-direction: column;
-    flex-wrap: column;
-    justify-content: center;
-  }
-
-  .navbutton {
-    height: 100%;
-    width: 9.5%;
-    flex-wrap: wrap;
-    font-size: 6.5vw;
-    margin-left: 2vw;
-    margin-top: 3vw;
-  }
-
-  .navbutton p.active {
-    background: rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
-  }
-
-  .scroll-section {
-    position: relative;
-    width: 40%;
-    height: 50%;
-
-    margin-top: 10%;
-    margin-bottom: 40%;
-    margin: 2.5%;
-
-    border-radius: 10px;
-    z-index: 100;
-    outline: #ffffff solid 1px;
-    transition: .15s;
-  }
-
-  .scroll-section-anchor {
-    position: relative;
-    top: 12.5vh;
-
-    width: 100%;
-    height: 70%;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .scrollnavbutton {
-    height: 100%;
-    width: 100%;
-
-    margin-left: auto;
-    margin-right: auto;
-
-    color: #f2f2f2;
-
-    position: relative;
-    bottom: -2.5vh;
-
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: flex-end;
-
-    border-radius: 9px;
-
-    background: transparent;
-    font-family: "Bebas Neue", sans-serif;
-    font-size: 3.7vw;
-
-    cursor: pointer;
-  }
-
-  .pls-scroll {
-    position: absolute;
-    bottom: 1vh;
-
-    font-size: 12vw;
-    text-align: center;
-    font-family: "Teko", sans-serif;
-
-    animation-duration: 1.5s;
-    animation-name: scrollfade;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-
-    opacity: 1;
-    /* Initial opacity */
-    transition: opacity 2.5s ease-out;
-    /* Smooth transition */
-  }
+  display: flex;
+  justify-content: right;
+  align-items: center;
 }
 
-@media screen and (max-width: 800px) {
-  body {
-    color: #f2f2f2;
-    background-color: #1a1a1a;
+.Content-Wrapper .content-image {
+  position: relative;
+  width: 60%;
+  height: 75%;
 
-    font-family: "Teko", sans-serif;
-    font-style: normal;
-    font-size: 50px;
+  margin-left: 2vw;
+  margin-top: 4.5%;
+  margin-right: auto;
+  margin-bottom: auto;
 
-    display: flex;
-    justify-content: center;
+  border-radius: 100px;
+}
 
-    margin: auto;
-  }
+.content-image img {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: center;
+  border-radius: 60px;
+}
 
-  .navbar {
-    position: relative;
-    top: 1vw;
-    left: 0%;
+.Content-Wrapper .content-text {
+  position: absolute;
+  width: 30%;
+  height: 50%;
 
-    width: 100%;
-    height: 6%;
+  right: 4%;
 
-    background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
-    display: flex;
-    flex-wrap: row;
-    justify-content: left;
-  }
+  border-radius: 20px;
 
-  .navbutton {
-    height: 100%;
-    width: 9.5%;
-    flex-wrap: wrap;
-    font-size: 6.5vw;
-    margin-left: 2vw;
-    margin-top: 3vw;
-  }
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+}
 
-  .welcome-table-image {
-    position: relative;
-    margin: auto;
+.content-text .title {
+  font-family: "Teko", sans-serif;
+  font-style: normal;
+  font-size: 2vw;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.9),
+               0 0 20px rgba(255, 255, 255, 0.8);
+}
 
-    width: 60vw;
-    height: auto;
+.content-text p {
+  font-family: "Teko", sans-serif;
+  font-style: normal;
+  font-size: 1.5vw;
+  padding: 5%;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.9),
+               0 0 20px rgba(255, 255, 255, 0.8);
+}
 
-    animation-name: none;
-  }
+.content-text .signature {
+  font-family: "Teko", sans-serif;
+  font-style: normal;
+  font-size: 1.2vw;
+  padding: 5%;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.9),
+               0 0 20px rgba(255, 255, 255, 0.8);
 }
