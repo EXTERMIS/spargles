@@ -70,6 +70,9 @@ footer {
 
   font-size: 2vh;
   background-color: #1a1a1a;
+
+  border-top: 3px solid;
+  border-image: linear-gradient(to right, #ffffff 0%, #515151 100%) 1;
 }
 
 .footer-button {
