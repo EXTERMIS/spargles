@@ -31,6 +31,8 @@ body {
 
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
 
   opacity: 1;
   /* Start at 100% opacity */
@@ -238,11 +240,18 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  background-color: rgba(42, 42, 42, 0.4);
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4)); 
+  backdrop-filter: blur(6px);
+  border-top: 3px solid;
+  border-bottom: 3px solid;
+  border-image: linear-gradient(to right, #ffffff 0%, #515151 100%) 1;
 }
 
 .Scroll-Content3 {
   position: absolute;
-  bottom: -215%;
+  bottom: -225%;
   left: 0%;
 
   width: 100%;
@@ -255,11 +264,11 @@ body {
 
 .mascot img {
   position: absolute;
-  width: 20vw;
+  width: 19vw;
   height: auto;
 
   bottom: 10%;
-  right: -2%;
+  right: 0%;
 
   margin-left: auto;
   margin-right: auto;
@@ -297,7 +306,7 @@ body {
   height: 75%;
 
   margin-left: 2vw;
-  margin-top: 4.5%;
+  margin-top: 5%;
   margin-right: auto;
   margin-bottom: auto;
 
@@ -327,7 +336,8 @@ body {
 
   border-radius: 20px;
 
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 30px;
   backdrop-filter: blur(6px);
 }
 
@@ -360,7 +370,7 @@ body {
 .MusicBox {
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 125%;
 
   display: flex;
   flex-direction: row;
@@ -369,8 +379,6 @@ body {
   align-items: center;
 
   border-radius: 20px;
-
-  backdrop-filter: blur(6px);
 }
 
 .MusicBox .MusicPlayer {
@@ -378,7 +386,7 @@ body {
   width: 30%;
   height: 60%;
 
-  margin-top: 4.5%;
+  margin-top: 4%;
   margin-bottom: auto;
 
   border-radius: 100px;
@@ -387,6 +395,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.MusicPlayer p {
+  position: absolute;
+  bottom: -65%;
+  font-family: "Teko", sans-serif;
+  font-size: 1.8vw;
 }
 
 .MusicPlayer img {
