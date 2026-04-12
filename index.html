@@ -1,22 +1,67 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Spargles Wares</title>
-        <link rel="icon" href="/images/Tab-Icon.png">
-        <link rel="stylesheet" href="/css/style1.css">
-    </head>
-    <body>
-        <img class="logo" src="/images/Spargles.png" alt="Spargles Logo" onclick="main()">
-        <navbar-wrapper>
-            <navbar>
-                    <navbar-buttons-container>
-                        <div class="Nav-Button"><p>New Items!</p></div>
-                        <div class="Nav-Button"><p>Hoodies</p></div>
-                        <div class="Nav-Button" onclick="shirts()"><p>Shirts</p></div>
-                    </navbar-buttons-6container>
-            </navbar>
-        </navbar-wrapper>
-        <img class="cart" src="images/cart.png" alt="Cart" onclick="cart()">
-        <script src="/js/main.js"></script>
-    </body>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spargles Shop</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('images/WIP.png');
+            /* replace with your image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-image: url('images/Spargles.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 200px;
+            height: 100px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <div class="home-button">
+    </div>
+
+    <script>
+        const myDiv = document.querySelector('.home-button');
+        myDiv.addEventListener('click', function () {
+            window.location.href = 'https://spargles.com';
+        });
+    </script>
+
+</body>
+
 </html>
