@@ -131,6 +131,17 @@
       lastScrollTop = scrollPosition <= 0 ? 0 : scrollPosition;
     });
   </script>
+    <script>
+
+    async function checkBrave() {
+      if (navigator.brave && await navigator.brave.isBrave()) {
+        console.log("User is using Brave");
+      } else {
+        console.log("User is not using Brave");
+      }
+    }
+    checkBrave();
+  </script>
 </body>
 
 </html>
