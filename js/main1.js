@@ -38,6 +38,9 @@ function contact() {
   window.location.assign("https://contact.spargles.com");
 }
 
+function terms() {
+  window.location.assign("https://spargles.com/terms");
+}
 
 let clickCount = 0;
 
@@ -55,19 +58,17 @@ function mascotClick(element) {
 
   // count clicks
   clickCount++;
-  console.log(clickCount)
   // check for 101 clicks
   if (clickCount === 101) {
     const img = document.querySelector('.content-image img');
-    
+
     // change the image
-    img.src = "/images/wedding.png"; // <-- replace with your image
+    img.src = "images/wedding.png"; // <-- replace with your image
   }
   if (clickCount === 102) {
     const img = document.querySelector('.content-image img');
-    
+
     // change the image
-    img.src = "/images/Placeholder.png"; // <-- replace with your image
+    img.src = "images/Placeholder.png"; // <-- replace with your image
   }
 }
-
