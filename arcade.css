@@ -12,8 +12,10 @@
 }
 
 .popup {
-  height: 60vh;
-  width: 85vw;
+  top: 50%;
+  left: 50%;
+  height: 20vh;
+  width: 35vw;
   margin: auto;
   position: fixed;
   animation: rainbow-flash-bg 1.4s steps(7, jump-none) infinite;
