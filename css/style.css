@@ -35,9 +35,8 @@ body {
   left: 0;
 
   opacity: 1;
-  /* Start at 100% opacity */
   transition: opacity 0.3s ease-out;
-  /* Smooth transition */
+  z-index: -3;
 }
 
 .welcome-gif {
@@ -167,13 +166,7 @@ body {
 
   outline: #ffffff solid 2px;
   transition: .25s;
-}
-
-.scroll-section:hover {
-  box-shadow: 0 0 20px 5px #ffffff;
-  border-radius: 50px;
-  ;
-  background: white;
+  animation: float 2s ease-in-out infinite;
 }
 
 .scrollnavbutton {
@@ -217,6 +210,10 @@ body {
   color: black;
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
 
 .Scroll-Content1 {
   position: absolute;
@@ -227,6 +224,7 @@ body {
   height: 100%;
 
   justify-content: center;
+  background-image: linear-gradient(to top, rgb(43, 43, 43), rgba(0, 0, 0, 0.0));
 }
 
 .Scroll-Content2 {
@@ -242,7 +240,7 @@ body {
   align-items: center;
 
   background-color: rgba(42, 42, 42, 0.4);
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4)); 
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
   backdrop-filter: blur(6px);
   border-top: 3px solid;
   border-bottom: 3px solid;
@@ -251,15 +249,18 @@ body {
 
 .Scroll-Content3 {
   position: absolute;
-  bottom: -225%;
+  bottom: -230%;
   left: 0%;
 
   width: 100%;
-  height: 35%;
+  height: 55%;
 
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+  z-index: -1;
 }
 
 .mascot img {
@@ -368,9 +369,11 @@ body {
 }
 
 .MusicBox {
-  position: absolute;
+  position: relative;
   width: 100%;
-  height: 125%;
+  height: 20%;
+
+  top: 10%;
 
   display: flex;
   flex-direction: row;
@@ -379,6 +382,17 @@ body {
   align-items: center;
 
   border-radius: 20px;
+}
+
+.music-title {
+  position: absolute;
+  width: 43vw;
+  height: auto;
+
+  top: -8vh;
+
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .MusicBox .MusicPlayer {
@@ -397,11 +411,22 @@ body {
   align-items: center;
 }
 
+.MusicPlayer:hover {
+  filter: saturate(1.5);
+}
+
+.MusicPlayer:hover .Music-Bg {
+  transform: scale(1.05);
+}
+
 .MusicPlayer p {
   position: absolute;
-  bottom: -65%;
+  bottom: -380%;
   font-family: "Teko", sans-serif;
   font-size: 1.8vw;
+
+  text-shadow: 0 0 18px rgb(255, 255, 255);
+  letter-spacing: 1px;
 }
 
 .MusicPlayer img {
@@ -410,9 +435,19 @@ body {
   background-size: contain;
   background-position: center;
   border-radius: 10px;
-  box-shadow: #ffffff 0px 0px 30px;
-  outline: #ffffff solid 2px;
   transition: .5s ease;
+}
+
+
+.Music-Bg {
+  position: absolute;
+  background-size: cover;
+  background-position: center;
+
+  border-radius: 10px;
+  filter: blur(70px) brightness(400%);
+
+  z-index: -1;
 }
 
 .Play-Audio {
