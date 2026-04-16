@@ -1,0 +1,116 @@
+::-webkit-scrollbar {
+  display: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Jersey 10", sans-serif;
+}
+
+body {
+  color: #f2f2f2;
+  background-color: #1a1a1a;
+  background-image: url('/images/BG.jpg');
+
+  font-family: "Teko", sans-serif;
+  font-style: normal;
+  font-size: 50px;
+
+  display: flex;
+  justify-content: center;
+
+  margin: auto;
+}
+
+.Background-image {
+  position: fixed;
+
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+  z-index: -3;
+}
+
+.welcome {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+
+  top: 0%;
+}
+
+.Spargles-logo {
+  position: relative;
+  margin: auto;
+
+  width: 44vw;
+  height: relative;
+
+  animation-duration: 3s;
+  animation-name: Slide-In;
+}
+
+@keyframes Slide-In {
+  from {
+    translate: 150vw 0;
+    scale: 200% 1;
+  }
+
+  to {
+    translate: 0 0;
+    scale: 100% 1;
+  }
+}
+
+.Fade-Scroll {
+  position: absolute;
+  bottom: 1vh;
+
+  font-size: 2vw;
+  text-align: center;
+  font-family: "Teko", sans-serif;
+
+  animation-duration: 1.5s;
+  animation-name: scrollfade;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
+  opacity: 1;
+  transition: opacity 2.5s ease-out;
+}
+
+@keyframes scrollfade {
+  from {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  to {
+    color: rgba(255, 255, 255, 0);
+  }
+}
+
+.fade-text {
+  transition: opacity 1s ease-out;
+}
+
+.scroll-area {
+  position: relative;
+  top: 8vw;
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+  opacity: 0;
+  transform: scale(1.2);
+}
+
