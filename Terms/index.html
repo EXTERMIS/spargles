@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spargles | Terms & Conditions</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #05060a;
+            --panel: rgba(255, 255, 255, 0.06);
+            --panel-strong: rgba(255, 255, 255, 0.1);
+            --text: #e9ecf1;
+            --muted: #a7b0c0;
+            --accent: #8a7dff;
+            --accent2: #4de0c7;
+            --border: rgba(255, 255, 255, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top, #0b0f1a, var(--bg));
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Stars background */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(white 1px, transparent 1px);
+            background-size: 60px 60px;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        header {
+            padding: 60px 20px 30px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            margin-top: 8px;
+            font-size: 0.95rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        h2 {
+            margin-top: 24px;
+            font-size: 1.2rem;
+            color: var(--text);
+        }
+
+        p {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        ul {
+            margin-top: 10px;
+            padding-left: 20px;
+            color: var(--muted);
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        .highlight {
+            color: var(--accent2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        .tag {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .welcome-table-image {
+            width: 35vw;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo"> <img alt="welcome-table-image" class="welcome-table-image"
+                src="images/Spargles.png" />
+        </div>
+        <div class="subtitle">Terms & Conditions</div>
+        <div class="tag">Last updated: [Insert Date]</div>
+    </header>
+
+    <div class="container">
+        <div class="card">
+
+            <h2>1. Agreement to Terms</h2>
+            <p>By accessing Spargles, you agree to be legally bound by these Terms & Conditions. If you do not agree,
+                you must stop using the site immediately.</p>
+
+            <h2>2. Use of the Website</h2>
+            <p>You agree to use Spargles only for lawful purposes. You may not disrupt, damage, or interfere with the
+                website or its users.</p>
+            <ul>
+                <li>No unauthorized access or scraping</li>
+                <li>No harmful or illegal activity</li>
+                <li>No interference with site functionality</li>
+            </ul>
+
+            <h2>3. Intellectual Property</h2>
+            <p>All content on Spargles is owned or licensed by us and protected by applicable laws. You may not copy or
+                reuse content without permission.</p>
+
+            <h2>4. User Content</h2>
+            <p>If you submit content, you grant Spargles a worldwide, non-exclusive license to use it for site operation
+                and improvement. You confirm you own or have rights to that content.</p>
+
+            <h2>5. Disclaimer</h2>
+            <p>Spargles is provided <span class="highlight">“as is”</span> without warranties. We do not guarantee
+                uninterrupted or error-free service.</p>
+
+            <h2>6. Limitation of Liability</h2>
+            <p>We are not liable for indirect, incidental, or consequential damages resulting from your use of Spargles.
+            </p>
+
+            <h2>7. External Links</h2>
+            <p>Spargles may contain links to third-party sites. We are not responsible for their content or policies.
+            </p>
+
+            <h2>8. Termination</h2>
+            <p>We may suspend or terminate access at any time if these Terms are violated.</p>
+
+            <h2>9. Changes to Terms</h2>
+            <p>We may update these Terms at any time. Continued use of the site means acceptance of changes.</p>
+
+            <h2>10. Governing Law</h2>
+            <p>These Terms are governed by the laws of [Your State/Country].</p>
+
+            <h2>11. Contact</h2>
+            <p>Questions? Contact us at <span class="highlight">contact@spargles.com</span> or <span class="highlight">EthanCampbells@spargles.com</span></p>
+
+        </div>
+    </div>
+
+    <footer>
+        © <span class="highlight">Spargles 2026</span> | All rights reserved. <span class="highlight">
+    </footer>
+
+</body>
+
+</html>
