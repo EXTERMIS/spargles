@@ -75,8 +75,7 @@ footer {
   border-image: linear-gradient(to right, #ffffff 0%, #515151 100%) 1;
 }
 
+
 .footer-button {
-  position: absolute;
-  right: 5%;
   cursor: pointer;
 }
