@@ -11,6 +11,14 @@
   cursor: pointer;
 }
 
+.popup {
+  height: 60vh;
+  width: 85vw;
+  margin: auto;
+  position: fixed;
+  animation: rainbow-flash-bg 1.4s steps(7, jump-none) infinite;
+}
+
 /* Bottom bar with rainbow panning text */
 .bottom-bar {
   position: fixed;
