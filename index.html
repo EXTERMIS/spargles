@@ -4,18 +4,24 @@
 <head>
   <title>Spargles</title>
   <link rel="icon" href="images/Tab-Icon.png" />
-  <link rel="stylesheet" href="css/style.css">
+
+  <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/navigation.css">
   <link rel="stylesheet" href="css/imports.css">
+  <link rel="stylesheet" href="css/section-1.css">
+  <link rel="stylesheet" href="css/section-2.css">
+  <link rel="stylesheet" href="css/section-3.css">
+
   <script type="text/javascript" src="js/main1.js"></script>
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
   <!-- Background Image -->
-  <img class="bg-img" id="bg-img" src="images/BG.jpg" alt="Background Image" />
+  <img class="Background-image" id="bg-img" src="images/BG.jpg" alt="Background Image" />
 
-  <div class="welcome-gif">
+  <div class="welcome">
     <div class="navbar">
       <!-- Buttons in Navbar -->
       <div class="navbutton" onclick="home()">
@@ -39,10 +45,10 @@
     </div>
 
     <!-- Logo -->
-    <img alt="welcome-table-image" class="welcome-table-image fade-text" src="images/Spargles.png" />
+    <img alt="Spargles Logo" class="Spargles-logo fade-text" src="images/Spargles.png" />
 
     <!-- Fading Text -->
-    <div class="Fade-Scroll-Text fade-text">Scroll</div>
+    <div class="Fade-Scroll fade-text">Scroll</div>
   </div>
 
   <!-- Area allowed for scrolling on page -->
@@ -57,20 +63,31 @@
     <div class="scroll-section-anchor">
       <div class="scroll-section"
         style="background-image: url('images/Wel-to-spar.png'); background-size: cover; background-position: center;">
+        <div class="Overlay-Text">
+          <p>WELCOME TO SPARGLES!<br><br>Spargles originated from a cat, and the original website comes from Glitch.com
+            before it shut down.</p>
+        </div>
         <div class="scrollnavbutton" onclick="home()">
           <p>WELCOME TO SPARGLES!</p>
         </div>
       </div>
       <div class="scroll-section"
         style="background-image: url('icons/Mee\ Mee\ Bug\ Trials.png'); background-size: cover; background-position: center;">
+        <div class="Overlay-Text">
+          <p>Please enjoy the games created by Spargles and Bobto!<br><br>(Brave users need to disable brave shields to
+            enjoy games properly!)</p>
+        </div>
         <div class="scrollnavbutton" onclick="games()">
           <p>BOBTO Games!!</p>
         </div>
       </div>
       <div class="scroll-section"
         style="background-image: url('images/Shop-Img.png'); background-size: cover; background-position: center;">
+        <div class="Overlay-Text">
+          <p>Spargles will eventually sell merchandise! For now however, the shop website is under construction.</p>
+        </div>
         <div class="scrollnavbutton" onclick="shop()">
-          <p>Spargles Wares!</p>
+          <p></p>
         </div>
       </div>
     </div>
@@ -169,7 +186,8 @@
     </div>
 
     <footer>
-      <p>&copy; <span id="year"></span> Spargles | All rights reserved. | <span class="footer-button" onclick="terms()">Terms of Service</span> | <span class="footer-button" onclick="contact()">Contact</span></p>
+      <p>&copy; <span id="year"></span> Spargles | All rights reserved. | <span class="footer-button"
+          onclick="terms()">Terms of Service</span> | <span class="footer-button" onclick="contact()">Contact</span></p>
     </footer>
 
     <script>
