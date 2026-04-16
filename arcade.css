@@ -10,7 +10,7 @@
   z-index: 5;
   cursor: pointer;
   
-  z-index: 1001;
+  z-index: 1000000000000000001;
 }
 
 .popup {
@@ -22,7 +22,7 @@
   position: fixed;
   animation: rainbow-flash-bg 1.4s steps(7, jump-none) infinite;
   transform: translate(-50%, -50%);
-  z-index: 1000;
+  z-index: 100000000;
 }
 
 /* Bottom bar with rainbow panning text */
