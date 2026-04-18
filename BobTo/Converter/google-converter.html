@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter - Google Style</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .google-converter-container {
+            width: 100%;
+            max-width: 700px;
+            margin: 170px auto 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+            padding: 2.5rem 2rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .google-converter-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #222;
+        }
+        .google-converter-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .google-converter-row select, .google-converter-row input {
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid #bbb;
+        }
+        .google-converter-equals {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #444;
+        }
+        .google-converter-result {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #0078d7;
+        }
+    </style>
+</head>
+<body>
+    <div id="spargles-btn-center">
+        <a href="https://spargles.com/" id="spargles-btn" title="Return to spargles">
+            <img src="Mascot.png" alt="Mascot">
+        </a>
+    </div>
+    <div id="corner-btns">
+        <a href="index.html" id="return-selector-btn" title="Return to Converter Selector">🠜</a>
+    </div>
+    <button id="dark-mode-toggle" title="Toggle dark mode">🌙</button>
+    <div class="google-converter-container">
+        <div class="google-converter-title">Unit Converter</div>
+        <div class="google-converter-row">
+            <input type="number" id="input-value" value="1" min="0" step="any">
+            <select id="input-unit"></select>
+        </div>
+        <div class="google-converter-row">
+            <span class="google-converter-equals">=</span>
+            <span class="google-converter-result" id="output-value">0</span>
+            <select id="output-unit"></select>
+        </div>
+    </div>
+    <script src="dark-mode.js"></script>
+    <script src="google-converter.js"></script>
+</body>
+<!-- Dark mode logic moved to dark-mode.js for cross-page persistence -->
+</body>
+</html>

@@ -1,1 +1,33 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="spargles-btn-center">
+        <a href="https://spargles.com/" id="spargles-btn" title="Return to spargles">
+            <img src="Mascot.png" alt="Mascot">
+        </a>
+    </div>
+    <button id="dark-mode-toggle" title="Toggle dark mode">🌙</button>
+    <div class="main-centered-box">
+        <div class="container">
+            <div class="title">BobTo Conversion Tool™</div>
+            <h1>Convert from <span class="dropzone" id="from-zone">___</span> to <span class="dropzone" id="to-zone">___</span></h1>
+            <div class="boxes">
+                <div class="draggable-box" draggable="true" id="imperial">Imperial</div>
+                <div class="draggable-box" draggable="true" id="metric">Metric</div>
+                <div class="draggable-box" draggable="true" id="devin">Devin</div>
+            </div>
+            <button id="convert-btn" disabled>Convert</button>
+        </div>
+    </div>
+    <script src="dark-mode.js"></script>
+    <script src="script.js"></script>
+</body>
+<!-- Dark mode logic moved to dark-mode.js for cross-page persistence -->
+</body>
+</html>
