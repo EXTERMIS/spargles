@@ -4,9 +4,8 @@
   left: 0%;
 
   width: 100%;
-  height: 55%;
+  height: 105%;
 
-  background: rgba(0, 0, 0, 0.8);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -18,9 +17,9 @@
 .MusicBox {
   position: relative;
   width: 100%;
-  height: 20%;
+  height: 40%;
 
-  top: 10%;
+  top: 28%;
 
   display: flex;
   flex-direction: row;
@@ -36,26 +35,29 @@
   width: 43vw;
   height: auto;
 
-  top: -8vh;
+  top: 39.75vh;
 
   margin-left: auto;
   margin-right: auto;
+  z-index: 10;
 }
 
 .MusicBox .MusicPlayer {
   position: relative;
   width: 30%;
-  height: 60%;
+  height: 100%;
 
-  margin-top: 4%;
+  margin-top: 2%;
   margin-bottom: auto;
 
-  border-radius: 100px;
   transition: 0.2s ease;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  border-left: white solid 1px;
+  border-right: white solid 1px;
 }
 
 .MusicPlayer:hover {
@@ -68,12 +70,30 @@
 
 .MusicPlayer p {
   position: absolute;
-  bottom: -380%;
+  bottom: -17%;
   font-family: "Teko", sans-serif;
   font-size: 1.8vw;
 
   text-shadow: 0 0 18px rgb(255, 255, 255);
+  letter-spacing: 3px;
+}
+
+.MusicPlayer p.Music-Subtext {
+  position: absolute;
+  bottom: -52.5%;
+  font-family: "Teko", sans-serif;
+  font-size: 1.2vw;
+  margin-left: 15%;
+  margin-right: 15%;
+  text-indent: 7%;
+
+  text-shadow: 0 0 18px rgb(255, 255, 255);
   letter-spacing: 1px;
+
+  padding-left: 3%;
+  padding-right: 3%;
+  border-left: white solid 1px;
+  border-right: white solid 1px;
 }
 
 .MusicPlayer img {
@@ -85,6 +105,33 @@
   transition: .5s ease;
 }
 
+.MusicPlayer .MusicButton {
+  position: absolute;
+  width: 9vw;
+  height: 3vw;
+  bottom: -72.5%;
+
+  font-size: 2vw;
+  color: #f2f2f2;
+  background-color: rgba(112, 112, 112, 0.8);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 10px;
+  backdrop-filter: blur(25px) brightness(300%);
+
+  cursor: pointer;
+}
+
+.MusicButton:hover {
+  background-color: rgb(188, 0, 0);
+}
+
+.MusicButton:active {
+  background-color: rgb(88, 0, 0);
+}
 
 .Music-Bg {
   position: absolute;
@@ -164,4 +211,19 @@
 
 .Play-Audio3:hover {
   backdrop-filter: blur(15px) brightness(150%);
+}
+
+.highlight-w {
+  color: #89d2ff;
+  text-shadow: 0 0 8px #89d2ff;
+}
+
+.highlight-r {
+  color: #ff0000;
+  text-shadow: 0 0 8px rgb(255, 0, 0);
+}
+
+.highlight-g {
+  color: #79bf23;
+  text-shadow: 0 0 8px #79bf23;
 }
