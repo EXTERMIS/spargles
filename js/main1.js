@@ -42,6 +42,10 @@ function terms() {
   window.location.assign("https://spargles.com/terms");
 }
 
+function contentClick() {
+  window.location.assign("https://spargles.com/Bobto/Converter/");
+}
+
 let clickCount = 0;
 
 function mascotClick(element) {
