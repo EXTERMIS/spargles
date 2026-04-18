@@ -117,8 +117,7 @@
     font-style: normal;
     font-size: 1.5vw;
     padding: 5%;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9),
-        0 0 20px rgba(255, 255, 255, 0.8);
+
 }
 
 .content-text .signature {
@@ -129,4 +128,18 @@
     color: #6f00ff;
     text-shadow: 0 0 10px rgba(123, 0, 255, 0.8),
         0 0 20px rgba(123, 0, 255, 0.8);
+}
+
+.content-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #f2f2f2;
+  color: #1a1a1a;
+  font-size: 1.5vw;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.content-button:active {
+  background-color: #cbcbcb;
 }
