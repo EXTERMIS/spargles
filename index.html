@@ -21,6 +21,10 @@
   <!-- Background Image -->
   <img class="Background-image" id="bg-img" src="images/BG.jpg" alt="Background Image" />
 
+  <div class="mascot">
+    <img alt="Mascot" src="images/Mascot.png" onclick="mascotClick(this)" />
+  </div>
+  
   <div class="welcome">
     <div class="navbar">
       <!-- Buttons in Navbar -->
@@ -57,46 +61,55 @@
   </div>
 
   <div class="fade-element Scroll-Content1">
+    <div class="line"></div>
+    <div class="line2"></div>
+    <div class="line3"></div>
+    <div class="line4"></div>
+    <div class="line5"></div>
     <div class="Scroll-Content-Text-Title">
       <img class="Title-Img" src="images/Spargles-Featured.png" />
     </div>
     <div class="scroll-section-anchor">
-      <div class="scroll-section"
-        style="background-image: url('images/Wel-to-spar.png'); background-size: cover; background-position: center;">
-        <div class="Overlay-Text">
-          <p>WELCOME TO SPARGLES!<br><br>Spargles originated from a cat, and the original website comes from Glitch.com
-            before it shut down.</p>
+      <div class="scroll-section section1">
+        <div class="section-label sl1">
+          <p>★ EST. 2026</p>
         </div>
-        <div class="scrollnavbutton" onclick="home()">
-          <p>WELCOME TO SPARGLES!</p>
+        <div class="Overlay-Text">
+          <p class="s-title">WELCOME TO SPARGLES!</p>
+          <p class="s-subtitle">The official home of Spargles.</p>
+        </div>
+        <div class="card-button1" onclick="home()">
+          <p>Visit Spargles ↗</p>
         </div>
       </div>
-      <div class="scroll-section"
-        style="background-image: url('icons/Mee\ Mee\ Bug\ Trials.png'); background-size: cover; background-position: center;">
-        <div class="Overlay-Text">
-          <p>Please enjoy the games created by Spargles and Bobto!<br><br>(Brave users need to disable brave shields to
-            enjoy games properly!)</p>
+      <div class="scroll-section section2">
+        <div class="section-label sl2">
+          <p>♜ Arcade</p>
         </div>
-        <div class="scrollnavbutton" onclick="games()">
-          <p>BOBTO Games!!</p>
+        <div class="Overlay-Text">
+          <p class="s-title">BobTo Games!</p>
+          <p class="s-subtitle">Play games developed by BobTo.</p>
+        </div>
+        <div class="card-button2" onclick="games()">
+          <p>Visit Arcade ↗</p>
         </div>
       </div>
-      <div class="scroll-section"
-        style="background-image: url('images/Shop-Img.png'); background-size: cover; background-position: center;">
-        <div class="Overlay-Text">
-          <p>Spargles will eventually sell merchandise! For now however, the shop website is under construction.</p>
+      <div class="scroll-section section3">
+        <div class="section-label sl1">
+          <p>✪ Shop</p>
         </div>
-        <div class="scrollnavbutton" onclick="shop()">
-          <p></p>
+        <div class="Overlay-Text">
+          <p class="s-title">SPARGLES SHOP!</p>
+          <p class="s-subtitle">Currently closed, will open eventually.</p>
+        </div>
+        <div class="card-button1" onclick="shop()">
+          <p>Visit Shop ↗</p>
         </div>
       </div>
     </div>
   </div>
 
   <div class="fade-element Scroll-Content2">
-    <div class="mascot">
-      <img alt="Mascot" src="images/Mascot.png" onclick="mascotClick(this)" />
-    </div>
     <div class="Content-Wrapper">
       <div class="content-image">
         <img alt="Content Image" src="images/Placeholder.png" />
