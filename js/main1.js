@@ -42,15 +42,23 @@ function terms() {
   window.location.assign("https://spargles.com/terms");
 }
 
-function contentClick() {
-  window.location.assign("https://spargles.com/Bobto/Converter/");
-}
+const mascotMessages = [
+  "Hey there!",
+  "Yo!",
+  "Thanks for Visiting!",
+  "Hello, friend!",
+  "Choose BobTo!",
+  "FInd Secrets!",
+  "EST. 2026!",
+  "Glitch Died...",
+  "That Tickles!!",
+  "Welcome!"
+];
 
-let clickCount = 0;
+let currentMessageIndex = 0;
 
 function mascotClick(element) {
-  // play sound (optional)
-  const sound = new Audio("audio/ping.mp3"); // <-- replace with your sound file
+  const sound = new Audio("audio/ping.mp3");
   sound.volume = 0.2;
   sound.play();
 
@@ -60,19 +68,14 @@ function mascotClick(element) {
     element.classList.remove('active');
   }, 200);
 
-  // count clicks
-  clickCount++;
-  // check for 101 clicks
-  if (clickCount === 101) {
-    const img = document.querySelector('.content-image img');
+  // change text
+  const textElement = document.getElementById("mascot-text");
 
-    // change the image
-    img.src = "images/wedding.png"; // <-- replace with your image
-  }
-  if (clickCount === 102) {
-    const img = document.querySelector('.content-image img');
+  textElement.textContent = mascotMessages[currentMessageIndex];
 
-    // change the image
-    img.src = "images/Placeholder.png"; // <-- replace with your image
+  // move to next message
+  currentMessageIndex++;
+  if (currentMessageIndex >= mascotMessages.length) {
+    currentMessageIndex = 0; // loop back to start
   }
 }
