@@ -114,3 +114,26 @@ body {
   transform: scale(1.2);
 }
 
+.mascot img {
+    position: absolute;
+    width: 22vw;
+    height: auto;
+
+    bottom: 0%;
+    right: 0%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    cursor: pointer;
+
+    transition: transform 0.15s ease;
+}
+
+.mascot img.active {
+    transform: scale(0.9);
+}
+
+.mascot img.pop {
+    transform: scale(1.2);
+}
