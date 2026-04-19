@@ -114,26 +114,54 @@ body {
   transform: scale(1.2);
 }
 
+.mascot {
+  position: absolute;
+  bottom: 0%;
+  right: 0%;
+  width: 22vw;
+  height: auto;
+}
+
 .mascot img {
-    position: absolute;
-    width: 22vw;
-    height: auto;
+  position: relative; /* change from absolute */
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  z-index: 22;
+}
 
-    bottom: 0%;
-    right: 0%;
+.corner {
+  position: absolute;
+  top: 9%;
+  left: 5%;
+  width: 45%;
+  height: 35%;
+  pointer-events: none;
+  z-index: 23;
 
-    margin-left: auto;
-    margin-right: auto;
-
-    cursor: pointer;
-
-    transition: transform 0.15s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .mascot img.active {
-    transform: scale(0.9);
+    transform: scale(0.975);
 }
 
 .mascot img.pop {
     transform: scale(1.2);
+}
+
+.mascot-text {
+  position: absolute;
+  font-family: "Jersey 10", sans-serif;
+  width: 55%;
+
+  text-align: center;
+  color: #111;
+  font-size: 1.5vw;
+
+  z-index: 200;
+  pointer-events: none;
 }
