@@ -45,8 +45,8 @@ function terms() {
 const mascotMessages = [
   "Hey there!",
   "Yo!",
-  "Thanks for Visiting!",
-  "Hello, friend!",
+  "Hola!",
+  "Hello, human!",
   "Choose BobTo!",
   "FInd Secrets!",
   "EST. 2026!",
