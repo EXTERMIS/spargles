@@ -42,6 +42,14 @@ function terms() {
   window.location.assign("https://spargles.com/terms");
 }
 
+function BobTool1() {
+  window.location.assign("https://spargles.com/Bobto/Converter");
+}
+
+function PEVideo() {
+  window.location.assign("https://www.youtube.com/watch?v=HNpi5DM8DRA");
+}
+
 const mascotMessages = [
   "Hey there!",
   "Yo!",
