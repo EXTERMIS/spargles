@@ -1,10 +1,10 @@
 .Scroll-Content3 {
   position: absolute;
-  bottom: -230%;
+  bottom: -300%;
   left: 0%;
 
   width: 100%;
-  height: 105%;
+  height: 100%;
 
   display: flex;
   flex-direction: row;
@@ -19,7 +19,7 @@
   width: 100%;
   height: 40%;
 
-  top: 28%;
+  top: -17%;
 
   display: flex;
   flex-direction: row;
@@ -32,10 +32,10 @@
 
 .music-title {
   position: absolute;
-  width: 43vw;
+  width: 50vw;
   height: auto;
 
-  top: 39.75vh;
+  top: -12.5vh;
 
   margin-left: auto;
   margin-right: auto;
@@ -80,7 +80,7 @@
 
 .MusicPlayer p.Music-Subtext {
   position: absolute;
-  bottom: -52.5%;
+  bottom: -58.5%;
   font-family: "Teko", sans-serif;
   font-size: 1.2vw;
   margin-left: 15%;
@@ -92,8 +92,13 @@
 
   padding-left: 3%;
   padding-right: 3%;
+  padding-top:3%;
+  padding-bottom:3%;
   border-left: white solid 1px;
   border-right: white solid 1px;
+
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(70px);
 }
 
 .MusicPlayer img {
@@ -109,7 +114,7 @@
   position: absolute;
   width: 9vw;
   height: 3vw;
-  bottom: -72.5%;
+  bottom: -76.5%;
 
   font-size: 2vw;
   color: #f2f2f2;
@@ -163,7 +168,7 @@
   transition: .5s;
 }
 
-.Play-Audio:hover {
+.Play-Audio:hover .Play-Audio{
   backdrop-filter: blur(15px) brightness(300%);
 }
 
@@ -185,7 +190,7 @@
   cursor: pointer;
 }
 
-.Play-Audio2:hover {
+.Play-Audio2:hover .Play-Audio2{
   backdrop-filter: blur(15px) brightness(300%);
   transition: .5s;
 }
@@ -209,7 +214,7 @@
   transition: .5s;
 }
 
-.Play-Audio3:hover {
+.Play-Audio3:hover .Play-Audio3{
   backdrop-filter: blur(15px) brightness(150%);
 }
 
