@@ -87,3 +87,35 @@ function mascotClick(element) {
     currentMessageIndex = 0; // loop back to start
   }
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+  const sections = document.querySelectorAll(".section");
+  let current = 0;
+  let isScrolling = false;
+
+  function scrollToSection(index) {
+    if (index < 0 || index >= sections.length) return;
+
+    isScrolling = true;
+    current = index;
+
+    sections[index].scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+    setTimeout(() => {
+      isScrolling = false;
+    }, 700);
+  }
+
+  window.addEventListener("wheel", (e) => {
+    if (isScrolling) return;
+
+    if (e.deltaY > 0) {
+      scrollToSection(current + 1);
+    } else {
+      scrollToSection(current - 1);
+    }
+  });
+});
