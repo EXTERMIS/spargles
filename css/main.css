@@ -24,6 +24,7 @@ body {
   justify-content: center;
 
   margin: auto;
+  overflow: hidden;
 }
 
 .Background-image {
@@ -57,19 +58,17 @@ body {
   width: 44vw;
   height: relative;
 
-  animation-duration: 3s;
+  animation-duration: 1s;
   animation-name: Slide-In;
 }
 
 @keyframes Slide-In {
   from {
-    translate: 150vw 0;
-    scale: 200% 1;
+    transform: translate(0, 0) scale(0, 0) rotate(180deg);
   }
 
   to {
-    translate: 0 0;
-    scale: 100% 1;
+    transform: translate(0, 0) scale(1, 1) rotate(0deg);
   }
 }
 
@@ -123,7 +122,8 @@ body {
 }
 
 .mascot img {
-  position: relative; /* change from absolute */
+  position: relative;
+  /* change from absolute */
   width: 100%;
   height: auto;
   cursor: pointer;
@@ -146,11 +146,11 @@ body {
 }
 
 .mascot img.active {
-    transform: scale(0.975);
+  transform: scale(0.975);
 }
 
 .mascot img.pop {
-    transform: scale(1.2);
+  transform: scale(1.2);
 }
 
 .mascot-text {
