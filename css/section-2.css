@@ -1,125 +1,43 @@
-.Scroll-Content1 {
+.Scroll-Content2 {
   position: absolute;
-  bottom: -100%;
+  bottom: -200%;
   left: 0%;
 
   width: 100%;
   height: 100%;
 
+  display: flex;
   justify-content: center;
-  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0));
+  align-items: center;
+
+  background-color: rgba(255, 255, 255, 0.05);
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
+  backdrop-filter: blur(6px);
 }
 
-.line {
-  position: relative;
-  top: 20%;
-  height: 1%;
+.title-text {
+  font-size: 3.4vw;
+  position: absolute;
+  top: 15%;
+  z-index: 1;
+}
+
+.cooleffect1 {
+  position: absolute;
+  background-image: linear-gradient(to top, rgba(153, 0, 255, 0.7), rgba(255, 255, 255, 0)) ;
   width: 100%;
-  background: white;
-  margin: auto;
-  animation: line 4s infinite;
+  height: 40%;
+  top: 15%;
 }
 
-.line2 {
-  position: relative;
-  top: 27%;
-  height: 1%;
+.cooleffect2 {
+  position: absolute;
+  background-image: linear-gradient(to bottom, rgba(153, 0, 255, 0.7), rgba(255, 255, 255, 0)) ;
   width: 100%;
-  background: white;
-  margin: auto;
-  animation: line 4s infinite;
-  animation-delay: .4s;
+  height: 40%;
+  bottom: 5%;
 }
-
-.line3 {
-  position: relative;
-  top: 34%;
-  height: 1%;
-  width: 100%;
-  background: white;
-  margin: auto;
-  animation: line 4s infinite;
-  animation-delay: .8s;
-}
-
-.line4 {
-  position: relative;
-  top: 41%;
-  height: 1%;
-  width: 100%;
-  background: white;
-  margin: auto;
-  animation: line 4s infinite;
-  animation-delay: 1.2s;
-}
-
-.line5 {
-  position: relative;
-  top: 48%;
-  height: 1%;
-  width: 100%;
-  background: white;
-  margin: auto;
-  animation: line 4s infinite;
-  animation-delay: 1.4s;
-}
-
-.line6 {
-  position: relative;
-  top: 55%;
-  height: 1%;
-  width: 100%;
-  background: white;
-  margin: auto;
-  animation: line 4s infinite;
-  animation-delay: 1.6s;
-}
-
-.line7 {
-  position: relative;
-  top: 62%;
-  height: 1%;
-  width: 100%;
-  background: white;
-  margin: auto;
-  animation: line 4s infinite;
-  animation-delay: 1.8s;
-}
-
-.line8 {
-  position: relative;
-  top: 69%;
-  height: 1%;
-  width: 100%;
-  background: white;
-  margin: auto;
-  animation: line 4s infinite;
-  animation-delay: 2s;
-}
-
-.line9 {
-  position: relative;
-  top: 76%;
-  height: 1%;
-  width: 100%;
-  background: white;
-  margin: auto;
-  animation: line 4s infinite;
-  animation-delay: 2.2s;
-}
-
-.line10 {
-  position: relative;
-  top: 83%;
-  height: 1%;
-  width: 100%;
-  background: white;
-  margin: auto;
-  animation: line 4s infinite;
-  animation-delay: 2.4s;
-}
-
-.Scroll-Content-Text-Title {
+.Scroll-Content-Text-Title2 {
   position: relative;
 
   width: 35vw;
@@ -128,150 +46,54 @@
   margin-left: auto;
   margin-right: auto;
 
+  top: -33%;
+
   justify-content: center;
   display: flex;
 }
 
-.Title-Img {
+.Title-Img2 {
   position: absolute;
-  width: 105%;
+  width: 135%;
 
   bottom: -1vh;
 }
 
-.scroll-section-anchor {
-  position: relative;
-
-  width: 100%;
-  height: 70%;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.scroll-section {
-  position: relative;
-  width: 25%;
-  height: 86%;
-
-  margin-top: 2%;
-  margin: 2.5%;
-
-  border-radius: 20px;
-  z-index: 100;
-
-  transition: .25s;
-  background-size: cover;
-  background-position: center;
-
-  display: flex;
-  justify-content: center;
-}
-
-.section-label {
-  position: relative;
-  width: 7.4vw;
-  height: 4vh;
-  top: 5%;
-  left: 5%;
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 1.2vw;
-  border-radius: .5vw;
-  display: flex;
-  justify-content: center;
-}
-
-.sl1 {
-  position: relative;
-  background-color: rgba(95, 0, 210, 0.3);
-  outline: #7e15d4 2px solid;
-  text-shadow: #a538ff 0px 0px 9px;
-  color: #d49fff;
-  margin-left: -17.5vw;
-}
-
-.sl2 {
-  position: relative;
-  font-family: 'RasterForge';
-  src: url('RasterForgeRegular-JpBgm.ttf') format('truetype');
-  background-color: rgba(32, 0, 210, 0.3);
-  outline: #00bbff 2px solid;
-  text-shadow: #20c4ff 0px 0px 9px;
-  color: #69d7ff;
-  margin-left: -17.5vw;
-}
-
-.section1 {
-  outline: #7e15d4 solid 2px;
-  box-shadow: #7e15d4 0px 10px 30px -3px;
-
-  background: radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 1) 100%),
-    radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 1) 100%),
-    url('../images/Wel-to-spar.png');
-  background-size: cover;
-  background-position: center;
-  animation: float2 .25s linear;
-  animation-fill-mode: forwards;
-}
-
-.section2 {
-  outline: #00bbff solid 2px;
-  box-shadow: #00bbff 0px 10px 30px -3px;
-
-  background: radial-gradient(circle, transparent 60%, rgba(0, 0, 0, 1) 110%),
-    radial-gradient(circle, transparent 60%, rgba(0, 0, 0, 1) 110%),
-    url('../images/Mee\ Mee\ Bug\ Trials.png');
-  background-size: cover;
-  background-position: center;
-  animation: float2 .25s linear;
-  animation-fill-mode: forwards;
-}
-
-.section3 {
-  outline: #7e15d4 solid 2px;
-  box-shadow: #7e15d4 0px 10px 30px -3px;
-
-  background: radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 1) 100%),
-    radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 1) 100%),
-    url('../images/Shop-Img.png');
-  background-size: cover;
-  background-position: center;
-  animation: float2 .25s linear;
-  animation-fill-mode: forwards;
-}
-
-.scroll-section:hover {
-  animation: float .25s linear;
-  animation-fill-mode: forwards;
-  /* Keeps the final state */
-
-}
-
-.Overlay-Text {
+.card-button4 {
   position: absolute;
-  height: 6vh;
-  width: 24vw;
-  top: 65%;
+  bottom: -10.5%;
+  right: 20%;
+  width: 60%;
+  height: 8%;
+  background-color: rgba(147, 147, 147, 0.3);
+  outline: #ffffff 2px solid;
+  text-shadow: #ffffff 0px 0px 9px;
+  color: #ffffff;
+  margin-left: -17.5vw;
+
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+
+  border-radius: .5vw;
+  font-size: 1.3vw;
+  cursor: pointer;
+  box-shadow: #ffffff 0 0 40px;
 }
 
-.Overlay-Text .s-title {
+.Overlay-Text .s-title2 {
   position: relative;
-  top: 10%;
+  margin-top: -62.5%;
   font-size: 2vw;
   font-family: "Teko", sans-serif;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.9),
     0 0 20px rgba(255, 255, 255, 0.8);
 }
 
-.Overlay-Text .s-subtitle {
+.Overlay-Text .s-subtitle2 {
   position: relative;
-  top: 10%;
+  margin-top: -62.5%;
   color: rgba(255, 255, 255, 0.6);
   font-size: 1.5vw;
   margin-left: 10%;
@@ -279,134 +101,146 @@
   font-family: "Teko", sans-serif;
 }
 
-.card-button1 {
-  position: absolute;
-  bottom: 5.5%;
-  right: 20%;
-  width: 60%;
-  height: 8%;
-  background-color: rgba(95, 0, 210, 0.3);
-  outline: #7e15d4 2px solid;
-  text-shadow: #a538ff 0px 0px 9px;
-  color: #d49fff;
-  margin-left: -17.5vw;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-
-  border-radius: .5vw;
-  font-size: 1.3vw;
-  cursor: pointer;
+.fade-element {
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
-.card-button2 {
+.Content-Wrapper {
   position: absolute;
-  bottom: 5.5%;
-  right: 20%;
-  width: 60%;
-  height: 8%;
-  font-family: 'RasterForge';
-  src: url('RasterForgeRegular-JpBgm.ttf') format('truetype');
-  background-color: rgba(32, 0, 210, 0.3);
-  outline: #00bbff 2px solid;
-  text-shadow: #20c4ff 0px 0px 9px;
-  color: #69d7ff;
+  top: 0%;
+  left: 0%;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-
-  border-radius: .7vw;
-  font-size: 1.3vw;
-  cursor: pointer;
-}
-
-.scrollnavbutton {
-  height: 100%;
   width: 100%;
-
-  margin-left: auto;
-  margin-right: auto;
-
-  color: #f2f2f2;
-
-  position: relative;
-  bottom: -6.5vh;
+  height: 100%;
 
   display: flex;
   justify-content: center;
-  text-align: center;
-  align-items: flex-end;
+  align-items: center;
+}
 
-  border-radius: 9px;
+.section-varient1 {
+  position: relative;
+  outline: #ffffff solid 2px;
+  box-shadow: #ffffff 0px 10px 30px -3px;
+  width: 100%;
+  height: 55%;
 
-  background: transparent;
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 1.7vw;
+  top: 7%;
 
+  background: radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 1) 100%),
+    radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 1) 100%),
+    url('../images/Placeholder.png');
+  background-size: cover;
+  background-position: center;
+  animation: float2 .25s linear;
+  animation-fill-mode: forwards;
+}
+
+.section-varient2 {
+  position: relative;
+  outline: #ffffff solid 2px;
+  box-shadow: #ffffff 0px 10px 30px -3px;
+  width: 100%;
+  height: 55%;
+
+  top: 7%;
+
+  background: radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 1) 100%),
+    radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 1) 100%),
+    url('../images/PLEATH.png');
+  background-size: cover;
+  background-position: center;
+  animation: float2 .25s linear;
+  animation-fill-mode: forwards;
+}
+
+.sl4 {
+  position: relative;
+  background-color: rgba(160, 160, 160, 0.3);
+  outline: #ffffff 2px solid;
+  text-shadow: #ffffff 0px 0px 9px;
+  color: #ffffff;
+  margin-left: -88%;
+}
+
+.Content-Wrapper .content-image {
+  position: relative;
+  width: 50%;
+  height: 75%;
+
+  margin-left: 7vw;
+  margin-top: 4.5%;
+  margin-right: auto;
+  margin-bottom: auto;
+
+  border-radius: 100px;
+  transition: 0.2s ease;
+}
+
+.content-image img {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: center;
+  border-radius: 60px;
+}
+
+.Content-Wrapper .content-text {
+  position: absolute;
+  width: 30%;
+  height: 60%;
+
+  right: 9%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  border-radius: 20px;
+
+  background-color: rgba(0, 0, 0, 0.6);
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 30px;
+  backdrop-filter: blur(6px);
+}
+
+.content-text .title {
+  font-family: "Teko", sans-serif;
+  font-style: normal;
+  font-size: 2vw;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.9),
+    0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+.content-text p {
+  font-family: "Teko", sans-serif;
+  font-style: normal;
+  font-size: 1.5vw;
+  padding: 5%;
+
+}
+
+.content-text .signature {
+  font-family: "Teko", sans-serif;
+  font-style: normal;
+  font-size: 1.2vw;
+  padding: 5%;
+  color: #6f00ff;
+  text-shadow: 0 0 10px rgba(123, 0, 255, 0.8),
+    0 0 20px rgba(123, 0, 255, 0.8);
+}
+
+.content-button {
+  margin-top: 40px;
+  padding: 10px 20px;
+  background-color: #f2f2f2;
+  color: #1a1a1a;
+  font-size: 1.5vw;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.scrollnavbutton P {
-  font-family: "Bebas Neue", sans-serif;
-  border-radius: 5px;
-
-  width: 80%;
-
-  transition: 0.25s;
-}
-
-.scrollnavbutton p:hover {
-  box-shadow: 0 0 20px 5px #ffffff;
-  background: white;
-  color: black;
-}
-
-@keyframes float {
-
-  0% {
-    transform: translateY(0px);
-  }
-
-  100% {
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes float2 {
-
-  0% {
-    transform: translateY(-8px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-@keyframes line {
-  0% {
-    transform: rotate(0deg) scaleX(1.5);
-  }
-
-  33% {
-    transform: rotate(2deg) scaleX(1.5);
-  }
-
-  50% {
-    opacity: 5%;
-  }
-
-  66% {
-    width: 100%;
-    transform: rotate(-2deg) scaleX(1.5);
-  }
-
-  100% {
-    width: 100%;
-    transform: rotate(0deg) scaleX(1.5);
-  }
+.content-button:active {
+  background-color: #cbcbcb;
 }
