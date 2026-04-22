@@ -7,61 +7,116 @@
   height: 100%;
 
   justify-content: center;
-  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0));
+  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0));
 }
 
 .line {
   position: relative;
-  top: 40%;
+  top: 20%;
   height: 1%;
   width: 100%;
-  background: rgb(255, 255, 255);
+  background: white;
   margin: auto;
-  animation: line 2s infinite;
+  animation: line 4s infinite;
 }
 
 .line2 {
   position: relative;
-  top: 50%;
+  top: 27%;
   height: 1%;
   width: 100%;
-  background: rgba(255, 255, 255, 1);
+  background: white;
   margin: auto;
-  animation: line 2s infinite;
+  animation: line 4s infinite;
   animation-delay: .4s;
 }
 
 .line3 {
   position: relative;
-  top: 60%;
+  top: 34%;
   height: 1%;
   width: 100%;
-  background: rgba(255, 255, 255, 1);
+  background: white;
   margin: auto;
-  animation: line 2s infinite;
+  animation: line 4s infinite;
   animation-delay: .8s;
 }
 
 .line4 {
   position: relative;
-  top: 70%;
+  top: 41%;
   height: 1%;
   width: 100%;
-  background: rgba(255, 255, 255, 1);
+  background: white;
   margin: auto;
-  animation: line 2s infinite;
+  animation: line 4s infinite;
   animation-delay: 1.2s;
 }
 
 .line5 {
   position: relative;
-  top: 80%;
+  top: 48%;
   height: 1%;
   width: 100%;
-  background: rgba(255, 255, 255, 1);
+  background: white;
   margin: auto;
-  animation: line 2s infinite;
+  animation: line 4s infinite;
   animation-delay: 1.4s;
+}
+
+.line6 {
+  position: relative;
+  top: 55%;
+  height: 1%;
+  width: 100%;
+  background: white;
+  margin: auto;
+  animation: line 4s infinite;
+  animation-delay: 1.6s;
+}
+
+.line7 {
+  position: relative;
+  top: 62%;
+  height: 1%;
+  width: 100%;
+  background: white;
+  margin: auto;
+  animation: line 4s infinite;
+  animation-delay: 1.8s;
+}
+
+.line8 {
+  position: relative;
+  top: 69%;
+  height: 1%;
+  width: 100%;
+  background: white;
+  margin: auto;
+  animation: line 4s infinite;
+  animation-delay: 2s;
+}
+
+.line9 {
+  position: relative;
+  top: 76%;
+  height: 1%;
+  width: 100%;
+  background: white;
+  margin: auto;
+  animation: line 4s infinite;
+  animation-delay: 2.2s;
+}
+
+.line10 {
+  position: relative;
+  top: 83%;
+  height: 1%;
+  width: 100%;
+  background: white;
+  margin: auto;
+  animation: line 4s infinite;
+  animation-delay: 2.4s;
 }
 
 .Scroll-Content-Text-Title {
@@ -79,9 +134,9 @@
 
 .Title-Img {
   position: absolute;
-  width: 85%;
+  width: 105%;
 
-  bottom: -15vh;
+  bottom: -1vh;
 }
 
 .scroll-section-anchor {
@@ -89,8 +144,6 @@
 
   width: 100%;
   height: 70%;
-
-  margin-top: 4.5%;
 
   display: flex;
   flex-direction: row;
@@ -335,13 +388,25 @@
 }
 
 @keyframes line {
+  0% {
+    transform: rotate(0deg) scaleX(1.5);
+  }
 
-  0%,
-  100% {
-    opacity: 100%;
+  33% {
+    transform: rotate(2deg) scaleX(1.5);
   }
 
   50% {
-    opacity: 25%;
+    opacity: 5%;
+  }
+
+  66% {
+    width: 100%;
+    transform: rotate(-2deg) scaleX(1.5);
+  }
+
+  100% {
+    width: 100%;
+    transform: rotate(0deg) scaleX(1.5);
   }
 }
