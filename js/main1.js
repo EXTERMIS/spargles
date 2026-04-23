@@ -94,7 +94,28 @@ window.addEventListener("DOMContentLoaded", () => {
 
   let isScrolling = false;
   let lastScrollTime = 0;
-  const scrollDelay = 900; // 🔥 main delay (adjust this)
+  const scrollDelay = 900;
+
+  // 🔥 Detect which section is currently in view
+  function getCurrentSection() {
+    let closestIndex = 0;
+    let minDistance = Infinity;
+
+    sections.forEach((section, i) => {
+      const rect = section.getBoundingClientRect();
+      const distance = Math.abs(rect.top);
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = i;
+      }
+    });
+
+    return closestIndex;
+  }
+
+  // 🔥 Set correct starting section on load
+  current = getCurrentSection();
 
   function scrollToSection(index) {
     if (index < 0 || index >= sections.length) return;
@@ -116,10 +137,8 @@ window.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("wheel", (e) => {
     const now = Date.now();
 
-    // prevent spam scrolling
     if (isScrolling || now - lastScrollTime < scrollDelay) return;
-
-    if (Math.abs(e.deltaY) < 30) return; // ignore tiny touchpad movements
+    if (Math.abs(e.deltaY) < 30) return; // ignore tiny touchpad movement
 
     lastScrollTime = now;
 
@@ -132,7 +151,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // 📱 TOUCH (mobile)
   let touchStartY = 0;
-  let touchEndY = 0;
 
   window.addEventListener("touchstart", (e) => {
     touchStartY = e.changedTouches[0].screenY;
@@ -142,7 +160,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const now = Date.now();
     if (isScrolling || now - lastScrollTime < scrollDelay) return;
 
-    touchEndY = e.changedTouches[0].screenY;
+    const touchEndY = e.changedTouches[0].screenY;
     const diff = touchStartY - touchEndY;
 
     if (Math.abs(diff) < 50) return; // ignore small swipes
@@ -150,9 +168,15 @@ window.addEventListener("DOMContentLoaded", () => {
     lastScrollTime = now;
 
     if (diff > 0) {
-      scrollToSection(current + 1); // swipe up
+      scrollToSection(current + 1);
     } else {
-      scrollToSection(current - 1); // swipe down
+      scrollToSection(current - 1);
     }
+  });
+
+  // 🔁 Keep current section synced if user scrolls manually
+  window.addEventListener("scroll", () => {
+    if (isScrolling) return;
+    current = getCurrentSection();
   });
 });
