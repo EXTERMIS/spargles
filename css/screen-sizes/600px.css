@@ -1,4 +1,8 @@
 @media screen and (max-width: 600px) {
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
     .Spargles-logo {
         position: relative;
         margin: auto;
