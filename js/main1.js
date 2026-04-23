@@ -91,7 +91,10 @@ function mascotClick(element) {
 window.addEventListener("DOMContentLoaded", () => {
   const sections = document.querySelectorAll(".section");
   let current = 0;
+
   let isScrolling = false;
+  let lastScrollTime = 0;
+  const scrollDelay = 900; // 🔥 main delay (adjust this)
 
   function scrollToSection(index) {
     if (index < 0 || index >= sections.length) return;
@@ -106,16 +109,50 @@ window.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
       isScrolling = false;
-    }, 700);
+    }, scrollDelay);
   }
 
+  // 🖱️ WHEEL (desktop + touchpad)
   window.addEventListener("wheel", (e) => {
-    if (isScrolling) return;
+    const now = Date.now();
+
+    // prevent spam scrolling
+    if (isScrolling || now - lastScrollTime < scrollDelay) return;
+
+    if (Math.abs(e.deltaY) < 30) return; // ignore tiny touchpad movements
+
+    lastScrollTime = now;
 
     if (e.deltaY > 0) {
       scrollToSection(current + 1);
     } else {
       scrollToSection(current - 1);
+    }
+  });
+
+  // 📱 TOUCH (mobile)
+  let touchStartY = 0;
+  let touchEndY = 0;
+
+  window.addEventListener("touchstart", (e) => {
+    touchStartY = e.changedTouches[0].screenY;
+  });
+
+  window.addEventListener("touchend", (e) => {
+    const now = Date.now();
+    if (isScrolling || now - lastScrollTime < scrollDelay) return;
+
+    touchEndY = e.changedTouches[0].screenY;
+    const diff = touchStartY - touchEndY;
+
+    if (Math.abs(diff) < 50) return; // ignore small swipes
+
+    lastScrollTime = now;
+
+    if (diff > 0) {
+      scrollToSection(current + 1); // swipe up
+    } else {
+      scrollToSection(current - 1); // swipe down
     }
   });
 });
