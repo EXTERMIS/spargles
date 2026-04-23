@@ -51,6 +51,8 @@
 
         cursor: pointer;
         transition: 0.5s;
+
+        padding-bottom: 1.25%;
     }
 
     .navbutton p {
@@ -99,5 +101,29 @@
 
         z-index: 200;
         pointer-events: none;
+    }
+
+    @keyframes line {
+        0% {
+            transform: rotate(0deg) scaleX(1);
+        }
+
+        33% {
+            transform: rotate(2deg) scaleX(1);
+        }
+
+        50% {
+            opacity: 5%;
+        }
+
+        66% {
+            width: 100%;
+            transform: rotate(-2deg) scaleX(1);
+        }
+
+        100% {
+            width: 100%;
+            transform: rotate(0deg) scaleX(1);
+        }
     }
 }
