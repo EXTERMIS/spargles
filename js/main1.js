@@ -39,7 +39,7 @@ function contact() {
 }
 
 function terms() {
-  window.location.assign("https://spargles.com/terms");
+  window.location.assign("#");
 }
 
 function BobTool1() {
@@ -48,44 +48,6 @@ function BobTool1() {
 
 function PEVideo() {
   window.location.assign("https://www.youtube.com/watch?v=HNpi5DM8DRA");
-}
-
-const mascotMessages = [
-  "Hey there!",
-  "Yo!",
-  "Hola!",
-  "Hello, human!",
-  "Choose BobTo!",
-  "FInd Secrets!",
-  "EST. 2026!",
-  "Glitch Died...",
-  "That Tickles!!",
-  "Welcome!"
-];
-
-let currentMessageIndex = 0;
-
-function mascotClick(element) {
-  const sound = new Audio("audio/ping.mp3");
-  sound.volume = 0.2;
-  sound.play();
-
-  // animation
-  element.classList.add('active');
-  setTimeout(() => {
-    element.classList.remove('active');
-  }, 200);
-
-  // change text
-  const textElement = document.getElementById("mascot-text");
-
-  textElement.textContent = mascotMessages[currentMessageIndex];
-
-  // move to next message
-  currentMessageIndex++;
-  if (currentMessageIndex >= mascotMessages.length) {
-    currentMessageIndex = 0; // loop back to start
-  }
 }
 
 window.addEventListener("DOMContentLoaded", () => {
