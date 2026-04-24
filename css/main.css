@@ -134,7 +134,7 @@ body {
 .corner {
   position: absolute;
   top: 9%;
-  left: 5%;
+  left: -2%;
   width: 45%;
   height: 35%;
   pointer-events: none;
@@ -163,6 +163,7 @@ body {
   font-size: 1.5vw;
   font-weight: bold;
   letter-spacing: 1px;
+  text-align: left;
 
   z-index: 200;
   pointer-events: none;
