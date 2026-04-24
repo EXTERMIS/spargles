@@ -8,11 +8,7 @@
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/navigation.css">
   <link rel="stylesheet" href="css/imports.css">
-  <link rel="stylesheet" href="css/section-1.css">
-  <link rel="stylesheet" href="css/section-2.css">
-  <link rel="stylesheet" href="css/section-3.css">
-
-  <link rel="stylesheet" href="css/screen-sizes/600px.css">
+  <link rel="stylesheet" href="css/modules.css" <link rel="stylesheet" href="css/screen-sizes/600px.css">
 
   <script type="text/javascript" src="js/main1.js"></script>
 
@@ -27,7 +23,7 @@
     <div class="corner">
       <p id="mascot-text" class="mascot-text">0100100001100101<br>0110110001101100<br>01101111!</p>
     </div>
-    <img alt="Mascot" src="images/Mascot.png" onclick="mascotClick(this)" />
+    <img alt="Mascot" src="images/Mascot.png" onclick="(this)" />
   </div>
 
   <div class="welcome section">
@@ -60,234 +56,54 @@
     <div class="Fade-Scroll fade-text">Scroll</div>
   </div>
 
-  <!-- Area allowed for scrolling on page -->
-  <div class="scroll-container">
-    <div class="scroll-area"></div>
+  <div class="module1 section">
+    <p class="Mtitle">EDEN</p>
+    <p class="Mdescription">EDEN, developed by BobTo, is a worldbuilding tool used to design star systems.</p>
+    <img src="images/EDEN.png">
+    <label class="Mdownloads" for="VersionEden">Version:</label>
+    <select name="VersionEden" class="VersionEden">
+      <option value="UNAVALIABLE">UNAVALIABLE</option>
+    </select>
   </div>
 
-  <div class="fade-element Scroll-Content1 section">
-    <div class="line"></div>
-    <div class="line2"></div>
-    <div class="line3"></div>
-    <div class="line4"></div>
-    <div class="line5"></div>
-    <div class="line6"></div>
-    <div class="line7"></div>
-    <div class="line8"></div>
-    <div class="line9"></div>
-    <div class="line10"></div>
-    <div class="Scroll-Content-Text-Title">
-      <img class="Title-Img" src="images/Spargles-Featured.png" />
-    </div>
-    <div class="scroll-section-anchor">
-      <div class="scroll-section section1">
-        <div class="section-label sl1">
-          <p>★ EST. 2026</p>
-        </div>
-        <div class="Overlay-Text">
-          <p class="s-title">WELCOME TO SPARGLES!</p>
-          <p class="s-subtitle">The official home of Spargles.</p>
-        </div>
-        <div class="card-button1" onclick="home()">
-          <p>Visit Spargles ↗</p>
-        </div>
-      </div>
-      <div class="scroll-section section2">
-        <div class="section-label sl2">
-          <p>♜ Arcade</p>
-        </div>
-        <div class="Overlay-Text">
-          <p class="s-title">BobTo Games!</p>
-          <p class="s-subtitle">Play games developed by BobTo.</p>
-        </div>
-        <div class="card-button2" onclick="games()">
-          <p>Visit Arcade ↗</p>
-        </div>
-      </div>
-      <div class="scroll-section section3">
-        <div class="section-label sl1">
-          <p>✪ Shop</p>
-        </div>
-        <div class="Overlay-Text">
-          <p class="s-title">SPARGLES SHOP!</p>
-          <p class="s-subtitle">Currently closed, will open eventually.</p>
-        </div>
-        <div class="card-button1" onclick="shop()">
-          <p>Visit Shop ↗</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <footer>
+    <p>&copy; <span id="year"></span> Spargles | All rights reserved. | <span class="footer-button"
+        onclick="terms()">Terms of Service</span> | <span class="footer-button" onclick="contact()">Contact</span></p>
+  </footer>
 
-  <div class="fade-element Scroll-Content2 section">
-    <div class="title-text">Check out the newest releases from Spargles!</div>
-    <div class="cooleffect1"></div>
-    <div class="cooleffect2"></div>
-    <div class="Scroll-Content-Text-Title2">
-      <img class="Title-Img2" src="images/New_Releases.png" />
-    </div>
-    <div class="Content-Wrapper">
-      <div class="scroll-section section-varient1">
-        <div class="section-label sl4">
-          <p>★ BobTo</p>
-        </div>
-        <div class="card-button4" onclick="BobTool1()">
-        <div class="Overlay-Text">
-          <p class="s-title2">BobTo Conversion Tool!</p>
-          <p class="s-subtitle2">Official conversion tool from BobTo.</p>
-        </div class="btntxt">
-          <p>Visit BobTo ↗</p>
-        </div>
-      </div>
-      <div class="scroll-section section-varient2">
-        <div class="section-label sl4">
-          <p>★ New Release</p>
-        </div>
-        <div class="card-button4" onclick="PEVideo()">
-        <div class="Overlay-Text">
-          <p class="s-title2">Planet Eater Music Video!</p>
-          <p class="s-subtitle2">Latest release!.</p>
-        </div>
-          <p>Visit Video ↗</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 
-  <div class="fade-element Scroll-Content3 section">
-    <image alt="Music Title" src="images/Music.png" class="music-title" />
-    <div class="MusicBox">
-      <div class="MusicPlayer">
-        <div class="Play-Audio" onclick="audio()">▶</div>
-        <image alt="Music Player" src="images/albumcovers/AIBULLSHIT.jpg" />
-        <image alt="Music Player" src="images/albumcovers/AIBULLSHIT.jpg" class="Music-Bg" />
-        <audio id="music" src="audio/songs/THEEND.mp3" type="audio/mpeg"></audio>
-        <script>
-          function audio() {
-            const music = document.getElementById("music");
-            const btn = document.querySelector(".Play-Audio");
+  <script>
+    const fadeElements = document.querySelectorAll(".fade-element"); // Select all elements with the class
+    let lastScrollTop = 0;
 
-            if (music.paused) {
-              music.play();
-              btn.textContent = "II";
-              btn.style.fontSize = "140%";
-            } else {
-              music.pause();
-              btn.textContent = "▶";
-              btn.style.fontSize = "100%";
-            }
-          }
-        </script>
-        <p>THE END</p>
-        <p class="Music-Subtext">
-          "THE END" was released in October of 2023, from an album by <span class="highlight-w">Big Pepper
-            Syndrome</span> for a short film that only ever reached a storyboarding phase.
-        </p>
-        <div class="MusicButton" onclick="window.location.href='https://www.youtube.com/watch?v=TrjcfVGn1bI';">Youtube
-        </div>
-      </div>
-      <div class="MusicPlayer">
-        <div class="Play-Audio2" onclick="audio2()">▶</div>
-        <image alt="Music Player" src="images/albumcovers/CMK.jpg" />
-        <image alt="Music Player" src="images/albumcovers/CMK.jpg" class="Music-Bg" />
-        <audio id="music2" src="audio/songs/CMK.mp3" type="audio/mpeg"></audio>
-        <script>
-          function audio2() {
-            const music = document.getElementById("music2");
-            const btn = document.querySelector(".Play-Audio2");
+    window.addEventListener("scroll", function () {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
 
-            if (music.paused) {
-              music.play();
-              btn.textContent = "II";
-              btn.style.fontSize = "140%";
-            } else {
-              music.pause();
-              btn.textContent = "▶";
-              btn.style.fontSize = "100%";
-            }
-          }
-        </script>
-        <p>CRACKING MY KNUCKLES</p>
-        <p class="Music-Subtext">
-          "CRACKING MY KNUCKLES" was released in July of 2023, it is part of the first album released by <span
-            class="highlight-r">Big Pepper Syndrome</span>. It is the second to last track of <span
-            class="highlight-r">The Crimson Skull</span>.
-        </p>
-        <div class="MusicButton" onclick="window.location.href='https://www.youtube.com/watch?v=1a6Mgr5Wv74';">Youtube
-        </div>
-      </div>
-      <div class="MusicPlayer">
-        <div class="Play-Audio3" onclick="audio3()">▶</div>
-        <image alt="Music Player" src="images/albumcovers/FLR.jpg" />
-        <image alt="Music Player" src="images/albumcovers/FLR.jpg" class="Music-Bg" />
-        <audio id="music3" src="audio/songs/AO.mp3" type="audio/mpeg"></audio>
-        <script>
-          function audio3() {
-            const music = document.getElementById("music3");
-            const btn = document.querySelector(".Play-Audio3");
-
-            if (music.paused) {
-              music.play();
-              btn.textContent = "II";
-              btn.style.fontSize = "140%";
-            } else {
-              music.pause();
-              btn.textContent = "▶";
-              btn.style.fontSize = "100%";
-            }
-          }
-        </script>
-        <p>ASTRONOMER OBSERVATION</p>
-        <p class="Music-Subtext">
-          "ASTRONOMER OBSERVATION" was released in August of 2024, it is part of the second album released by <span
-            class="highlight-g">Big Pepper Syndrome</span>. It is the third track of <span
-            class="highlight-g">F.L.A.R.E</span>.
-        </p>
-        <div class="MusicButton" onclick="window.location.href='https://www.youtube.com/watch?v=gyySqXqoVGw';">Youtube
-        </div>
-
-      </div>
-    </div>
-
-    <footer>
-      <p>&copy; <span id="year"></span> Spargles | All rights reserved. | <span class="footer-button"
-          onclick="terms()">Terms of Service</span> | <span class="footer-button" onclick="contact()">Contact</span></p>
-    </footer>
-
-    <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
-
-    <script>
-      const fadeElements = document.querySelectorAll(".fade-element"); // Select all elements with the class
-      let lastScrollTop = 0;
-
-      window.addEventListener("scroll", function () {
-        const scrollPosition = window.scrollY;
-        const windowHeight = window.innerHeight;
-
-        fadeElements.forEach((fadeElement) => {
-          if (scrollPosition > lastScrollTop) {
-            // Scrolling down: fade in quickly and reach full opacity
-            fadeElement.style.opacity = Math.min(
-              1,
-              scrollPosition / (windowHeight / 2)
-            );
-            fadeElement.style.transition = "opacity 0.2s ease"; // Quicker fade in
-          } else {
-            // Scrolling up: gradually fade out based on scroll
-            let opacity = (scrollPosition - 100) / (windowHeight - 100);
-            if (opacity < 0) opacity = 0;
-            fadeElement.style.opacity = opacity;
-            fadeElement.style.transition = "opacity 0.5s ease"; // Slower fade out
-          }
-        });
-
-        // Update last scroll position
-        lastScrollTop = scrollPosition <= 0 ? 0 : scrollPosition;
+      fadeElements.forEach((fadeElement) => {
+        if (scrollPosition > lastScrollTop) {
+          // Scrolling down: fade in quickly and reach full opacity
+          fadeElement.style.opacity = Math.min(
+            1,
+            scrollPosition / (windowHeight / 2)
+          );
+          fadeElement.style.transition = "opacity 0.2s ease"; // Quicker fade in
+        } else {
+          // Scrolling up: gradually fade out based on scroll
+          let opacity = (scrollPosition - 100) / (windowHeight - 100);
+          if (opacity < 0) opacity = 0;
+          fadeElement.style.opacity = opacity;
+          fadeElement.style.transition = "opacity 0.5s ease"; // Slower fade out
+        }
       });
-    </script>
+
+      // Update last scroll position
+      lastScrollTop = scrollPosition <= 0 ? 0 : scrollPosition;
+    });
+  </script>
 </body>
 
 </html>

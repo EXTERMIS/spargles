@@ -1,0 +1,50 @@
+.module1 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin-top: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.module1 img {
+    width: 50vw;
+    height: auto;
+    box-shadow: #ffffff 0 0 50px;
+    margin-right: 32vw;
+}
+
+.module1 .Mtitle {
+    position: absolute;
+    top: 5vh;
+    font-size: 10vh;
+}
+
+.module1 .Mdescription {
+    position: absolute;
+    width: 25%;
+    margin-right: 25%;
+    margin-left: 75%;
+    margin-bottom: 15%;
+    font-size: 5vh;
+    white-space: normal;
+}
+
+.module1 .Mdownloads {
+    position: absolute;
+    width: 25%;
+    margin-right: 25%;
+    margin-left: 75%;
+    margin-bottom: -2%;
+    font-size: 4vh;
+}
+
+.module1 .VersionEden {
+    position: absolute;
+    width: 25%;
+    margin-right: 25%;
+    margin-left: 75%;
+    margin-bottom: -8%;
+    font-size: 4vh;
+}
