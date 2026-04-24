@@ -35,7 +35,7 @@
   width: 50vw;
   height: auto;
 
-  top: -12.5vh;
+  top: -5.5vh;
 
   margin-left: auto;
   margin-right: auto;
@@ -70,7 +70,7 @@
 
 .MusicPlayer p {
   position: absolute;
-  bottom: -17%;
+  bottom: -20%;
   font-family: "Teko", sans-serif;
   font-size: 1.8vw;
 
@@ -80,7 +80,7 @@
 
 .MusicPlayer p.Music-Subtext {
   position: absolute;
-  bottom: -58.5%;
+  bottom: -65.5%;
   font-family: "Teko", sans-serif;
   font-size: 1.2vw;
   margin-left: 15%;
@@ -114,7 +114,7 @@
   position: absolute;
   width: 9vw;
   height: 3vw;
-  bottom: -76.5%;
+  bottom: -85.5%;
 
   font-size: 2vw;
   color: #f2f2f2;
