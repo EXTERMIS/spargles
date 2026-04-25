@@ -10,34 +10,43 @@
 
 .module1 .Mtitle {
     position: absolute;
-    top: 5vh;
+    top: 2vh;
     font-size: 10vh;
+    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .module1 .Mdescription {
     position: absolute;
     width: 35%;
-    margin-right: 30%;
+    margin-right: 22.5%;
     margin-left: 85%;
     margin-bottom: 0%;
     font-size: 2.7vh;
-    white-space: normal;
+    text-indent: 10%;
+    background-image: linear-gradient(to right, #2ee5b1, #00b3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .module1 .Mdownloads {
     position: absolute;
     width: 25%;
-    margin-right: 30%;
-    margin-left: 75%;
-    margin-bottom: -15%;
+    margin-right: 6%;
+    margin-left: 70%;
+    margin-bottom: -20%;
     font-size: 4vh;
 }
 
 .module1 .VersionEden {
     position: absolute;
-    width: 25%;
-    margin-right: 30%;
-    margin-left: 75%;
+    text-align: center;
+    width: 15%;
+    margin-right: 14%;
+    margin-left: 80%;
     margin-bottom: -20%;
     font-size: 4vh;
 }
@@ -45,13 +54,14 @@
 .ModuleVideo {
     position: absolute;
     margin-right: 35%;
-    width: 50vw; 
-    height: auto; 
-    box-shadow: #ffffff 0 0 50px;
+    width: 55vw;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
+    box-shadow: #2ee5b1 0 0 20px;
+    outline: 3px #2ee5b1 solid;
 }
 
 .Trailer {
@@ -60,11 +70,11 @@
 }
 
 .logo {
-    width: 6vw;
+    width: 20vw;
     height: auto;
     z-index: 2;
     position: absolute;
-    margin-left: 52.5%;
+    margin-left: 60%;
     margin-bottom: 20%;
 }
 
@@ -74,4 +84,21 @@ sup {
 
 sup.descsup {
     font-size: .5vw;
+}
+
+.highlight {
+    color: #ffffff;
+    font-size: 1.5vw;
+}
+
+.highlight2 {
+    color: #ffffff;
+    font-size: 1.5vw;
+    cursor: pointer;
+}
+
+.highlight2:hover {
+    color: #cecece;
+    font-size: 1.5vw;
+    cursor: pointer;
 }
