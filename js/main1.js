@@ -22,32 +22,12 @@ function programs() {
   window.location.assign("https://programs.spargles.com");
 }
 
-function signup() {
-  window.location.assign("https://signup.spargles.com");
-}
-
-function login() {
-  window.location.assign("https://login.spargles.com");
-}
-
 function personal() {
   window.location.assign("https://personal.spargles.com");
 }
 
 function contact() {
   window.location.assign("https://contact.spargles.com");
-}
-
-function terms() {
-  window.location.assign("#");
-}
-
-function BobTool1() {
-  window.location.assign("https://spargles.com/Bobto/Converter");
-}
-
-function PEVideo() {
-  window.location.assign("https://www.youtube.com/watch?v=HNpi5DM8DRA");
 }
 
 window.addEventListener("DOMContentLoaded", () => {
