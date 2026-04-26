@@ -6,49 +6,122 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url('../images/BG.png');
+    background-size: cover;
 }
 
 .module1 .Mtitle {
     position: absolute;
     top: 2vh;
-    font-size: 10vh;
+    font-size: 6vh;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 600;
+}
+
+.module1 .MtitleSub {
+    position: absolute;
+    top: 11vh;
+    font-size: 2.5vh;
+    letter-spacing: .6vw;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
     background-image: linear-gradient(to right, #75ffd8, #73d5ff);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
 }
 
-.module1 .Mdescription {
+.DescriptionBox {
     position: absolute;
-    width: 35%;
-    margin-right: 22.5%;
-    margin-left: 85%;
-    margin-bottom: 0%;
-    font-size: 2.7vh;
-    text-indent: 10%;
-    background-image: linear-gradient(to right, #2ee5b1, #00b3ff);
+    width: 30%;
+    height: 60%;
+    right: 5%;
+    bottom: 20%;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.BottomDescriptionBox {
+    position: absolute;
+    width: 55%;
+    height: 10%;
+    left: 5%;
+    bottom: 5%;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon {
+    position: relative;
+    left: -35%;
+    width: 15%;
+    height: auto;
+
+}
+
+.Display {
+    background-color: rgba(0, 255, 191, 0.1);
+    backdrop-filter: blur(1px);
+    width: 22.5%;
+    height: 100%;
+    margin: auto;
+    border-radius: 10px;
+    outline: rgba(0, 255, 191, 0.7) 3px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: #a1ffe4 0 0 10px;
+
+}
+
+.DisplayTxtTitle {
+    position: absolute;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    font-size: 40%;
+    top: 25%;
+    font-weight: 800;
+    margin-left: 5%;
 }
 
-.module1 .Mdownloads {
+.DisplayTxt {
     position: absolute;
-    width: 25%;
-    margin-right: 6%;
-    margin-left: 70%;
-    margin-bottom: -20%;
-    font-size: 4vh;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 30%;
+    top: 50%;
+    font-weight: 800;
+    margin-left: 5%;
 }
 
-.module1 .VersionEden {
+.Mdescription {
     position: absolute;
-    text-align: center;
-    width: 15%;
-    margin-right: 14%;
-    margin-left: 80%;
-    margin-bottom: -20%;
-    font-size: 4vh;
+    width: 100%;
+    top: 20%;
+    left: 0%;
+
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 1vw;
+    text-indent: 10%;
+
+    color: white;
 }
 
 .ModuleVideo {
@@ -74,12 +147,110 @@
     height: auto;
     z-index: 2;
     position: absolute;
-    margin-left: 60%;
-    margin-bottom: 20%;
+    margin-left: 0%;
+    margin-top: -88%;
+}
+
+.DisplayBoxBg {
+    position: absolute;
+    top: 70%;
+    width: 100%;
+    height: 30%;
+    border-radius: 20px;
+    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.DisplayBox {
+    position: relative;
+    width: 99%;
+    height: 97%;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon1 {
+    position: relative;
+    width: 30%;
+    top: 0;
+    height: auto;
+}
+
+.Display1 {
+    width: 33%;
+    height: 100%;
+    margin: auto;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.db1 {
+    border-left: #2ee5b1 1px solid;
+}
+
+.DisplayTxtTitle1 {
+    position: absolute;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 40%;
+    top: 10%;
+    font-weight: 800;
+}
+
+.DisplayTxt1 {
+    position: absolute;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: .8vw;
+    text-align: center;
+    bottom: 5%;
+    font-weight: 800;
+}
+
+.DisplayBoxBg2 {
+    position: absolute;
+    top: 101%;
+    width: 100%;
+    height: 20%;
+    border-radius: 20px;
+    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.DisplayBox2 {
+    position: relative;
+    width: 99%;
+    height: 97%;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    font-size: 2vw;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 sup {
-    font-size: 2.7vw;
+    font-size: 2vw;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
 }
 
 sup.descsup {
@@ -87,18 +258,25 @@ sup.descsup {
 }
 
 .highlight {
-    color: #ffffff;
-    font-size: 1.5vw;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 1vw;
+    text-indent: 10%;
+    background-image: linear-gradient(to right, #2ee5b1, #00b3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
 }
 
-.highlight2 {
+.White {
     color: #ffffff;
-    font-size: 1.5vw;
-    cursor: pointer;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
 }
 
-.highlight2:hover {
-    color: #cecece;
-    font-size: 1.5vw;
+.hoverclick:hover {
+    color: #00b3ff;
     cursor: pointer;
 }
