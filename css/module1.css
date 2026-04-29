@@ -7,7 +7,7 @@
     justify-content: center;
     align-items: center;
     background-image: url('../images/BG.png');
-    background-size: contain;
+    background-size: cover;
 }
 
 .module1overylay {
