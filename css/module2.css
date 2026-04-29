@@ -1,0 +1,195 @@
+.module2 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin-top: 100%;
+    margin-left: 200%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../images/BG1.png');
+    background-size: cover;
+}
+
+.module1overylay2 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../images/overlay1.png');
+    background-size: cover;
+}
+
+.module2 p {
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+}
+
+.M2title {
+    position: absolute;
+    top: 2.5%;
+    left: 2%;
+    font-size: 2vw;
+    color: #ffffff;
+    z-index: 2;
+}
+
+.M2titleSub {
+    position: absolute;
+    top: 3%;
+    right: 1%;
+    font-size: 1.5vw;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.sup1 {
+    font-size: 1vw;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+}
+
+.highlight1 {
+    background-image: linear-gradient(to right, #2ee5b1, #00b3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.M2Div1 {
+    position: absolute;
+    background-color: #2ee5b1bb;
+    margin-top: 0%;
+    right: 0;
+    width: 54%;
+    height: 0.2%;
+    z-index: 2;
+}
+
+.M2Div2 {
+    position: absolute;
+    background-color: #2ee5b1bb;
+    top: 10%;
+    width: 100%;
+    height: 0.2%;
+    z-index: 4;
+}
+
+.M2I1 {
+    position: absolute;
+    left: 35%;
+    bottom: 2%;
+    width: 24vw;
+    height: auto;
+    z-index: 3;
+    box-shadow: #2ee5b1 0 0 20px;
+    outline: 3px #2ee5b1 solid;
+    border-radius: 10px;
+}
+
+.M2I2 {
+    position: absolute;
+    left: 2%;
+    top: 12%;
+    width: 45vw;
+    height: 25vw;
+    z-index: 3;
+    box-shadow: #2ee5b1 0 0 20px;
+    outline: 3px #2ee5b1 solid;
+    border-radius: 10px;
+}
+
+.M2I3 {
+    position: absolute;
+    right: 2%;
+    bottom: 2%;
+    width: 13vw;
+    height: auto;
+    z-index: 3;
+    box-shadow: #2ee5b1 0 0 20px;
+    outline: 3px #2ee5b1 solid;
+    border-radius: 10px;
+}
+
+.M2I4 {
+    position: absolute;
+    margin-top: 7%;
+    margin-left: 55%;
+    width: 43vw;
+    height: auto;
+    z-index: 3;
+    border-radius: 10px;
+}
+
+.M2T1 {
+    width: 50%;
+    margin-left: 47.5%;
+    position: absolute;
+    top: 13%;
+    font-size: 1.4vw;
+    z-index: 2;
+    background-image: linear-gradient(to right, #2ee5b1, #00b3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.M2T2 {
+    width: 50%;
+    left: 2.5%;
+    position: absolute;
+    bottom: 32%;
+    font-size: 1.4vw;
+    z-index: 2;
+    background-image: linear-gradient(to right, #2ee5b1, #00b3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.M2T3 {
+    position: absolute;
+    width: 20%;
+    right: 17%;
+    bottom: 34%;
+    font-size: 1.4vw;
+    z-index: 2;
+    background-image: linear-gradient(to right, #2ee5b1, #00b3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.M2P1 {
+    width: 50%;
+    margin-left: 47.5%;
+    position: absolute;
+    top: 17%;
+    font-size: 1vw;
+    z-index: 2;
+}
+
+.M2P2 {
+    width: 31%;
+    left: 2.5%;
+    position: absolute;
+    bottom: 2%;
+    font-size: 1vw;
+    z-index: 2;
+}
+
+.M2P3 {
+    width: 20%;
+    right: 17%;
+    position: absolute;
+    bottom: 2%;
+    font-size: 1vw;
+    z-index: 2;
+}
