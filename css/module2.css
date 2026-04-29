@@ -76,7 +76,7 @@
 .M2Div2 {
     position: absolute;
     background-color: #2ee5b1bb;
-    top: 10%;
+    top: 9vh;
     width: 100%;
     height: 0.2%;
     z-index: 4;
@@ -97,7 +97,7 @@
 .M2I2 {
     position: absolute;
     left: 2%;
-    top: 12%;
+    top: 12vh;
     width: 45vw;
     height: 25vw;
     z-index: 3;
