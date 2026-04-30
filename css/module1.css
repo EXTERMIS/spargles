@@ -26,7 +26,7 @@
     position: absolute;
     width: 210%;
     height: 290%;
-    top: -5%;
+    top: -0.10vh;
     left: -55%;
     display: flex;
     justify-content: center;
@@ -64,7 +64,7 @@
     width: 30%;
     height: 60%;
     right: 5%;
-    bottom: 20%;
+    bottom: 11vw;
     font-family: "Orbitron", sans-serif;
     font-optical-sizing: auto;
     display: flex;
@@ -116,7 +116,7 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    font-size: 40%;
+    font-size: 1.3vw;
     top: 25%;
     font-weight: 800;
     margin-left: 5%;
@@ -127,7 +127,7 @@
     font-family: "Orbitron", sans-serif;
     font-optical-sizing: auto;
     color: rgba(255, 255, 255, 0.7);
-    font-size: 30%;
+    font-size: 1vw;
     top: 50%;
     font-weight: 800;
     margin-left: 5%;
@@ -171,12 +171,12 @@
     z-index: 2;
     position: absolute;
     margin-left: 0%;
-    margin-top: -88%;
+    margin-top: -50vh;
 }
 
 .DisplayBoxBg {
     position: absolute;
-    top: 70%;
+    top: 20.5vw;
     width: 100%;
     height: 30%;
     border-radius: 20px;
