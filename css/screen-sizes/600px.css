@@ -24,11 +24,6 @@
     animation-name: Slide-In;
 }
 
-.fade-text {
-    display: none;
-    transition: opacity 1s ease-out;
-}
-
 .navbar {
     position: absolute;
     top: 0;
