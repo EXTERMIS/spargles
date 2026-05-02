@@ -1,9 +1,9 @@
 .module2 {
     position: absolute;
     width: 100%;
-    height: 100%;
-    margin-top: 100%;
-    margin-left: 200%;
+    height: 100dvh;
+    margin-top: 100dvh;
+    margin-left: 200dvw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,8 +13,8 @@
 
 .module1overylay2 {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 100dvw;
+    height: 100dvh;
     top: 0;
     display: flex;
     justify-content: center;
