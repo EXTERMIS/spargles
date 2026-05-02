@@ -99,22 +99,27 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   window.addEventListener("touchend", (e) => {
-    const now = Date.now();
-    if (isScrolling || now - lastScrollTime < scrollDelay) return;
+  const now = Date.now();
+  if (isScrolling || now - lastScrollTime < scrollDelay) return;
 
-    const touchEndY = e.changedTouches[0].screenY;
-    const diff = touchStartY - touchEndY;
+  const touchEndY = e.changedTouches[0].screenY;
+  const diff = touchStartY - touchEndY;
 
-    if (Math.abs(diff) < 50) return; // ignore small swipes
+  if (Math.abs(diff) < 50) return; // ignore small swipes
 
-    lastScrollTime = now;
+  // ✅ If user is at the top and swiping DOWN → allow refresh
+  if (current === 0 && diff < 0) {
+    return; // let browser handle it (pull-to-refresh)
+  }
 
-    if (diff > 0) {
-      scrollToSection(current + 1);
-    } else {
-      scrollToSection(current - 1);
-    }
-  });
+  lastScrollTime = now;
+
+  if (diff > 0) {
+    scrollToSection(current + 1);
+  } else {
+    scrollToSection(current - 1);
+  }
+});
 
   // 🔁 Keep current section synced if user scrolls manually
   window.addEventListener("scroll", () => {
