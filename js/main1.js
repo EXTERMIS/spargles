@@ -38,7 +38,9 @@ window.addEventListener("DOMContentLoaded", () => {
   let lastScrollTime = 0;
   const scrollDelay = 900;
 
-  // 🔥 Detect which section is currently in view
+  // 🎯 Detect input type
+  const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+
   function getCurrentSection() {
     let closestIndex = 0;
     let minDistance = Infinity;
@@ -56,7 +58,6 @@ window.addEventListener("DOMContentLoaded", () => {
     return closestIndex;
   }
 
-  // 🔥 Set correct starting section on load
   current = getCurrentSection();
 
   function scrollToSection(index) {
@@ -75,48 +76,27 @@ window.addEventListener("DOMContentLoaded", () => {
     }, scrollDelay);
   }
 
-  // 🖱️ WHEEL (desktop + touchpad)
-  window.addEventListener("wheel", (e) => {
-    const now = Date.now();
+  // 🖱️ ONLY enable snap scrolling for mouse users
+  if (!isTouchDevice) {
+    window.addEventListener("wheel", (e) => {
+      const now = Date.now();
 
-    if (isScrolling || now - lastScrollTime < scrollDelay) return;
-    if (Math.abs(e.deltaY) < 30) return; // ignore tiny touchpad movement
+      if (isScrolling || now - lastScrollTime < scrollDelay) return;
+      if (Math.abs(e.deltaY) < 30) return;
 
-    lastScrollTime = now;
+      lastScrollTime = now;
 
-    if (e.deltaY > 0) {
-      scrollToSection(current + 1);
-    } else {
-      scrollToSection(current - 1);
-    }
-  });
+      if (e.deltaY > 0) {
+        scrollToSection(current + 1);
+      } else {
+        scrollToSection(current - 1);
+      }
+    });
+  }
 
-  // 📱 TOUCH (mobile)
-  let touchStartY = 0;
+  // 📱 Touch users get NORMAL scrolling → no override
 
-  window.addEventListener("touchstart", (e) => {
-    touchStartY = e.changedTouches[0].screenY;
-  });
-
-  window.addEventListener("touchend", (e) => {
-    const now = Date.now();
-    if (isScrolling || now - lastScrollTime < scrollDelay) return;
-
-    const touchEndY = e.changedTouches[0].screenY;
-    const diff = touchStartY - touchEndY;
-
-    if (Math.abs(diff) < 50) return; // ignore small swipes
-
-    lastScrollTime = now;
-
-    if (diff > 0) {
-      scrollToSection(current + 1);
-    } else {
-      scrollToSection(current - 1);
-    }
-  });
-
-  // 🔁 Keep current section synced if user scrolls manually
+  // 🔁 Keep section tracking for both
   window.addEventListener("scroll", () => {
     if (isScrolling) return;
     current = getCurrentSection();
