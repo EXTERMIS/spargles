@@ -29,3 +29,101 @@ function personal() {
 function contact() {
   window.location.assign("https://contact.spargles.com");
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+  const sections = document.querySelectorAll(".section");
+  let current = 0;
+
+  let isScrolling = false;
+  let lastScrollTime = 0;
+  const scrollDelay = 900;
+
+  // 🔥 Detect which section is currently in view
+  function getCurrentSection() {
+    let closestIndex = 0;
+    let minDistance = Infinity;
+
+    sections.forEach((section, i) => {
+      const rect = section.getBoundingClientRect();
+      const distance = Math.abs(rect.top);
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = i;
+      }
+    });
+
+    return closestIndex;
+  }
+
+  // 🔥 Set correct starting section on load
+  current = getCurrentSection();
+
+  function scrollToSection(index) {
+    if (index < 0 || index >= sections.length) return;
+
+    isScrolling = true;
+    current = index;
+
+    sections[index].scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+    setTimeout(() => {
+      isScrolling = false;
+    }, scrollDelay);
+  }
+
+  // 🖱️ WHEEL (desktop + touchpad)
+  window.addEventListener("wheel", (e) => {
+    const now = Date.now();
+
+    if (isScrolling || now - lastScrollTime < scrollDelay) return;
+    if (Math.abs(e.deltaY) < 30) return; // ignore tiny touchpad movement
+
+    lastScrollTime = now;
+
+    if (e.deltaY > 0) {
+      scrollToSection(current + 1);
+    } else {
+      scrollToSection(current - 1);
+    }
+  });
+
+  // 📱 TOUCH (mobile)
+  let touchStartY = 0;
+
+  window.addEventListener("touchstart", (e) => {
+    touchStartY = e.changedTouches[0].screenY;
+  });
+
+  window.addEventListener("touchend", (e) => {
+  const now = Date.now();
+  if (isScrolling || now - lastScrollTime < scrollDelay) return;
+
+  const touchEndY = e.changedTouches[0].screenY;
+  const diff = touchStartY - touchEndY;
+
+  if (Math.abs(diff) < 50) return; // ignore small swipes
+
+  // ✅ If user is at the top and swiping DOWN → allow refresh
+  if (current === 0 && diff < 0) {
+    return; // let browser handle it (pull-to-refresh)
+  }
+
+  lastScrollTime = now;
+
+  if (diff > 0) {
+    scrollToSection(current + 1);
+  } else {
+    scrollToSection(current - 1);
+  }
+});
+
+  // 🔁 Keep current section synced if user scrolls manually
+  window.addEventListener("scroll", () => {
+    if (isScrolling) return;
+    current = getCurrentSection();
+  });
+});
