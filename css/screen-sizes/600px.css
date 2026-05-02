@@ -46,7 +46,7 @@
 .navbutton {
     position: relative;
     height: 70%;
-    width: 8vw;
+    width: 20vw;
 
     color: #f2f2f2;
     background-color: #9d00ff67;
@@ -69,6 +69,10 @@
     transition: 0.5s;
 }
 
+.navbutton p {
+    margin-bottom: .75vh;
+}
+
 .module1 {
     position: absolute;
     width: 100%;
@@ -77,7 +81,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('../images/BG.png');
+    background-image: url('../../images/BG.png');
     background-size: cover;
 }
 
@@ -90,7 +94,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('../images/BG1.png');
+    background-image: url('../../images/BG1.png');
     background-size: cover;
 }
 
@@ -334,4 +338,163 @@
     justify-content: center;
     align-items: center;
     box-shadow: #a1ffe4 0 0 10px;
+}
+
+.DisplayBoxBg2 {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+.M2title {
+    position: absolute;
+    top: 1vh;
+    left: 2%;
+    font-size: 3vw;
+    color: #ffffff;
+    z-index: 2;
+}
+
+.M2titleSub {
+    position: absolute;
+    top: 1.25vh;
+    right: 1%;
+    font-size: 2.5vw;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.M2Div2 {
+    position: absolute;
+    background-color: #2ee5b1bb;
+    top: 4vh;
+    width: 100%;
+    height: 0.2%;
+    z-index: 4;
+}
+
+.M2Div1 {
+    display: none;
+}
+
+.M2I1 {
+    position: absolute;
+    left: 2%;
+    top: 47.5vh;
+    width: 60vw;
+    height: auto;
+    z-index: 3;
+    box-shadow: #2ee5b1 0 0 20px;
+    outline: 3px #2ee5b1 solid;
+    border-radius: 10px;
+}
+
+.M2I2 {
+    position: absolute;
+    left: 2%;
+    top: 6vh;
+    width: 60vw;
+    height: auto;
+    z-index: 3;
+    box-shadow: #2ee5b1 0 0 20px;
+    outline: 3px #2ee5b1 solid;
+    border-radius: 10px;
+}
+
+.M2I3 {
+position: absolute;
+    right: 5%;
+    bottom: 20vh;
+    width: 30vw;
+    height: auto;
+    height: auto;
+    z-index: 3;
+    box-shadow: #2ee5b1 0 0 20px;
+    outline: 3px #2ee5b1 solid;
+    border-radius: 10px;
+
+}
+
+.M2I4 {
+    display: none;
+}
+
+.M2T1 {
+    width: 40%;
+    margin-left: 70.5%;
+    position: absolute;
+    top: 6vh;
+    font-size: 3vw;
+    z-index: 2;
+    background-image: linear-gradient(to right, #2ee5b1, #00b3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.M2T2 {
+    width: 60%;
+    margin-left: 0.5%;
+    position: absolute;
+    top: 27.5vh;
+    font-size: 3vw;
+    z-index: 2;
+    background-image: linear-gradient(to right, #2ee5b1, #00b3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.M2T3 {
+    width: 40%;
+    left: 5%;
+    position: absolute;
+    top: 73vh;
+    font-size: 3vw;
+    z-index: 2;
+    background-image: linear-gradient(to right, #2ee5b1, #00b3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.M2P1 {
+    width: 30%;
+    height: 20%;
+    margin-left: 60.5vw;
+    position: absolute;
+    top: 10vh;
+    font-size: 2vw;
+    z-index: 5;
+}
+
+.M2P2 {
+    width: 60%;
+    height: 20%;
+    margin-left: 0.5vw;
+    position: absolute;
+    top: 30.5vh;
+    font-size: 2vw;
+    z-index: 5;
+}
+
+.M2P3 {
+    width: 50%;
+    height: 20%;
+    left: 5vw;
+    position: absolute;
+    top: 76.5vh;
+    font-size: 2vw;
+    z-index: 5;
 }
