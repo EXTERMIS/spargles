@@ -1,133 +1,75 @@
-@media screen and (max-width: 600px) {
-    * {
-        -webkit-tap-highlight-color: transparent;
-    }
+.Background-image {
+    position: fixed;
 
-    .Spargles-logo {
-        position: relative;
-        margin: auto;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 
-        width: 70vw;
-        height: relative;
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+    z-index: -3;
+    background-size: contain;
+    background-position: center;
+}
 
-        animation-duration: 1s;
-        animation-name: Slide-In;
-    }
+.Spargles-logo {
+    position: relative;
+    margin: auto;
 
-    .navbar {
-        position: absolute;
-        top: 1vw;
+    width: 90vw;
+    height: relative;
 
+    animation-duration: 1s;
+    animation-name: Slide-In;
+}
 
-        width: 90vw;
-        height: 6%;
+.fade-text {
+    display: none;
+    transition: opacity 1s ease-out;
+}
 
-        background-color: #ffffff2f;
+.navbar {
+    position: absolute;
+    top: 0;
 
-        display: flex;
-        flex-wrap: row;
-        justify-content: center;
-        align-items: center;
+    width: 100%;
+    height: 6%;
 
-        border-radius: 15px;
-        box-shadow: 0 0 15px 5px #ffffff48;
-        outline: #ffffff22 1px solid;
-    }
+    background-color: #ffffff2f;
 
-    .navbutton {
-        position: relative;
-        height: 70%;
-        width: 100vw;
+    display: flex;
+    flex-wrap: row;
+    justify-content: center;
+    align-items: center;
 
-        color: #f2f2f2;
-        background-color: #ffffff;
+    box-shadow: 0 0 15px 5px #ffffff48;
+    outline: #ffffff22 1px solid;
+    border-radius: 0px;
+}
 
-        display: flex;
-        justify-content: center;
-        text-align: center;
-        align-items: flex-end;
+.navbutton {
+    position: relative;
+    height: 70%;
+    width: 8vw;
 
-        border-radius: 9px 9px 12px 12px;
+    color: #f2f2f2;
+    background-color: #9d00ff67;
 
-        background: transparent;
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 3vw;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: flex-end;
 
-        cursor: pointer;
-        transition: 0.5s;
+    background: transparent;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 3.6vw;
 
-        padding-bottom: 1.25%;
-    }
+    border-radius: 12px 12px 12px 12px;
 
-    .navbutton p {
-        font-family: "Bebas Neue", sans-serif;
-        width: 60%;
+    margin-right: 0px;
+    margin: 3vw;
 
-        transition: 0.5s;
-    }
-
-    .mascot {
-        position: absolute;
-        bottom: 0%;
-        left: 25%;
-        width: 62vw;
-        height: auto;
-    }
-
-    .mascot img {
-        position: relative;
-        /* change from absolute */
-        width: 100%;
-        height: auto;
-        cursor: pointer;
-        transition: transform 0.15s ease;
-        z-index: 22;
-    }
-
-    .mascot img.active {
-        transform: scale(0.975);
-    }
-
-    .mascot img.pop {
-        transform: scale(1.2);
-    }
-
-    .mascot-text {
-        position: absolute;
-        font-family: "Jersey 10", sans-serif;
-        width: 55%;
-
-        text-align: center;
-        color: #111;
-        font-size: 3.5vw;
-        font-weight: bold;
-        letter-spacing: 1px;
-
-        z-index: 200;
-        pointer-events: none;
-    }
-
-    @keyframes line {
-        0% {
-            transform: rotate(0deg) scaleX(1);
-        }
-
-        33% {
-            transform: rotate(2deg) scaleX(1);
-        }
-
-        50% {
-            opacity: 5%;
-        }
-
-        66% {
-            width: 100%;
-            transform: rotate(-2deg) scaleX(1);
-        }
-
-        100% {
-            width: 100%;
-            transform: rotate(0deg) scaleX(1);
-        }
-    }
+    cursor: pointer;
+    transition: 0.5s;
 }
