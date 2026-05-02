@@ -2,13 +2,13 @@
     position: absolute;
     width: 100%;
     height: 100dvh;
-    margin-top: 100dvh;
-    margin-left: 200dvw;
+    top: 200%;
     display: flex;
     justify-content: center;
     align-items: center;
     background-image: url('../images/BG1.png');
     background-size: cover;
+    z-index: -1;
 }
 
 .module1overylay2 {
