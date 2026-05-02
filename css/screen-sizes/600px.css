@@ -271,7 +271,7 @@
 
     font-family: "Orbitron", sans-serif;
     font-optical-sizing: auto;
-    font-size: 4vw;
+    font-size: 3.6vw;
     text-indent: 10%;
 
     color: white;
@@ -280,7 +280,7 @@
 .highlight {
     font-family: "Orbitron", sans-serif;
     font-optical-sizing: auto;
-    font-size: 4vw;
+    font-size: 3.6vw;
     text-indent: 10%;
     background-image: linear-gradient(to right, #2ee5b1, #00b3ff);
     -webkit-background-clip: text;
