@@ -118,6 +118,7 @@ body {
   right: 0%;
   width: 22vw;
   height: auto;
+  z-index: -2;
 }
 
 .mascot img {
