@@ -260,13 +260,13 @@
     height: auto;
     z-index: 2;
     position: absolute;
-    top: 40vh;
+    top: 37.5vh;
 }
 
 .Mdescription {
     position: absolute;
     width: 85vw;
-    top: 7.5vh;
+    top: 4.5vh;
     left: 0%;
 
     font-family: "Orbitron", sans-serif;
