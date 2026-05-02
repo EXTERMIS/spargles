@@ -1,304 +1,177 @@
-.module1 {
-    position: absolute;
-    width: 100%;
-    height: 100dvh;
-    top: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url('../images/BG.png');
-    background-size: cover;
+::-webkit-scrollbar {
+  display: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.module1overylay {
-    position: absolute;
-    width: 100dvw;
-    height: 100dvh;
-    top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url('../images/overlay.png');
-    background-size: cover;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Jersey 10", sans-serif;
 }
 
-.bgglow {
-    position: absolute;
-    width: 210%;
-    height: 290%;
-    top: -0.10vh;
-    left: -55%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+body {
+  color: #f2f2f2;
+  background-color: #1a1a1a;
+  background-image: url('/images/BG.jpg');
+
+  font-family: "Teko", sans-serif;
+  font-style: normal;
+  font-size: 50px;
+
+  display: flex;
+  justify-content: center;
+
+  margin: auto;
+  overflow: hidden;
+
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10+ */
+  user-select: none;
+  /* Standard syntax */
 }
 
-.module1 .Mtitle {
-    position: absolute;
-    top: 2vh;
-    font-size: 6vh;
-    font-family: "Orbitron", sans-serif;
-    font-optical-sizing: auto;
-    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-weight: 600;
+.Background-image {
+  position: fixed;
+
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+  z-index: -3;
 }
 
-.module1 .MtitleSub {
-    position: absolute;
-    top: 11vh;
-    font-size: 2.5vh;
-    letter-spacing: .6vw;
-    font-family: "Orbitron", sans-serif;
-    font-optical-sizing: auto;
-    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+.welcome {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+
+  top: 0%;
 }
 
-.DescriptionBox {
-    position: absolute;
-    width: 30%;
-    height: 60%;
-    right: 5%;
-    bottom: 11vw;
-    font-family: "Orbitron", sans-serif;
-    font-optical-sizing: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.Spargles-logo {
+  position: relative;
+  margin: auto;
+
+  width: 44vw;
+  height: relative;
+
+  animation-duration: 1s;
+  animation-name: Slide-In;
 }
 
-.BottomDescriptionBox {
-    position: absolute;
-    width: 55%;
-    height: 10%;
-    left: 5%;
-    bottom: 5%;
-    font-family: "Orbitron", sans-serif;
-    font-optical-sizing: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@keyframes Slide-In {
+  from {
+    transform: translate(0, 0) scale(0, 0) rotate(180deg);
+  }
+
+  to {
+    transform: translate(0, 0) scale(1, 1) rotate(0deg);
+  }
 }
 
-.icon {
-    position: relative;
-    left: -35%;
-    width: 15%;
-    height: auto;
+.Fade-Scroll {
+  position: absolute;
+  bottom: 1vh;
 
+  font-size: 2vw;
+  text-align: center;
+  font-family: "Teko", sans-serif;
+
+  animation-duration: 1.5s;
+  animation-name: scrollfade;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
+  opacity: 1;
+  transition: opacity 2.5s ease-out;
 }
 
-.Display {
-    background-color: rgba(0, 255, 191, 0.1);
-    backdrop-filter: blur(1px);
-    width: 22.5%;
-    height: 100%;
-    margin: auto;
-    border-radius: 10px;
-    outline: rgba(0, 255, 191, 0.7) 3px solid;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: #a1ffe4 0 0 10px;
+@keyframes scrollfade {
+  from {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  to {
+    color: rgba(255, 255, 255, 0);
+  }
 }
 
-.DisplayTxtTitle {
-    position: absolute;
-    font-family: "Orbitron", sans-serif;
-    font-optical-sizing: auto;
-    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-size: 1.3vw;
-    top: 25%;
-    font-weight: 800;
-    margin-left: 5%;
+.fade-text {
+  transition: opacity 1s ease-out;
 }
 
-.DisplayTxt {
-    position: absolute;
-    font-family: "Orbitron", sans-serif;
-    font-optical-sizing: auto;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 1vw;
-    top: 50%;
-    font-weight: 800;
-    margin-left: 5%;
+.scroll-area {
+  position: relative;
+  top: 8vw;
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+  opacity: 0;
+  transform: scale(1.2);
 }
 
-.Mdescription {
-    position: absolute;
-    width: 100%;
-    top: 20%;
-    left: 0%;
-
-    font-family: "Orbitron", sans-serif;
-    font-optical-sizing: auto;
-    font-size: 1vw;
-    text-indent: 10%;
-
-    color: white;
+.mascot {
+  position: absolute;
+  bottom: 0%;
+  right: 0%;
+  width: 22vw;
+  height: auto;
 }
 
-.ModuleVideo {
-    position: absolute;
-    margin-right: 35%;
-    width: 55vw;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    box-shadow: #2ee5b1 0 0 20px;
-    outline: 3px #2ee5b1 solid;
+.mascot img {
+  position: relative;
+  /* change from absolute */
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  z-index: 22;
 }
 
-.Trailer {
-    z-index: 2;
-    position: absolute;
+.corner {
+  position: absolute;
+  top: 9%;
+  left: -2%;
+  width: 45%;
+  height: 35%;
+  pointer-events: none;
+  z-index: 23;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.logo {
-    width: 20vw;
-    height: auto;
-    z-index: 2;
-    position: absolute;
-    margin-left: 0%;
-    margin-top: -50vh;
+.mascot img.active {
+  transform: scale(0.975);
 }
 
-.DisplayBoxBg {
-    position: absolute;
-    top: 20.5vw;
-    width: 100%;
-    height: 30%;
-    border-radius: 20px;
-    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.mascot img.pop {
+  transform: scale(1.2);
 }
 
-.DisplayBox {
-    position: relative;
-    width: 99%;
-    height: 97%;
-    border-radius: 20px;
-    background-color: rgba(0, 0, 0, 0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+.mascot-text {
+  position: absolute;
+  font-family: "Jersey 10", sans-serif;
+  width: 55%;
 
-.icon1 {
-    position: relative;
-    width: 30%;
-    top: 0;
-    height: auto;
-}
+  text-align: center;
+  color: #111;
+  font-size: 1.5vw;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: left;
 
-.Display1 {
-    width: 33%;
-    height: 100%;
-    margin: auto;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.db1 {
-    border-left: #2ee5b1 1px solid;
-}
-
-.DisplayTxtTitle1 {
-    position: absolute;
-    font-family: "Orbitron", sans-serif;
-    font-optical-sizing: auto;
-    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-size: 40%;
-    top: 10%;
-    font-weight: 800;
-}
-
-.DisplayTxt1 {
-    position: absolute;
-    font-family: "Orbitron", sans-serif;
-    font-optical-sizing: auto;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: .8vw;
-    text-align: center;
-    bottom: 5%;
-    font-weight: 800;
-}
-
-.DisplayBoxBg2 {
-    position: absolute;
-    top: 101%;
-    width: 100%;
-    height: 20%;
-    border-radius: 20px;
-    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.DisplayBox2 {
-    position: relative;
-    width: 99%;
-    height: 97%;
-    border-radius: 20px;
-    background-color: rgba(0, 0, 0, 0.7);
-    font-size: 2vw;
-    font-family: "Orbitron", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 900;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-sup {
-    font-size: 2vw;
-    font-family: "Orbitron", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 900;
-}
-
-sup.descsup {
-    font-size: .5vw;
-}
-
-.highlight {
-    font-family: "Orbitron", sans-serif;
-    font-optical-sizing: auto;
-    font-size: 1vw;
-    text-indent: 10%;
-    background-image: linear-gradient(to right, #2ee5b1, #00b3ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-weight: 700;
-}
-
-.White {
-    color: #ffffff;
-    font-family: "Orbitron", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 100;
-}
-
-.hoverclick:hover {
-    color: #00b3ff;
-    cursor: pointer;
+  z-index: 200;
+  pointer-events: none;
 }
