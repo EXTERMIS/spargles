@@ -265,9 +265,9 @@
 
 .Mdescription {
     position: absolute;
-    width: 85vw;
+    width: 90vw;
     top: 4.5vh;
-    left: 0%;
+    left: -5%;
 
     font-family: "Orbitron", sans-serif;
     font-optical-sizing: auto;
