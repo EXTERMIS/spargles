@@ -114,9 +114,9 @@ body {
 
 .mascot {
   position: absolute;
-  bottom: 0%;
+  bottom: 10%;
   right: 0%;
-  width: 22vw;
+  width: 32vw;
   height: auto;
 }
 
