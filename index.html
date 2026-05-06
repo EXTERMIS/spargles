@@ -64,36 +64,6 @@
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
     </script>
-
-    <script>
-      const fadeElements = document.querySelectorAll(".fade-element"); // Select all elements with the class
-      let lastScrollTop = 0;
-
-      window.addEventListener("scroll", function () {
-        const scrollPosition = window.scrollY;
-        const windowHeight = window.innerHeight;
-
-        fadeElements.forEach((fadeElement) => {
-          if (scrollPosition > lastScrollTop) {
-            // Scrolling down: fade in quickly and reach full opacity
-            fadeElement.style.opacity = Math.min(
-              1,
-              scrollPosition / (windowHeight / 2)
-            );
-            fadeElement.style.transition = "opacity 0.2s ease"; // Quicker fade in
-          } else {
-            // Scrolling up: gradually fade out based on scroll
-            let opacity = (scrollPosition - 100) / (windowHeight - 100);
-            if (opacity < 0) opacity = 0;
-            fadeElement.style.opacity = opacity;
-            fadeElement.style.transition = "opacity 0.5s ease"; // Slower fade out
-          }
-        });
-
-        // Update last scroll position
-        lastScrollTop = scrollPosition <= 0 ? 0 : scrollPosition;
-      });
-    </script>
 </body>
 
 </html>
