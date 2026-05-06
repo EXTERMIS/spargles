@@ -20,6 +20,8 @@
     width: 90vw;
     height: relative;
 
+    margin-bottom: 15%;
+
     animation-duration: 1s;
     animation-name: Slide-In;
 }
