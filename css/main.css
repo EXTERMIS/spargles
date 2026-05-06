@@ -24,6 +24,7 @@ body {
   justify-content: center;
 
   margin: auto;
+  overflow: hidden;
 }
 
 .Background-image {
@@ -63,7 +64,7 @@ body {
 
 @keyframes Slide-In {
   from {
-    transform: translate(0, 0) scale(0, 0) rotate(180deg);
+    transform: translate(0, 0) scale(0, 0) rotate(0deg);
   }
 
   to {
@@ -114,11 +115,10 @@ body {
 
 .mascot {
   position: absolute;
-  bottom: 0%;
+  bottom: 5%;
   right: 0%;
   width: 22vw;
   height: auto;
-  z-index: -2;
 }
 
 .mascot img {
