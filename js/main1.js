@@ -22,6 +22,14 @@ function programs() {
   window.location.assign("https://programs.spargles.com");
 }
 
+function signup() {
+  window.location.assign("https://signup.spargles.com");
+}
+
+function login() {
+  window.location.assign("https://login.spargles.com");
+}
+
 function personal() {
   window.location.assign("https://personal.spargles.com");
 }
@@ -30,100 +38,51 @@ function contact() {
   window.location.assign("https://contact.spargles.com");
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  const sections = document.querySelectorAll(".section");
-  let current = 0;
+function terms() {
+  window.location.assign("https://spargles.com/terms");
+}
 
-  let isScrolling = false;
-  let lastScrollTime = 0;
-  const scrollDelay = 900;
+function BobTool1() {
+  window.location.assign("https://spargles.com/Bobto/Converter");
+}
 
-  // 🔥 Detect which section is currently in view
-  function getCurrentSection() {
-    let closestIndex = 0;
-    let minDistance = Infinity;
+function PEVideo() {
+  window.location.assign("https://www.youtube.com/watch?v=HNpi5DM8DRA");
+}
 
-    sections.forEach((section, i) => {
-      const rect = section.getBoundingClientRect();
-      const distance = Math.abs(rect.top);
+const mascotMessages = [
+  "Yo!",
+  "Hola!",
+  "Hello, human!",
+  "Choose BobTo!",
+  "FInd Secrets!",
+  "EST. 2026!",
+  "Glitch Died...",
+  "Pins!!",
+  "Welcome!"
+];
 
-      if (distance < minDistance) {
-        minDistance = distance;
-        closestIndex = i;
-      }
-    });
+let currentMessageIndex = 0;
 
-    return closestIndex;
+function mascotClick(element) {
+  const sound = new Audio("audio/ping.mp3");
+  sound.volume = 0.2;
+  sound.play();
+
+  // animation
+  element.classList.add('active');
+  setTimeout(() => {
+    element.classList.remove('active');
+  }, 200);
+
+  // change text
+  const textElement = document.getElementById("mascot-text");
+
+  textElement.textContent = mascotMessages[currentMessageIndex];
+
+  // move to next message
+  currentMessageIndex++;
+  if (currentMessageIndex >= mascotMessages.length) {
+    currentMessageIndex = 0; // loop back to start
   }
-
-  // 🔥 Set correct starting section on load
-  current = getCurrentSection();
-
-  function scrollToSection(index) {
-    if (index < 0 || index >= sections.length) return;
-
-    isScrolling = true;
-    current = index;
-
-    sections[index].scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-
-    setTimeout(() => {
-      isScrolling = false;
-    }, scrollDelay);
-  }
-
-  // 🖱️ WHEEL (desktop + touchpad)
-  window.addEventListener("wheel", (e) => {
-    const now = Date.now();
-
-    if (isScrolling || now - lastScrollTime < scrollDelay) return;
-    if (Math.abs(e.deltaY) < 30) return; // ignore tiny touchpad movement
-
-    lastScrollTime = now;
-
-    if (e.deltaY > 0) {
-      scrollToSection(current + 1);
-    } else {
-      scrollToSection(current - 1);
-    }
-  });
-
-  // 📱 TOUCH (mobile)
-  let touchStartY = 0;
-
-  window.addEventListener("touchstart", (e) => {
-    touchStartY = e.changedTouches[0].screenY;
-  });
-
-  window.addEventListener("touchend", (e) => {
-  const now = Date.now();
-  if (isScrolling || now - lastScrollTime < scrollDelay) return;
-
-  const touchEndY = e.changedTouches[0].screenY;
-  const diff = touchStartY - touchEndY;
-
-  if (Math.abs(diff) < 50) return; // ignore small swipes
-
-  // ✅ If user is at the top and swiping DOWN → allow refresh
-  if (current === 0 && diff < 0) {
-    return; // let browser handle it (pull-to-refresh)
-  }
-
-  lastScrollTime = now;
-
-  if (diff > 0) {
-    scrollToSection(current + 1);
-  } else {
-    scrollToSection(current - 1);
-  }
-});
-
-  // 🔁 Keep current section synced if user scrolls manually
-  window.addEventListener("scroll", () => {
-    if (isScrolling) return;
-    current = getCurrentSection();
-  });
-});
+}
