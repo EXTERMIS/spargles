@@ -86,19 +86,15 @@
   background-repeat: no-repeat;
 }
 
-.Background-image {
-  position: fixed;
-
-  width: auto;
-  height: 100%;
-
-  top: 0;
-  left: -150%;
-
-  opacity: 1;
-  transition: opacity 0.3s ease-out;
-  z-index: -3;
+/* Individual backgrounds */
+.module1 {
+  background-image: url('../../images/BG.png');
 }
+
+.module2 {
+  background-image: url('../../images/BG1.png');
+}
+
 
 
 
@@ -107,12 +103,10 @@
 .mascot {
     position: absolute;
     bottom: 1vh;
-    margin-right: 5%;
+    margin-right: 25%;
     margin-left: 25%;
-    width: 82vw;
+    width: 42vw;
     height: auto;
-    bottom: 6.5%;
-    -webkit-tap-highlight-color: transparent;
 }
 
 .mascot img {
@@ -154,35 +148,350 @@
 
     text-align: center;
     color: #111;
-    font-size: 7.5vw;
+    font-size: 2.5vw;
     font-weight: bold;
     letter-spacing: 1px;
-    text-align: center;
+    text-align: left;
 
     z-index: 200;
     pointer-events: none;
 }
 
-footer {
-  position: absolute;
-  bottom: 0%;
-  width: 100%;
-  height: 4vh;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
-  font-size: 2vh;
-  background-color: #1a1a1a;
 
-  border-top: 3px solid;
-  border-image: linear-gradient(to right, #ffffff 0%, #515151 100%) 1;
+
+
+
+
+
+.ModuleVideo {
+    position: absolute;
+    top: 13.5vh;
+    margin-right: 0%;
+    width: 85vw;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: #2ee5b1 0 0 20px;
+    outline: 3px #2ee5b1 solid;
 }
 
-.footer-button {
-  cursor: pointer;
+.module1 .Mtitle {
+    position: absolute;
+    top: 2vh;
+    font-size: 5vw;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 600;
+}
+
+.module1 .MtitleSub {
+    position: absolute;
+    top: 7vh;
+    font-size: 4vw;
+    letter-spacing: .6vw;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.bgglow {
+    position: absolute;
+    width: 1%;
+    height: 1%;
+    top: -0.10vh;
+    left: -55%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.DisplayBoxBg {
+    position: absolute;
+    top: 20.5vw;
+    width: 100%;
+    height: 30%;
+    border-radius: 20px;
+    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.DescriptionBox {
+    position: absolute;
+    width: 80%;
+    height: 60%;
+    margin-right: 5%;
+    bottom: -32.5vw;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.BottomDescriptionBox {
+    position: absolute;
+    width: 85%;
+    height: 10%;
+    left: 8vw;
+    top: 84vw;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    width: 65vw;
+    height: auto;
+    z-index: 2;
+    position: absolute;
+    top: 83.5vw;
+}
+
+.Mdescription {
+    position: absolute;
+    width: 90vw;
+    top: 6.75vh;
+    left: -5%;
+
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 3.6vw;
+    text-indent: 10%;
+
+    color: white;
+}
+
+.highlight {
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 3.6vw;
+    text-indent: 10%;
+    background-image: linear-gradient(to right, #2ee5b1, #00b3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
+}
+
+.icon {
+    position: relative;
+    left: -0%;
+    top: -22%;
+    width: 20%;
+    height: auto;
+}
+
+.DisplayTxtTitle {
+    position: absolute;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 3vw;
+    top: 45%;
+    font-weight: 800;
+    margin-left: 0%;
+}
+
+.DisplayTxt {
+    position: absolute;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    color: rgb(0, 255, 140);
+    font-size: 2.25vw;
+    top: 65%;
+    font-weight: 900;
+    margin-left: 0%;
+}
+
+.Display {
+    background-color: rgba(0, 54, 41, 0.5);
+    backdrop-filter: blur(1px);
+    width: 22.5%;
+    height: 100%;
+    margin: auto;
+    border-radius: 10px;
+    outline: rgba(0, 255, 191, 0.7) 3px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: #a1ffe4 0 0 10px;
+}
+
+.DisplayBoxBg2 {
+    display: none;
 }
 
 
 
+
+
+
+
+
+
+
+.M2title {
+    position: absolute;
+    top: 1vh;
+    left: 2%;
+    font-size: 3vw;
+    color: #ffffff;
+    z-index: 2;
+}
+
+.M2titleSub {
+    position: absolute;
+    top: 1.25vh;
+    right: 1%;
+    font-size: 2.5vw;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    background-image: linear-gradient(to right, #75ffd8, #73d5ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.M2Div2 {
+    position: absolute;
+    background-color: #2ee5b1bb;
+    top: 4vh;
+    width: 99.99%;
+    height: 0.2%;
+    z-index: 4;
+}
+
+.M2Div1 {
+    display: none;
+}
+
+.M2I1 {
+    position: absolute;
+    left: 2%;
+    top: 47.5vh;
+    width: 60vw;
+    height: auto;
+    z-index: 3;
+    box-shadow: #2ee5b1 0 0 20px;
+    outline: 3px #2ee5b1 solid;
+    border-radius: 10px;
+}
+
+.M2I2 {
+    position: absolute;
+    left: 2%;
+    top: 6vh;
+    width: 60vw;
+    height: auto;
+    z-index: 3;
+    box-shadow: #2ee5b1 0 0 20px;
+    outline: 3px #2ee5b1 solid;
+    border-radius: 10px;
+}
+
+.M2I3 {
+    position: absolute;
+    right: 5%;
+    bottom: 20vh;
+    width: 30vw;
+    height: auto;
+    height: auto;
+    z-index: 3;
+    box-shadow: #2ee5b1 0 0 20px;
+    outline: 3px #2ee5b1 solid;
+    border-radius: 10px;
+
+}
+
+.M2I4 {
+    display: none;
+}
+
+.M2T1 {
+    width: 30%;
+    margin-left: 60.5%;
+    position: absolute;
+    top: 6vh;
+    font-size: 3vw;
+    z-index: 2;
+    background-image: linear-gradient(to right, #2ee5b1, #00b3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.M2T2 {
+    width: 60%;
+    margin-left: 0.5%;
+    position: absolute;
+    top: 27.5vh;
+    font-size: 3vw;
+    z-index: 2;
+    background-image: linear-gradient(to right, #2ee5b1, #00b3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.M2T3 {
+    width: 40%;
+    left: 5%;
+    position: absolute;
+    top: 73vh;
+    font-size: 3vw;
+    z-index: 2;
+    background-image: linear-gradient(to right, #2ee5b1, #00b3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.M2P1 {
+    width: 30%;
+    height: 20%;
+    margin-left: 60.5vw;
+    position: absolute;
+    top: 10vh;
+    font-size: 2vw;
+    z-index: 5;
+}
+
+.M2P2 {
+    width: 60%;
+    height: 20%;
+    margin-left: 0.5vw;
+    position: absolute;
+    top: 30.5vh;
+    font-size: 2vw;
+    z-index: 5;
+}
+
+.M2P3 {
+    width: 50%;
+    height: 20%;
+    left: 5vw;
+    position: absolute;
+    top: 76.5vh;
+    font-size: 2vw;
+    z-index: 5;
+}
