@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="css/section-2.css">
   <link rel="stylesheet" href="css/section-3.css">
 
-  <link rel="stylesheet" media="screen and (max-width: 600px)" href="css/screen-sizes/600px.css">
+  <link rel="stylesheet" href="css/screen-sizes/600px.css">
 
   <script type="text/javascript" src="js/main1.js"></script>
 
@@ -27,10 +27,13 @@
     <div class="corner">
       <p id="mascot-text" class="mascot-text">Welcome!</p>
     </div>
-    <img alt="Mascot" src="images/Mascot.png" onclick="(this)" />
+    <img alt="Mascot" src="images/Mascot.png" onclick="mascotClick(this)" />
   </div>
 
   <div class="welcome section">
+    <!-- Logo -->
+    <img alt="Spargles Logo" class="Spargles-logo fade-text" src="images/Spargles.png" />
+
     <div class="navbar">
       <!-- Buttons in Navbar -->
       <div class="navbutton" onclick="home()">
@@ -48,19 +51,10 @@
       <div class="navbutton" onclick="programs()">
         <p>PROGRAMS</p>
       </div>
+      <div class="navbutton" onclick="personal()">
+        <p>PERSONAL</p>
+      </div>
     </div>
-
-    <!-- Logo -->
-    <img alt="Spargles Logo" class="Spargles-logo fade-text" src="images/Spargles.png" />
-
-    <!-- Fading Text -->
-    <div class="Fade-Scroll fade-text">Scroll</div>
-  </div>
-
-  <!-- Area allowed for scrolling on page -->
-  <div class="scroll-container">
-    <div class="scroll-area"></div>
-  </div>
 
     <footer>
       <p>&copy; <span id="year"></span> Spargles | All rights reserved. | <span class="footer-button"
