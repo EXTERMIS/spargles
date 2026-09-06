@@ -1,67 +1,602 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <title>Spargles</title>
-  <link rel="icon" href="images/Tab-Icon.png" />
-
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/navigation.css">
-  <link rel="stylesheet" href="css/imports.css">
-
-  <link rel="stylesheet" media="screen and (max-width: 601px)" href="css/screen-sizes/600px.css">
-  <link rel="stylesheet" media="screen and (max-width: 450px)" href="css/screen-sizes/450px.css">
-  <link rel="stylesheet" media="screen and (max-width: 415px)" href="css/screen-sizes/415px.css">
-  <link rel="stylesheet" media="screen and (max-width: 390px)" href="css/screen-sizes/390px.css">
-  <link rel="stylesheet" media="screen and (max-width: 384px)" href="css/screen-sizes/384px.css">
-
-  <script type="text/javascript" src="js/main1.js"></script>
-
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BobTo Games Arcade</title>
+  <link rel="stylesheet" href="arcade.css">
+  <link
+      rel="icon"
+      href="icons1/Tab-Icon.png"
+    />
+  <script type="text/javascript" src="main.js"></script>
 </head>
-
 <body>
-  <!-- Background Image -->
-  <img class="Background-image" id="bg-img" src="images/BG.jpg" alt="Background Image" />
-
-  <div class="mascot">
-    <div class="corner">
-      <p id="mascot-text" class="mascot-text">Welcome!</p>
+   <div class="popup" style="display: none;">
+    <img alt="Popup Image" src="images/popup.png" onclick="closePopup()"/>
+  </div>
+  <div class="navbar">
+    <span class="navbar-title">BobTo Games Arcade - Spargles Games</span>
+    <div class="navbar-right">
+      <a class="social-toggle" href="https://www.youtube.com/@BobToBEAT/featured" target="_blank" rel="noopener noreferrer" aria-label="Visit BobToBEAT on YouTube"><img src="icons1/youtube.png" alt=""></a>
+      <a class="social-toggle" href="https://x.com/BobTo_BEAT" target="_blank" rel="noopener noreferrer" aria-label="Visit BobTo_BEAT on X"><img src="icons1/twitter.png" alt=""></a>
+      <button class="account-toggle" id="account-toggle" type="button" aria-label="Open account menu"><img src="icons1/accounts.png" alt=""></button>
+      <div class="account-menu" id="account-menu" hidden>
+        <div class="account-message">Accounts Coming Whenever</div>
+      </div>
+      <button class="settings-toggle" id="settings-toggle" type="button" aria-label="Open site settings"><img src="icons1/settings.png" alt=""></button>
+      <div class="settings-menu" id="settings-menu" hidden>
+        <label class="setting-row">
+          <input id="rainbow-toggle" type="checkbox" checked>
+          <span>Rainbow text</span>
+        </label>
+        <label class="setting-row">
+          <input id="mute-toggle" type="checkbox">
+          <span>Mute site</span>
+        </label>
+        <label class="setting-row">
+          <input id="bottom-bar-toggle" type="checkbox">
+          <span>Hide bottom bar</span>
+        </label>
+        <label class="setting-row">
+          <input id="mee-mee-mode-toggle" type="checkbox">
+          <span>Mee Mee Mode (Very Dangerous)</span>
+        </label>
+        <button type="button" class="settings-link" id="spargles-home">Go to spargles.com</button>
+      </div>
     </div>
-    <img alt="Mascot" src="images/Mascot.png" onclick="mascotClick(this)" />
+  </div>
+  <div class="featured-banner-carousel">
+    <button class="banner-nav-button" id="banner-prev" type="button" aria-label="Previous banner">
+      <img src="icons1/left_arrow.png" alt="">
+    </button>
+    <div class="featured-banner">
+      <div class="featured-banner-track" id="featured-banner-track">
+        <img src="icons1/Puzzlebox_Banner.png" alt="MusicBox PuzzleBox banner">
+        <img src="icons1/Bobto_Arcade_Banner.png" alt="BobTo Games Arcade banner">
+        <img src="icons1/Runno_Banner.png" alt="Runno banner">
+        <img src="icons1/Puzzlebox_Banner.png" alt="MusicBox PuzzleBox banner">
+        <img src="icons1/Bobto_Arcade_Banner.png" alt="BobTo Games Arcade banner">
+      </div>
+    </div>
+    <button class="banner-nav-button" id="banner-next" type="button" aria-label="Next banner">
+      <img src="icons1/right_arrow.png" alt="">
+    </button>
+    <div class="banner-dots" role="tablist" aria-label="Choose banner">
+      <button class="banner-dot active" type="button" data-banner-index="0" aria-label="Show BobTo Games Arcade banner" aria-selected="true"></button>
+      <button class="banner-dot" type="button" data-banner-index="1" aria-label="Show Runno banner" aria-selected="false"></button>
+      <button class="banner-dot" type="button" data-banner-index="2" aria-label="Show MusicBox PuzzleBox banner" aria-selected="false"></button>
+    </div>
+  </div>
+  <h2 class="category-title">New Releases &amp; Newly Updated</h2>
+  <div class="slider-row">
+    <div class="arcade-container slider" id="row1">
+      <div class="game-card"><span class="new-game-badge">New Stuff</span><img src="icons1/Mee Mee Bug Trials.png" alt="Mee Mee Bug Trials"><div class="game-title">Mee Mee Bug Trials</div><div class="game-desc">Bite sized Mee Mee Bug adventures!</div><button class="play-btn" onclick="showGame('bug-trials')">Play</button></div>
+      <div class="game-card"><span class="new-game-badge">New Stuff</span><img src="icons1/MusicBox PuzzleBox.png" alt="MusicBox PuzzleBox"><div class="game-title">MusicBox: PuzzleBox</div><div class="game-desc">Enter the CYBERSPACE and solve puzzles as MB.</div><button class="play-btn" onclick="showGame('musicbox-puzzlebox')">Play</button></div>
+    </div>
   </div>
 
-  <div class="welcome section">
-    <!-- Logo -->
-    <img alt="Spargles Logo" class="Spargles-logo fade-text" src="images/Spargles.png" />
+  <h2 class="category-title">Platformers</h2>
+  <div class="slider-row">
+    <div class="arcade-container slider" id="row2">
+      <div class="game-card"><img src="icons1/Mee Mee Bug Trials.png" alt="Mee Mee Bug Trials"><div class="game-title">Mee Mee Bug Trials</div><div class="game-desc">Bite sized Mee Mee Bug adventures!</div><button class="play-btn" onclick="showGame('bug-trials')">Play</button></div>
+      <div class="game-card"><img src="icons1/Runno Origins.png" alt="Runno Origins"><div class="game-title">Runno Origins</div><div class="game-desc">Revisit the origins of Runno!</div><button class="play-btn" onclick="showGame('runno-origins')">Play</button></div>
+    </div>
+  </div>
 
-    <div class="navbar">
-      <!-- Buttons in Navbar -->
-      <div class="navbutton" onclick="home()">
-        <p>HOME</p>
+  <h2 class="category-title">Puzzle Games</h2>
+  <div class="slider-row">
+    <div class="arcade-container slider" id="row3">
+      <div class="game-card"><img src="icons1/MusicBox PuzzleBox.png" alt="MusicBox PuzzleBox"><div class="game-title">MusicBox: PuzzleBox</div><div class="game-desc">Enter the CYBERSPACE and solve puzzles as MB.</div><button class="play-btn" onclick="showGame('musicbox-puzzlebox')">Play</button></div>
+    </div>
+  </div>
+
+  <h2 class="category-title">Arcade Games</h2>
+  <div class="slider-row">
+    <div class="arcade-container slider" id="row4">
+      <div class="game-card"><img src="icons1/Mee Mee Bug Rush.png" alt="Mee Mee Bug Rush"><div class="game-title">Mee Mee Bug Rush</div><div class="game-desc">Rush to collect with Freedom!</div><button class="play-btn" onclick="showGame('bug-rush')">Play</button></div>
+    </div>
+  </div>
+
+  <h2 class="category-title">Coming Soon</h2>
+  <div class="slider-row">
+    <div class="arcade-container slider" id="row5">
+      <div class="game-card coming-soon"><img src="icons1/Mee Mee Mini.png" alt="Mee Mee Bug Mini"><div class="game-title">Mee Mee Bug Mini</div><div class="game-desc">Coming Soon</div><button class="play-btn" disabled>Play</button></div>
+      <div class="game-card coming-soon"><img src="icons1/Gel-ly Jump.png" alt="Gel-ly Jump"><div class="game-title">Gel-ly Jump!</div><div class="game-desc">Coming Soon</div><button class="play-btn" disabled>Play</button></div>
+      <div class="game-card coming-soon"><img src="icons1/Roman Defense.png" alt="Roman Defense"><div class="game-title">Roman Defense</div><div class="game-desc">Coming Soon</div><button class="play-btn" disabled>Play</button></div>
+    </div>
+  </div>
+  <h2 class="category-title">Our Other Media</h2>
+  <div class="slider-row">
+    <div class="arcade-container slider media-row" id="row-media">
+      <div class="media-card">
+        <a class="media-player" href="https://youtu.be/sj49M8pkDcU" target="_blank" rel="noopener noreferrer" aria-label="Watch I LOVE MEE MEE BUGS ft. Kasane Teto on YouTube">
+          <img src="https://img.youtube.com/vi/sj49M8pkDcU/hqdefault.jpg" alt="I LOVE MEE MEE BUGS ft. Kasane Teto thumbnail" loading="lazy">
+          <img class="media-play-icon" src="icons1/play.png" alt="">
+        </a>
+        <div class="game-title">I LOVE MEE MEE BUGS ft. Kasane Teto</div>
       </div>
-      <div class="navbutton" onclick="shop()">
-        <p>SHOP</p>
+      <div class="media-card">
+        <a class="media-player" href="https://youtu.be/50ja3_XAtIo" target="_blank" rel="noopener noreferrer" aria-label="Watch MusicBox: Meefreedom'sBox on YouTube">
+          <img src="https://img.youtube.com/vi/50ja3_XAtIo/hqdefault.jpg" alt="MusicBox: Meefreedom'sBox thumbnail" loading="lazy">
+          <img class="media-play-icon" src="icons1/play.png" alt="">
+        </a>
+        <div class="game-title">MusicBox: Meefreedom'sBox</div>
       </div>
-      <div class="navbutton" onclick="games()">
-        <p>GAMES</p>
+      <div class="media-card">
+        <a class="media-player" href="https://www.youtube.com/watch?v=-kYyxr53ICc" target="_blank" rel="noopener noreferrer" aria-label="Watch Freedom in: Freedom Folly on YouTube">
+          <img src="https://img.youtube.com/vi/-kYyxr53ICc/hqdefault.jpg" alt="Freedom in: Freedom Folly thumbnail" loading="lazy">
+          <img class="media-play-icon" src="icons1/play.png" alt="">
+        </a>
+        <div class="game-title">Freedom in: Freedom Folly</div>
       </div>
-      <div class="navbutton" onclick="gallery()">
-        <p>GALLERY</p>
+      <div class="media-card">
+        <a class="media-player" href="https://youtu.be/-GwEJHZvSKk" target="_blank" rel="noopener noreferrer" aria-label="Watch Mee Mee Bug Islands Classic Title Reveal Trailer on YouTube">
+          <img src="https://img.youtube.com/vi/-GwEJHZvSKk/hqdefault.jpg" alt="Mee Mee Bug Islands Classic Title Reveal Trailer thumbnail" loading="lazy">
+          <img class="media-play-icon" src="icons1/play.png" alt="">
+        </a>
+        <div class="game-title">Mee Mee Bug Islands Classic Title Reveal Trailer</div>
       </div>
-      <div class="navbutton" onclick="programs()">
-        <p>PROGRAMS</p>
+      <div class="media-card">
+        <a class="media-player" href="https://youtu.be/ZH7Kk61swAM" target="_blank" rel="noopener noreferrer" aria-label="Watch MeeMee Bug Islands Remastered Cinematic Trailer on YouTube">
+          <img src="https://img.youtube.com/vi/ZH7Kk61swAM/hqdefault.jpg" alt="MeeMee Bug Islands Remastered Cinematic Trailer thumbnail" loading="lazy">
+          <img class="media-play-icon" src="icons1/play.png" alt="">
+        </a>
+        <div class="game-title">MeeMee Bug Islands Remastered Cinematic Trailer</div>
+      </div>
+      <div class="media-card">
+        <a class="media-player" href="https://youtu.be/zNQg0jdA0Ug" target="_blank" rel="noopener noreferrer" aria-label="Watch Another Joyous Day In Glaggleland on YouTube">
+          <img src="https://img.youtube.com/vi/zNQg0jdA0Ug/hqdefault.jpg" alt="Another Joyous Day In Glaggleland thumbnail" loading="lazy">
+          <img class="media-play-icon" src="icons1/play.png" alt="">
+        </a>
+        <div class="game-title">Another Joyous Day In Glaggleland!!!!</div>
       </div>
     </div>
+  </div>
+  <div id="game-menu-overlay" class="game-menu-overlay" style="display:none;">
+    <div class="game-menu" role="dialog" aria-modal="true">
+      <div class="game-menu-left">
+        <img class="game-menu-cover" id="game-menu-cover" src="icons1/Mee Mee Bug Trials.png" alt="Game cover">
+        <button class="play-btn game-menu-play" id="game-menu-play" type="button">Play</button>
+        <div class="game-menu-description" id="game-menu-description">Bite sized Mee Mee Bug adventures!</div>
+      </div>
+      <div class="game-menu-right">
+        <div class="game-menu-header">
+          <div class="game-stat-box" id="game-stat-released">date released</div>
+          <div class="game-stat-box" id="game-stat-updated">last updated</div>
+          <button class="game-menu-close" id="game-menu-close" type="button" aria-label="Close game menu"><img src="icons1/exit.png" alt=""></button>
+        </div>
+        <div class="game-menu-changelog-wrap">
+          <div class="game-menu-changelog" id="game-menu-changelog">changelog</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <footer>
-      <p>&copy; <span id="year"></span> Spargles | All rights reserved. | <span class="footer-button"
-          onclick="terms()">Terms of Service</span> | <span class="footer-button" onclick="contact()">Contact</span></p>
-    </footer>
+  <div id="game-modal-overlay" class="game-modal-overlay" style="display:none;">
+    <div id="game-modal" class="game-modal">
+      <div class="modal-controls">
+        <button class="modal-btn" id="fullscreen-btn" title="Fullscreen" onclick="fullscreenGameModal(event)">
+          <img src="icons1/fullscreen.png" alt="">
+        </button>
+        <button class="modal-btn" id="close-btn" title="Close" onclick="closeGameModal(event)">
+          <img src="icons1/exit.png" alt="">
+        </button>
+      </div>
+      <div id="fullscreen-instruct" class="fullscreen-instruct" style="display:none;">
+        Press <b>Enter</b> to make the game fullscreen!
+      </div>
+      <div id="game-modal-content" class="game-modal-content"></div>
+    </div>
+  </div>
+  <script>
+    const gameData = {
+      'bug-trials': {
+        title: 'Mee Mee Bug Trials',
+        image: 'icons1/Mee Mee Bug Trials.png',
+        description: 'Bite sized Mee Mee Bug adventures!',
+        released: '4/3/26',
+        updated: '9/5/26',
+        updates: [
+          {
+            name: 'V.1.1.1',
+            date: '9/6/26',
+            items: ['Fixed an issue with MBs dialogue in trial 7',
+              'Changed some select textures'
+            ]
+          },
+          {
+            name: 'V1.1 - Trials and Tribulations Part I - Nay Nay Squashing',
+            date: '9/5/26',
+            items: [
+              'Enemy Hitbox Rework - Defeating an enemy is now 200 to 400% more generous',
+              'Quick Play - A button has been added that allows you to play the next trial in the campaign',
+              'Loss Screen Rework - You can now restart the trial you failed instantly from the loss screen',
+              'Other assorted changes and fixes have been made to improve the player experience'
+            ]
+          },
+          {
+            name: 'V1.0.2',
+            date: '4/25/26',
+            items: ['Level design changes to decrease trial difficulty']
+          },
+          {
+            name: 'V1.0.1',
+            date: '4/20/26',
+            items: ['Added controller support']
+          },
+          {
+            name: 'V1.0',
+            date: '4/3/26',
+            items: ['Prepared game for global release', 'Bug fixes']
+          }
+        ],
+        src: 'https://flowlab.io/game/embed/3030510?responsive=true'
+      },
+      'runno-origins': {
+        title: 'Runno Origins',
+        image: 'icons1/Runno Origins.png',
+        description: 'Revisit the origins of Runno!',
+        released: '4/3/26',
+        updated: '6/19/26',
+        updates: [
+          {
+            name: 'V1.0.2',
+            date: '6/19/26',
+            items: ['Changed water textures']
+          },
+          {
+            name: 'V1.0.1',
+            date: '6/19/26',
+            items: ['Bug fixes relating to player spawn position and movement']
+          },
+          {
+            name: 'V1.0',
+            date: '4/3/26',
+            items: ['Prepared game for global release', 'Bug fixes']
+          }
+        ],
+        src: 'https://flowlab.io/game/embed/3030512?responsive=true'
+      },
+      'bug-rush': {
+        title: 'Mee Mee Bug Rush',
+        image: 'icons1/Mee Mee Bug Rush.png',
+        description: 'Rush to collect with Freedom!',
+        released: '4/3/26',
+        updated: '9/6/26',
+        updates: [
+          {
+            name: 'V1.1',
+            date: '9/6/26',
+            items: ['Main menu removed', 'Return to main menu button removed from level select']
+          },
+          {
+            name: 'V1.0.1',
+            date: '4/16/26',
+            items: ['Removed leaderboards', 'Stage select menu optimized']
+          },
+          {
+            name: 'V1.0',
+            date: '4/3/26',
+            items: ['Prepared game for global release', 'Bug fixes']
+          }
+        ],
+        src: 'https://flowlab.io/game/embed/3030486?responsive=true'
+      },
+      'musicbox-puzzlebox': {
+        title: 'MusicBox: PuzzleBox',
+        image: 'icons1/MusicBox PuzzleBox.png',
+        description: 'Enter the CYBERSPACE and solve puzzles as MB.',
+        released: '9/6/26',
+        updated: '9/6/26',
+        updates: [
+          {
+            name: 'V1.0',
+            date: '9/6/26',
+            items: ['Prepared game for global release', 'Bug fixes', 'Added round crates', 'Changed menu fonts']
+          }
+        ],
+        src: 'https://flowlab.io/game/embed/3048654?responsive=true'
+      },
+      'roman-defense': {
+        title: 'Roman Defense',
+        image: 'icons1/Roman Defense.png',
+        description: 'Defend the Roman frontier!',
+        released: 'TBD',
+        updated: 'coming soon',
+        changelog: [
+          'Added the Roman Defense preview',
+          'Introduced the Roman frontier defense concept',
+          'Initial build is coming soon'
+        ],
+        src: 'https://flowlab.io/game/embed/3041704?responsive=true'
+      }
+    };
 
-    <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
+    const STORAGE_KEY = 'bobto-game-play-counts';
+
+    function getPlayCounts() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      } catch {
+        return {};
+      }
+    }
+
+    function savePlayCounts(counts) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(counts));
+    }
+
+    function getGamePlayCount(gameId) {
+      return Number(getPlayCounts()[gameId] || 0);
+    }
+
+    function incrementGamePlayCount(gameId) {
+      const counts = getPlayCounts();
+      counts[gameId] = (Number(counts[gameId]) || 0) + 1;
+      savePlayCounts(counts);
+      return counts[gameId];
+    }
+
+    function showGame(gameId) {
+      const game = gameData[gameId];
+      if (!game) return;
+
+      const menu = document.getElementById('game-menu-overlay');
+      const cover = document.getElementById('game-menu-cover');
+      const description = document.getElementById('game-menu-description');
+      const released = document.getElementById('game-stat-released');
+      const updated = document.getElementById('game-stat-updated');
+      const changelog = document.getElementById('game-menu-changelog');
+
+      cover.src = game.image;
+      cover.alt = game.title;
+      description.textContent = game.description;
+      released.innerHTML = '<span class="stat-label">date released</span><span class="stat-value">' + game.released + '</span>';
+      updated.innerHTML = '<span class="stat-label">last updated</span><span class="stat-value">' + game.updated + '</span>';
+      const updates = game.updates || [
+        {
+          name: 'Update 3',
+          date: '4/30/2026',
+          items: game.changelog
+        },
+        {
+          name: 'Update 2',
+          date: '4/12/2026',
+          items: ['Polished UI feedback and menu flow', 'Fixed checkpoint transitions', 'Improved loading and responsiveness']
+        },
+        {
+          name: 'Update 1',
+          date: '3/29/2026',
+          items: ['Initial public build', 'Launch menu and first pass content', 'Balance pass for early gameplay']
+        }
+      ];
+      changelog.innerHTML = updates.map(update => `
+        <div class="update-group">
+          <div class="update-header">
+            <span class="update-name">${update.name}</span>
+            <span class="update-date">${update.date}</span>
+          </div>
+          ${update.items.map(item => `<div class="changelog-item">• ${item}</div>`).join('')}
+        </div>
+      `).join('');
+
+      const playBtn = document.getElementById('game-menu-play');
+      playBtn.onclick = () => {
+        incrementGamePlayCount(gameId);
+        closeGameMenu();
+        openGameEmbed(gameId);
+      };
+
+      document.getElementById('game-menu-close').onclick = closeGameMenu;
+      document.body.classList.add('menu-open');
+      menu.style.display = 'flex';
+    }
+
+    function closeGameMenu() {
+      document.getElementById('game-menu-overlay').style.display = 'none';
+      document.body.classList.remove('menu-open');
+    }
+
+    function openGameEmbed(gameId) {
+      const overlay = document.getElementById('game-modal-overlay');
+      const modalContent = document.getElementById('game-modal-content');
+      modalContent.innerHTML = '';
+
+      const game = gameData[gameId];
+      if (!game) return;
+
+      const outer = document.createElement('div');
+      outer.className = 'game-embed active';
+      const iframe = document.createElement('iframe');
+      iframe.src = game.src;
+      iframe.allowFullscreen = true;
+      iframe.tabIndex = -1;
+      outer.appendChild(iframe);
+      modalContent.appendChild(outer);
+      overlay.style.display = 'flex';
+      window._currentGameIframe = iframe;
+    }
+
+    function closeGameModal(e) {
+      e && e.stopPropagation();
+      document.getElementById('game-modal-overlay').style.display = 'none';
+      document.getElementById('game-modal-content').innerHTML = '';
+    }
+
+    function fullscreenGameModal(e) {
+      e && e.stopPropagation();
+      const instruct = document.getElementById('fullscreen-instruct');
+      instruct.style.display = 'block';
+      setTimeout(() => { instruct.style.display = 'none'; }, 3500);
+      if (window._currentGameIframe) {
+        setTimeout(() => { window._currentGameIframe.focus(); }, 100);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuOverlay = document.getElementById('game-menu-overlay');
+      const modalOverlay = document.getElementById('game-modal-overlay');
+      const settingsToggle = document.getElementById('settings-toggle');
+      const settingsMenu = document.getElementById('settings-menu');
+      const accountToggle = document.getElementById('account-toggle');
+      const accountMenu = document.getElementById('account-menu');
+      const rainbowToggle = document.getElementById('rainbow-toggle');
+      const muteToggle = document.getElementById('mute-toggle');
+      const bottomBarToggle = document.getElementById('bottom-bar-toggle');
+      const sparglesHome = document.getElementById('spargles-home');
+      const featuredBannerTrack = document.getElementById('featured-banner-track');
+      const bannerPrev = document.getElementById('banner-prev');
+      const bannerNext = document.getElementById('banner-next');
+      const bannerDots = document.querySelectorAll('.banner-dot');
+      let featuredBannerIndex = 1;
+      let bannerIsAnimating = false;
+
+      function updateBannerDots() {
+        const activeIndex = (featuredBannerIndex - 1 + 3) % 3;
+        bannerDots.forEach((dot, index) => {
+          const isActive = index === activeIndex;
+          dot.classList.toggle('active', isActive);
+          dot.setAttribute('aria-selected', String(isActive));
+        });
+      }
+
+      function moveBanner(index, animate = true) {
+        if (index < 0 || index > 4 || (animate && bannerIsAnimating)) return;
+        bannerIsAnimating = animate;
+        featuredBannerTrack.style.transition = animate ? '' : 'none';
+        featuredBannerIndex = index;
+        featuredBannerTrack.style.transform = `translateX(-${featuredBannerIndex * 20}%)`;
+        updateBannerDots();
+      }
+
+      function moveToBanner(index) {
+        moveBanner(index + 1);
+      }
+
+      let bannerAutoTimer;
+
+      function scheduleBannerAutoAdvance() {
+        clearTimeout(bannerAutoTimer);
+        bannerAutoTimer = setTimeout(() => {
+          if (bannerIsAnimating) {
+            scheduleBannerAutoAdvance();
+            return;
+          }
+          featuredBannerIndex += 1;
+          moveBanner(featuredBannerIndex);
+          scheduleBannerAutoAdvance();
+        }, 15000);
+      }
+
+      featuredBannerTrack.addEventListener('transitionend', function(event) {
+        if (event.propertyName !== 'transform') return;
+        if (featuredBannerIndex === 0 || featuredBannerIndex === 4) {
+          const realIndex = featuredBannerIndex === 0 ? 3 : 1;
+          moveBanner(realIndex, false);
+          featuredBannerTrack.offsetHeight;
+          featuredBannerTrack.style.transition = '';
+        }
+        bannerIsAnimating = false;
+      });
+
+      function applySiteSettings() {
+        document.body.classList.toggle('rainbow-disabled', !rainbowToggle.checked);
+        document.body.classList.toggle('bottom-bar-hidden', bottomBarToggle.checked);
+        document.querySelectorAll('audio, video').forEach((media) => {
+          media.muted = muteToggle.checked;
+        });
+      }
+
+      scheduleBannerAutoAdvance();
+
+      bannerPrev.addEventListener('click', function() {
+        moveBanner(featuredBannerIndex - 1);
+        scheduleBannerAutoAdvance();
+      });
+
+      bannerNext.addEventListener('click', function() {
+        moveBanner(featuredBannerIndex + 1);
+        scheduleBannerAutoAdvance();
+      });
+
+      bannerDots.forEach((dot) => {
+        dot.addEventListener('click', function() {
+          moveToBanner(Number(dot.dataset.bannerIndex));
+          scheduleBannerAutoAdvance();
+        });
+      });
+
+      settingsToggle.addEventListener('click', function() {
+        const isHidden = settingsMenu.hasAttribute('hidden');
+        accountMenu.setAttribute('hidden', 'hidden');
+        settingsMenu.toggleAttribute('hidden', !isHidden);
+      });
+
+      accountToggle.addEventListener('click', function() {
+        const isHidden = accountMenu.hasAttribute('hidden');
+        settingsMenu.setAttribute('hidden', 'hidden');
+        accountMenu.toggleAttribute('hidden', !isHidden);
+      });
+
+      rainbowToggle.addEventListener('change', applySiteSettings);
+      muteToggle.addEventListener('change', applySiteSettings);
+      bottomBarToggle.addEventListener('change', applySiteSettings);
+      sparglesHome.addEventListener('click', function() {
+        window.location.href = 'https://spargles.com/';
+      });
+
+      document.addEventListener('click', function(event) {
+        if (!settingsMenu.hasAttribute('hidden')) {
+          if (!event.target.closest('.settings-toggle') && !event.target.closest('.settings-menu')) {
+            settingsMenu.setAttribute('hidden', 'hidden');
+          }
+        }
+        if (!accountMenu.hasAttribute('hidden')) {
+          if (!event.target.closest('.account-toggle') && !event.target.closest('.account-menu')) {
+            accountMenu.setAttribute('hidden', 'hidden');
+          }
+        }
+      });
+
+      menuOverlay.addEventListener('click', function(e) {
+        if (e.target === menuOverlay) {
+          closeGameMenu();
+        }
+      });
+
+      modalOverlay.addEventListener('click', function(e) {
+        if (e.target === modalOverlay) {
+          closeGameModal();
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeGameMenu();
+          closeGameModal();
+          settingsMenu.setAttribute('hidden', 'hidden');
+          accountMenu.setAttribute('hidden', 'hidden');
+        }
+      });
+
+      applySiteSettings();
+    });
+
+    function scrollRow(rowId, dir) {
+      const row = document.getElementById(rowId);
+      if (!row) return;
+      const card = row.querySelector('.game-card');
+      if (!card) return;
+      const scrollAmount = card.offsetWidth * 3.2; // scroll by ~3 cards
+      row.scrollBy({ left: dir * scrollAmount, behavior: 'smooth' });
+    }
+  </script>
 </body>
-
+  <div class="bottom-bar">
+    <span class="bottom-bar-title">
+      <span class="marquee-text">Welcome to the BobTo Games Arcade! - New Games Whenever - Mee mee mee mee mee! - Go to www.freemeemeecoins.com for free mee mee coin! - I wonder what mee mee bugs taste like... - Have you saved the world yet? - They yearn for the glaggle mines - </span>
+      <span class="marquee-text">Welcome to the BobTo Games Arcade! - New Games Whenever - Mee mee mee mee mee! - Go to www.freemeemeecoins.com for free mee mee coin! - I wonder what mee mee bugs taste like... - Have you saved the world yet? - They yearn for the glaggle mines - </span>
+    </span>
+  </div>
 </html>
