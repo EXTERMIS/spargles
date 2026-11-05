@@ -64,8 +64,8 @@ input[type=range]{width:100%;accent-color:var(--ac)}
  <div id="fx"></div>
 </div></main><div id="md" hidden><div class="card" id="mp"><h2>Settings</h2>
 <label class="st">Theme<select id="sth"><option value="auto">Auto (system)</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
-<label class="st">Slider step<select id="sst"><option value=".1">0.1</option><option value=".25">0.25</option><option value=".5">0.5 (default)</option><option value="1">1</option></select></label>
-<small class="mut">Applies to sliders with a range of 10 or more (dB, Hz, %). Sliders that run 0 to 1 keep fine steps. You can always type an exact value in the box next to any slider.</small>
+<label class="st">Slider step<select id="sst"><option value=".1">0.1</option><option value=".25">0.25</option><option value=".5">0.5 (default)</option><option value="1">1</option><option value="5">5</option><option value="10">10</option></select></label>
+<small class="mut">Sets how far every slider moves per step. Sliders with a range of 10 or more (dB, Hz, %) use this exact value. Smaller-range sliders (0 to 1 mixes, speed) use one tenth of it so they stay usable. You can always type an exact value in the box next to any slider.</small>
 <label class="st"><span>Play when a preset is chosen</span><input type="checkbox" id="sau"></label>
 <label class="st"><span>Save uploads to library automatically</span><input type="checkbox" id="ssv"></label>
 <div class="tr"><button id="sclr">Clear saved library</button><button id="srs">Reset settings</button><span class="sp"></span><button id="scl" class="pri">Done</button></div></div></div>
@@ -189,7 +189,7 @@ $('#xf').onchange=ui;
 $('#sv').onclick=async()=>{if(!buf)return toast('Load a sound first');try{const w=wav(await render());await tx('readwrite',s=>s.add({name:base()+'.wav',date:Date.now(),data:w}));lib();toast('Processed audio saved to library')}catch(e){toast('Browser storage unavailable')}};
 /* ---------- UI ---------- */
 function syncUI(){document.querySelectorAll('input[data-k]').forEach(i=>{const v=p[i.dataset.k];if(i.type=='checkbox')i.checked=!!v;else{i.value=v;i.nextElementSibling.value=+(+v).toFixed(3)}});ui()}
-const CM={};G.forEach(g=>g[1].forEach(c=>CM[c[0]]=c));const stepFor=c=>(c[3]-c[2]>=10)?Math.max(c[5],S.step):c[5];
+const CM={};G.forEach(g=>g[1].forEach(c=>CM[c[0]]=c));const stepFor=c=>c[6]||c[0]=='bits'?1:(c[3]-c[2]>=10?S.step:Math.max(S.step/10,.001));
 function applyStep(){document.querySelectorAll('#fx input[type=range]').forEach(r=>{r.step=stepFor(CM[r.dataset.k])});syncUI()}
 $('#fx').innerHTML=G.map(g=>`<section class="card"><h3>${g[0]}</h3><div class="body">${g[1].map(c=>c[6]?`<div class="row"><label>${c[1]}</label><input type="checkbox" data-k="${c[0]}"><span></span></div>`:`<div class="row"><label>${c[1]}</label><input type="range" data-k="${c[0]}" min="${c[2]}" max="${c[3]}" step="${stepFor(c)}" value="${c[4]}"><input type="number" class="num" data-n="${c[0]}" min="${c[2]}" max="${c[3]}" step="any" value="${c[4]}"></div>`).join('')}</div></section>`).join('');
 $('#fx').onclick=e=>{const h=e.target.closest('h3');if(h)h.parentElement.classList.toggle('min')};
