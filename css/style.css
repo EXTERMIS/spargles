@@ -42,7 +42,7 @@ sup { font-size: .4em; vertical-align: super; font-weight: 900; }
 
 .site-bg {
   position: fixed; inset: 0; z-index: -3;
-  background: #05070a url("../images/optimized/bg-home.webp") center / cover no-repeat;
+  background: #05070a url("../images/BG.jpg") center / cover no-repeat;
 }
 
 .section {
