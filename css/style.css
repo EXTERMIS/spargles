@@ -114,15 +114,15 @@ sup { font-size: .4em; vertical-align: super; font-weight: 900; }
 .eden, .features {
   display: flex; flex-direction: column; align-items: center;
   padding: calc(var(--nav-h) + 40px) clamp(16px, 4vw, 64px) clamp(28px, 5vh, 56px);
-  background: #05070a url("../images/optimized/bg-eden.webp") center / cover no-repeat;
+  background: #05070a url("../images/BG.png") center / cover no-repeat;
 }
-.features { background-image: url("../images/optimized/bg-eden2.webp"); }
+.features { background-image: url("../images/BG1.png"); }
 
 .eden-overlay, .features-overlay {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background: url("../images/optimized/overlay.webp") center / cover no-repeat;
+  background: url("../images/overlay1.png") center / cover no-repeat;
 }
-.features-overlay { background-image: url("../images/optimized/overlay2.webp"); }
+.features-overlay { background-image: url("../images/overlay2.webp"); }
 
 .eden-head { position: relative; z-index: 1; text-align: center; margin-bottom: clamp(16px, 3vh, 32px); }
 
