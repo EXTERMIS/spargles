@@ -1,206 +1,159 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <title>Spargles</title>
-  <link rel="icon" href="images/Tab-Icon.png" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Spargles | EDEN Starmap Cartographer</title>
+  <meta name="description" content="EDEN Starmap Cartographer is a free 3D starmapping program for worldbuilders, sci-fi writers and astronomy fans. Create a universe from nothing.">
+  <meta name="theme-color" content="#05070a">
 
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/navigation.css">
-  <link rel="stylesheet" href="css/imports.css">
-  <link rel="stylesheet" href="css/module1.css">
-  <link rel="stylesheet" href="css/module2.css">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="EDEN Starmap Cartographer">
+  <meta property="og:description" content="Free 3D starmapping software for worldbuilders. Create a universe from nothing.">
+  <meta property="og:image" content="images/optimized/eden-title.webp">
 
-  <link rel="stylesheet" media="screen and (max-width: 601px)" href="css/screen-sizes/600px.css">
-  <link rel="stylesheet" media="screen and (max-width: 450px)" href="css/screen-sizes/450px.css">
-  <link rel="stylesheet" media="screen and (max-width: 415px)" href="css/screen-sizes/415px.css">
-  <link rel="stylesheet" media="screen and (max-width: 390px)" href="css/screen-sizes/390px.css">
-  <link rel="stylesheet" media="screen and (max-width: 384px)" href="css/screen-sizes/384px.css">
+  <link rel="icon" href="images/optimized/favicon.png">
 
-  <script type="text/javascript" src="js/main1.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jersey+10&family=Orbitron:wght@400..900&display=swap">
+  <link rel="stylesheet" href="css/style.css">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="js/main1.js" defer></script>
 </head>
 
 <body>
-  <!-- Background Image -->
-  <img class="Background-image" id="bg-img" src="images/BG.jpg" alt="Background Image" />
+  <div class="site-bg" aria-hidden="true"></div>
 
-  <div class="mascot">
-    <div class="corner">
-      <p id="mascot-text" class="mascot-text">0100100001100101<br>0110110001101100<br>01101111!</p>
+  <nav class="navbar" aria-label="Main">
+    <a class="navbutton" href="https://spargles.com/">Home</a>
+    <a class="navbutton" href="https://shop.spargles.com">Shop</a>
+    <a class="navbutton" href="https://games.spargles.com">Games</a>
+    <a class="navbutton" href="https://gallery.spargles.com">Gallery</a>
+    <a class="navbutton" href="https://programs.spargles.com">Programs</a>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <header class="section welcome" id="top">
+    <img class="spargles-logo" src="images/optimized/spargles-logo.webp" width="1000" height="300" alt="Spargles">
+    <a class="scroll-hint" href="#eden">Scroll</a>
+
+    <!-- Mascot -->
+    <div class="mascot" id="mascot">
+      <button class="mascot-btn" type="button" aria-label="Pet the mascot">
+        <img src="images/optimized/mascot.webp" width="1381" height="958" alt="">
+        <span class="mascot-text" id="mascot-text" aria-live="polite">0100100001100101<br>0110110001101100<br>01101111!</span>
+      </button>
     </div>
-    <img alt="Mascot" src="images/Mascot.png" onclick="(this)" />
-  </div>
+  </header>
 
-  <div class="welcome section">
-    <div class="navbar">
-      <!-- Buttons in Navbar -->
-      <div class="navbutton" onclick="home()">
-        <p>HOME</p>
+  <!-- ========== EDEN: OVERVIEW ========== -->
+  <main>
+    <section class="section eden" id="eden">
+      <div class="eden-overlay" aria-hidden="true"></div>
+
+      <div class="eden-head">
+        <h1 class="eden-title">EDEN<sup>™</sup> <span class="thin">Starmap Cartographer</span></h1>
+        <p class="eden-sub">Create a Universe from Nothing</p>
       </div>
-      <div class="navbutton" onclick="shop()">
-        <p>SHOP</p>
-      </div>
-      <div class="navbutton" onclick="games()">
-        <p>GAMES</p>
-      </div>
-      <div class="navbutton" onclick="gallery()">
-        <p>GALLERY</p>
-      </div>
-      <div class="navbutton" onclick="programs()">
-        <p>PROGRAMS</p>
-      </div>
-    </div>
 
-    <!-- Logo -->
-    <img alt="Spargles Logo" class="Spargles-logo fade-text" src="images/Spargles.png" />
+      <div class="eden-grid">
+        <div class="eden-left">
+          <video class="eden-video" autoplay loop muted playsinline disablepictureinpicture preload="metadata"
+            poster="images/optimized/eden-poster.webp" aria-label="EDEN Starmap Cartographer trailer">
+            <source src="Videos/EDENTrailer-1080.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
 
-    <!-- Fading Text -->
-    <div class="Fade-Scroll fade-text">Scroll</div>
-  </div>
+          <ul class="badges">
+            <li class="badge"><img src="icons/box.webp" alt="" width="64" height="64"><b>Easy</b><span>experience!</span></li>
+            <li class="badge"><img src="icons/art.webp" alt="" width="64" height="64"><b>Simple</b><span>customization!</span></li>
+            <li class="badge"><img src="icons/downloads.webp" alt="" width="64" height="64"><b>Free</b><span>forever!</span></li>
+            <li class="badge"><img src="icons/STAR.webp" alt="" width="64" height="64"><b>Limitless</b><span>worlds!</span></li>
+          </ul>
+        </div>
 
-  <div class="module1 module section">
-    <div class="module1overylay"></div>
-    <p class="Mtitle">EDEN<sup>™ </sup><span class="White">Starmap Cartographer</span>
-      <img class="bgglow" src="images/bgglow.png">
-    </p>
-    <p class="MtitleSub">Create a Universe from Nothing</p>
+        <div class="eden-right">
+          <img class="eden-logo" src="images/optimized/eden-title.webp" width="1000" height="750" alt="EDEN">
 
-    <video class="ModuleVideo" autoplay loop muted playsinline disablePictureInPicture>
-      <source src="Videos/EDENTrailer.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+          <p class="eden-desc">
+            <span class="hl">EDEN<sup>™</sup> Starmap Cartographer</span> is a simple 3D starmapping program for
+            worldbuilders, science-fiction enthusiasts, and anyone interested in astronomy. It packs in several
+            quality-of-life features and was directly inspired by the long-deprecated <span class="hl">CHView</span>.
+            It aims to be a <span class="hl">simple</span>, <span class="hl">free</span>, and
+            <span class="hl">convenient</span> way for worldbuilders and writers to visualise their starmaps in all
+            three dimensions, a task that was previously out of reach for most. EDEN is currently being developed by
+            <a class="hl link" href="https://games.spargles.com">BobTo Games</a>.
+          </p>
 
-    <div class="DescriptionBox">
-      <p class="Mdescription">
-        <span class="highlight">EDEN<sup class="descsup">™</sup> Starmap Cartographer</span>
-        is a simple 3D starmapping software for worldbuilders,
-        science-fiction enthusiasts, and those interested in astronomy. The program boasts several quality of life
-        features
-        and was directly inspired by the long deprecated
-        <span class="highlight">CHView.</span>
-        It aims to offer a
-        <span class="highlight">simple</span>, <span class="highlight">free</span>, and <span
-          class="highlight">convenient</span>
-        way for worldbuilders and writers to visualise their starmaps using all 3 dimensions—a task previously
-        impossible for
-        most. The software is currently being developed by
-        <span class="highlight hoverclick" onclick="games()">BobTo Games.</span>
-      </p>
+          <ul class="mini-features">
+            <li><img src="icons/3d.webp" alt="" width="56" height="56"><b>3D View</b><span>for easy visualization!</span></li>
+            <li><img src="icons/exp.webp" alt="" width="56" height="56"><b>Exports</b><span>fully supported!</span></li>
+            <li><img src="icons/saturn.webp" alt="" width="56" height="56"><b>Create</b><span>the universe of your dreams!</span></li>
+          </ul>
 
-      <div class="DisplayBoxBg">
-        <div class="DisplayBox">
-          <div class="Display1"><img class="icon1" src="icons/3d.png">
-            <p class="DisplayTxtTitle1">3D View</p>
-            <p class="DisplayTxt1">for easy<br> visualization!</p>
-          </div>
-          <div class="Display1 db1"><img class="icon1" src="icons/exp.png">
-            <p class="DisplayTxtTitle1">Exports</p>
-            <p class="DisplayTxt1">fully<br> supported!</p>
-          </div>
-          <div class="Display1 db1"><img class="icon1" src="icons/saturn.png">
-            <p class="DisplayTxtTitle1">Create</p>
-            <p class="DisplayTxt1">the universe<br> of your dreams!</p>
+          <div class="release" id="release" data-state="soon">
+            <p class="release-text" id="release-text">Coming Soon!</p>
+            <a class="release-btn" id="release-btn" href="#" hidden>Download EDEN</a>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="DisplayBoxBg2">
-        <div class="DisplayBox2">
-          COMING SOON!
-        </div>
+    <!-- ========== EDEN: FEATURES ========== -->
+    <section class="section features" id="features">
+      <div class="features-overlay" aria-hidden="true"></div>
+
+      <div class="eden-head features-head">
+        <h2 class="eden-title small">EDEN<sup>™</sup> <span class="thin">Starmap Cartographer</span></h2>
+        <p class="eden-sub small">Create a Universe from Nothing</p>
       </div>
-      <img class="logo" src="images/Eden_Title.png">
-    </div>
-    <div class="BottomDescriptionBox">
-      <div class="Display"><img class="icon" src="icons/box.png">
-        <p class="DisplayTxtTitle">Easy</p>
-        <p class="DisplayTxt">experience!</p>
+
+      <div class="feature-grid">
+        <article class="feature f-control">
+          <h3>Complete Creative Control</h3>
+          <p>EDEN™ Starmap Cartographer offers complete creative control to the user. Whether it be the look of the
+            grid or the luminance of the stars, nearly everything can be tweaked and altered to your satisfaction,
+            with these settings saving on a per-map basis, allowing each and every starmap you make to keep its own
+            specific appearance.</p>
+          <p>Beyond this, create as many stars as you need, wherever you need them, controlling their size, color,
+            name, information, and affiliation. Stars aren't the only objects in space, though, and EDEN™ addresses
+            that with both black and white holes for whenever the need arises. In the future, expect even more unique
+            celestial objects to be added, although for now these options will have to suffice.</p>
+          <img class="shot shot-wide" src="images/optimized/starmap.webp" width="1800" height="1012" loading="lazy"
+            alt="A 3D starmap in EDEN with labelled stars floating above a grid">
+        </article>
+
+        <article class="feature f-system">
+          <h3>Edit Individual Star Systems</h3>
+          <p>The System View feature allows you to enter any star system you have and add custom planets, dwarf
+            planets, and more. Set their size, name, color, orbit, and even orbit speed, as well as add moons, space
+            stations, and more to individual objects. And now, with the Show Orbits and Orbit Scale settings, view
+            your custom systems in the primary starmap view, allowing you and others to see the make-up of individual
+            systems across your starmap.</p>
+          <img class="shot" src="images/optimized/system-view.webp" width="1020" height="720" loading="lazy"
+            alt="EDEN's System View showing planets on concentric orbits">
+        </article>
+
+        <article class="feature f-routes">
+          <h3>Create Custom Routes</h3>
+          <p>Finally, create simple, easy routes between star systems in a 3D environment, with support for editing,
+            moving around, and reordering. And with the Calculate Distance tool, get the exact length of any specific
+            route, letting you work out detailed travel times using the speed of interstellar travel unique to your
+            setting.</p>
+          <img class="shot shot-narrow" src="images/optimized/routes.webp" width="340" height="441" loading="lazy"
+            alt="EDEN's Routes window listing custom routes">
+        </article>
       </div>
-      <div class="Display"><img class="icon" src="icons/art.png">
-        <p class="DisplayTxtTitle">Simple</p>
-        <p class="DisplayTxt">customization!</p>
-      </div>
-      <div class="Display"><img class="icon" src="icons/downloads.png">
-        <p class="DisplayTxtTitle">Free</p>
-        <p class="DisplayTxt">Forever!</p>
-      </div>
-      <div class="Display"><img class="icon" src="icons/STAR.png">
-        <p class="DisplayTxtTitle">Limitless</p>
-        <p class="DisplayTxt">worlds!</p>
-      </div>
-    </div>
-  </div>
+    </section>
+  </main>
 
-  <div class='module2 module section'>
-    <p class="M2title highlight1">EDEN<sup class="sup1">™ </sup><span class="White">Starmap Cartographer</span>
-    <p class="M2titleSub">Create a Universe from Nothing</p>
-    <div class="module1overylay2"></div>
-    <div class="M2Div1"></div>
-    <div class="M2Div2"></div>
-    <img class="M2I1" src="images/111.png">
-    <img class="M2I2" src="images/112.png">
-    <img class="M2I3" src="images/113.png">
-    <img class="M2I4" src="images/EXMPL.png">
+  <footer class="site-footer">
+    <span>© <span id="year">2026</span> Spargles</span>
+    <a href="terms/">Terms &amp; Conditions</a>
+  </footer>
 
-    <p class="M2T1">Complete Creative Control</p>
-    <p class="M2P1"><br>EDEN™ Starmap Cartographer offers complete creative control to the user.<br><br> Whether it be
-      the look of the grid or the luminance of the stars, nearly everything can be tweaked and altered to your
-      satisfaction, with these settings saving on a per-map basis—allowing each and every starmap you make to maintain
-      its own specific appearance.<br><br> Beyond this, create as many stars as is needed wherever is needed;
-      controlling their size, color, name, information, and affiliation. Stars, however, are no the only objects in
-      space, with EDEN™ attempting to address that—including both black and white holes for whenever the need arrises.
-      In the future, expect even more unique celestial objects to be added, although for now these options will have to
-      suffice.</p>
-    <p class="M2T2">Edit Individual Star Systems</p>
-    <p class="M2P2">The System View feature allows you to enter any star system you have and add custom planets, dwarf
-      planets, and more.<br><br> Set their size, name, color, orbit, and even orbit speed, as well as add moons, space
-      stations, and more to individual objects. And now, with the Show Orbits and Orbit Scale settings, view your custom
-      systems in the primary starmap view. Allowing you and others to see the make-ups of individual systems across your
-      starmap.</p>
-    <p class="M2T3">Create Custom Routes</p>
-    <p class="M2P3">Finally create simple, easy routes between star systems in a 3D environment. With support for
-      editing, moving around, and reordering.<br><br> And with the Calculate Distance tool, get the exact length of any
-      specific
-      route. Allowing you to calculate detailed travel times using the speed of interstellar travel unique to your
-      setting.
-    </p>
-  </div>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-
-  <script>
-    const fadeElements = document.querySelectorAll(".fade-element"); // Select all elements with the class
-    let lastScrollTop = 0;
-
-    window.addEventListener("scroll", function () {
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-
-      fadeElements.forEach((fadeElement) => {
-        if (scrollPosition > lastScrollTop) {
-          // Scrolling down: fade in quickly and reach full opacity
-          fadeElement.style.opacity = Math.min(
-            1,
-            scrollPosition / (windowHeight / 2)
-          );
-          fadeElement.style.transition = "opacity 0.2s ease"; // Quicker fade in
-        } else {
-          // Scrolling up: gradually fade out based on scroll
-          let opacity = (scrollPosition - 100) / (windowHeight - 100);
-          if (opacity < 0) opacity = 0;
-          fadeElement.style.opacity = opacity;
-          fadeElement.style.transition = "opacity 0.5s ease"; // Slower fade out
-        }
-      });
-
-      // Update last scroll position
-      lastScrollTop = scrollPosition <= 0 ? 0 : scrollPosition;
-    });
-  </script>
 </body>
 
 </html>
