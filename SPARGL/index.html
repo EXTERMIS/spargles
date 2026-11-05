@@ -1,13 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SPARGL: AUDIO LAB</title>
 <script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js"></script>
 <style>
-:root{--bg:#f3f0ff;--pn:#fff;--ink:#1b1530;--mut:#6b6385;--ac:#7c3aed;--ac2:#db2777;--ln:#ddd6f3;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0a14;--pn:#151228;--ink:#ece8ff;--mut:#8f87b0;--ac:#a78bfa;--ac2:#f472b6;--ln:#2a2447;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0b0a14;--pn:#151228;--ink:#ece8ff;--mut:#8f87b0;--ac:#a78bfa;--ac2:#f472b6;--ln:#2a2447;color-scheme:dark}
+:root{--bg:#f4f4f4;--pn:#fff;--ink:#111;--mut:#666;--ac:#d90429;--ac2:#8d0801;--ln:#ddd;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--pn:#111;--ink:#fff;--mut:#a0a0a0;--ac:#ff2b3d;--ac2:#b3001b;--ln:#2a2a2a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#000;--pn:#111;--ink:#fff;--mut:#a0a0a0;--ac:#ff2b3d;--ac2:#b3001b;--ln:#2a2a2a;color-scheme:dark}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
 header{display:flex;align-items:baseline;gap:12px;padding:14px 18px;border-bottom:1px solid var(--ln);flex-wrap:wrap}
 h1{margin:0;font:800 22px/1 "Arial Black",Impact,sans-serif;letter-spacing:.06em;background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -33,13 +32,15 @@ summary{cursor:pointer;font-weight:700;font-size:12px;letter-spacing:.05em;text-
 #wv canvas{width:100%;height:100%;display:block}#ph{position:absolute;top:0;bottom:0;width:2px;background:var(--ac2);left:0;pointer-events:none}
 .tr{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}.tr .sp{flex:1}.tr label{font-size:12px;color:var(--mut);display:flex;flex-direction:column;gap:3px}.tr label select{color:var(--ink);font-size:13px;padding:6px 8px}
 #fx{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:14px;align-items:start}
-.row{display:grid;grid-template-columns:105px 1fr 46px;gap:6px;align-items:center;font-size:12px;margin:4px 0}
+.row{display:grid;grid-template-columns:105px 1fr 64px;gap:6px;align-items:center;font-size:12px;margin:4px 0}
+.num{width:100%;font:inherit;font-size:12px;padding:3px 4px;border:1px solid var(--ln);border-radius:6px;background:var(--bg);color:var(--ink);text-align:right}
 .row output{text-align:right;color:var(--ac);font-variant-numeric:tabular-nums}.row input[type=checkbox]{justify-self:start;accent-color:var(--ac);width:16px;height:16px}
 #fx h3{cursor:pointer;display:flex;justify-content:space-between;user-select:none}#fx h3::after{content:"▾";transition:.2s}#fx .card.min h3{margin:0}#fx .card.min h3::after{transform:rotate(-90deg)}#fx .card.min .body{display:none}
 input[type=range]{width:100%;accent-color:var(--ac)}
+#md{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:20;padding:16px}#md[hidden]{display:none}#mp{width:min(420px,100%)}.st{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:12px 0}.st input[type=checkbox]{accent-color:var(--ac);width:18px;height:18px}
 #toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;opacity:0;transition:.3s;pointer-events:none;z-index:9}#toast.s{opacity:1}
 </style></head><body>
-<header><h1>SPARGL: AUDIO LAB</h1><span>Upload, sculpt, preview and export sound. Everything stays in your browser.</span></header>
+<header><h1>SPARGL: AUDIO LAB</h1><span>Upload, sculpt, preview and export sound. Everything stays in your browser.</span><button id="gear" style="margin-left:auto">⚙ Settings</button></header>
 <main>
 <div class="side">
  <section class="card"><h2>Library (saved in browser)</h2>
@@ -61,7 +62,14 @@ input[type=range]{width:100%;accent-color:var(--ac)}
   <p class="mut" style="margin:8px 0 0;font-size:12px">Exports download as a .zip containing your audio file (this page can only save zip, not bare audio files).</p></section>
  <div class="tr"><button id="fxc">Collapse all effects</button></div>
  <div id="fx"></div>
-</div></main><div id="toast"></div>
+</div></main><div id="md" hidden><div class="card" id="mp"><h2>Settings</h2>
+<label class="st">Theme<select id="sth"><option value="auto">Auto (system)</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+<label class="st">Slider step<select id="sst"><option value=".1">0.1</option><option value=".25">0.25</option><option value=".5">0.5 (default)</option><option value="1">1</option></select></label>
+<small class="mut">Applies to sliders with a range of 10 or more (dB, Hz, %). Sliders that run 0 to 1 keep fine steps. You can always type an exact value in the box next to any slider.</small>
+<label class="st"><span>Play when a preset is chosen</span><input type="checkbox" id="sau"></label>
+<label class="st"><span>Save uploads to library automatically</span><input type="checkbox" id="ssv"></label>
+<div class="tr"><button id="sclr">Clear saved library</button><button id="srs">Reset settings</button><span class="sp"></span><button id="scl" class="pri">Done</button></div></div></div>
+<div id="toast"></div>
 <script>
 const $=s=>document.querySelector(s),esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const G=[['Basics',[['gain','Volume',0,2,1,.01],['pan','Pan',-1,1,0,.01],['rate','Speed / Pitch',.25,3,1,.01],['fi','Fade in (export)',0,5,0,.1],['fo','Fade out (export)',0,5,0,.1]]],
@@ -89,6 +97,9 @@ const PC={
 'Distortion & Grit':{'Overdrive':{drv:35,mid:3,mf:1500},'Heavy Distortion':{drv:80,lp:6000,th:-15,ratio:6},'Fuzz':{drv:100,mid:5,mf:800,lp:4000},'Tube Saturation':{sat:.8},'Bit Destroyer':{bits:2,drv:30}},
 'Mastering & Utility':{'Mastering Glue':{th:-18,ratio:2,mk:3,wid:.2,lim:-1,lo:1,hi:1},'Loudness Max':{th:-24,ratio:6,mk:8,lim:-2,nrm:1},'Squash':{th:-35,ratio:20,mk:12},'Wide Master':{wid:.5},'Bass Boost':{lo:12,hi:-2},'Treble Boost':{hi:10,hp:100},'Rumble Cleanup':{hp:80},'Gate Cleanup':{gate:-50,hp:60},'Normalize Only':{nrm:1},'Trim Silence':{trim:1,nrm:1},'Mono Compat':{mono:1},'Phase Flip':{inv:1},'Swap Channels':{swap:1}}};
 const PF=Object.assign({},...Object.values(PC));
+const SD={theme:'auto',step:.5,auto:true,save:true};let S={...SD};try{S={...SD,...JSON.parse(localStorage.getItem('spargl-set')||'{}')}}catch(e){}
+const saveS=()=>{try{localStorage.setItem('spargl-set',JSON.stringify(S))}catch(e){}};
+function applyTheme(){if(S.theme=='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.dataset.theme=S.theme}
 let p={...D},buf=null,cache=null,actx=null,src=null,oscs=[],playing=false,loop=false,byp=false,pos=0,startT=0,name='',cp='';
 const toast=m=>{const t=$('#toast');t.textContent=m;t.className='s';clearTimeout(toast.i);toast.i=setTimeout(()=>t.className='',2600)};
 const PK=['rev','ts','te','trim','nrm','mono','swap','inv','gate'],pk=()=>PK.map(k=>p[k]).join(),R=()=>byp?1:p.rate;
@@ -148,7 +159,7 @@ const db=()=>new Promise((res,rej)=>{const r=indexedDB.open('spargl-lab',1);r.on
 async function tx(m,f){const d=await db();return new Promise((res,rej)=>{const t=d.transaction('a',m),r=f(t.objectStore('a'));t.oncomplete=()=>res(r.result);t.onerror=()=>rej(t.error)})}
 async function lib(){try{const a=await tx('readonly',s=>s.getAll());$('#lib').innerHTML=a.length?a.sort((x,y)=>y.date-x.date).map(i=>`<li><b data-l="${i.id}" title="Load">${esc(i.name)}</b><small>${(i.data.byteLength/1e6).toFixed(2)} MB</small><button data-d="${i.id}" title="Delete">✕</button></li>`).join(''):'<li class="mut">Nothing saved yet</li>'}catch(e){$('#lib').innerHTML='<li class="mut">Storage unavailable</li>'}}
 $('#lib').onclick=async e=>{const l=e.target.dataset.l,d=e.target.dataset.d;try{if(l){const r=await tx('readonly',s=>s.get(+l));loadAB(r.data,r.name,false)}if(d){await tx('readwrite',s=>s.delete(+d));lib()}}catch(x){toast('Storage error')}};
-async function files(fl){for(const f of fl)await loadAB(await f.arrayBuffer(),f.name,true)}
+async function files(fl){for(const f of fl)await loadAB(await f.arrayBuffer(),f.name,S.save)}
 $('#file').onchange=e=>files(e.target.files);const dr=$('#drop');dr.ondragover=e=>{e.preventDefault();dr.classList.add('h')};dr.ondragleave=()=>dr.classList.remove('h');dr.ondrop=e=>{e.preventDefault();dr.classList.remove('h');files(e.dataTransfer.files)};
 $('#demo').onclick=()=>{const c=actx||(actx=new AudioContext()),sr=c.sampleRate,b=c.createBuffer(1,sr*4,sr),d=b.getChannelData(0),nt=[220,277,330,440,330,277,220,165];
  for(let i=0;i<d.length;i++){const t=i/sr,k=Math.floor(t*4)%8,f=nt[k];d[i]=((((t*f)%1)*2-1)*.22+Math.sin(6.283*t*f*2)*.1)*Math.exp(-(t*4%1)*3)+(Math.random()*2-1)*.25*Math.exp(-((t*2)%1)*18)*(k%2?0:1)}setBuf(b,'Demo sound')};
@@ -177,14 +188,17 @@ $('#ex').onclick=async()=>{if(!buf)return toast('Load a sound first');const f=$(
 $('#xf').onchange=ui;
 $('#sv').onclick=async()=>{if(!buf)return toast('Load a sound first');try{const w=wav(await render());await tx('readwrite',s=>s.add({name:base()+'.wav',date:Date.now(),data:w}));lib();toast('Processed audio saved to library')}catch(e){toast('Browser storage unavailable')}};
 /* ---------- UI ---------- */
-function syncUI(){document.querySelectorAll('input[data-k]').forEach(i=>{const v=p[i.dataset.k];if(i.type=='checkbox')i.checked=!!v;else{i.value=v;i.nextElementSibling.textContent=+(+v).toFixed(2)}});ui()}
-$('#fx').innerHTML=G.map(g=>`<section class="card"><h3>${g[0]}</h3><div class="body">${g[1].map(c=>c[6]?`<div class="row"><label>${c[1]}</label><input type="checkbox" data-k="${c[0]}"><span></span></div>`:`<div class="row"><label>${c[1]}</label><input type="range" data-k="${c[0]}" min="${c[2]}" max="${c[3]}" step="${c[5]}" value="${c[4]}"><output></output></div>`).join('')}</div></section>`).join('');
+function syncUI(){document.querySelectorAll('input[data-k]').forEach(i=>{const v=p[i.dataset.k];if(i.type=='checkbox')i.checked=!!v;else{i.value=v;i.nextElementSibling.value=+(+v).toFixed(3)}});ui()}
+const CM={};G.forEach(g=>g[1].forEach(c=>CM[c[0]]=c));const stepFor=c=>(c[3]-c[2]>=10)?Math.max(c[5],S.step):c[5];
+function applyStep(){document.querySelectorAll('#fx input[type=range]').forEach(r=>{r.step=stepFor(CM[r.dataset.k])});syncUI()}
+$('#fx').innerHTML=G.map(g=>`<section class="card"><h3>${g[0]}</h3><div class="body">${g[1].map(c=>c[6]?`<div class="row"><label>${c[1]}</label><input type="checkbox" data-k="${c[0]}"><span></span></div>`:`<div class="row"><label>${c[1]}</label><input type="range" data-k="${c[0]}" min="${c[2]}" max="${c[3]}" step="${stepFor(c)}" value="${c[4]}"><input type="number" class="num" data-n="${c[0]}" min="${c[2]}" max="${c[3]}" step="any" value="${c[4]}"></div>`).join('')}</div></section>`).join('');
 $('#fx').onclick=e=>{const h=e.target.closest('h3');if(h)h.parentElement.classList.toggle('min')};
 $('#fxc').onclick=e=>{const cs=[...document.querySelectorAll('#fx .card')],all=cs.every(c=>c.classList.contains('min'));cs.forEach(c=>c.classList.toggle('min',!all));e.target.textContent=all?'Collapse all effects':'Expand all effects'};
-$('#fx').oninput=e=>{const t=e.target,k=t.dataset.k;if(!k)return;const v=t.type=='checkbox'?+t.checked:+t.value;chg(()=>p[k]=v);if(t.type!='checkbox')t.nextElementSibling.textContent=+v.toFixed(2);cp='';markP()};
+$('#fx').oninput=e=>{const t=e.target,k=t.dataset.k;if(!k)return;const v=t.type=='checkbox'?+t.checked:+t.value;chg(()=>p[k]=v);if(t.type!='checkbox')t.nextElementSibling.value=+v.toFixed(3);cp='';markP()};
+$('#fx').onchange=e=>{const t=e.target,k=t.dataset.n;if(!k)return;let v=+t.value;if(t.value===''||isNaN(v))v=p[k];v=Math.min(+t.max,Math.max(+t.min,v));chg(()=>p[k]=v);t.value=+v.toFixed(3);t.previousElementSibling.value=v;cp='';markP()};
 $('#pre').innerHTML=Object.entries(PC).map(([c,o])=>`<details open><summary>${c} <small>${Object.keys(o).length}</small></summary><div class="chips">${Object.keys(o).map(k=>`<button data-p="${esc(k)}">${esc(k)}</button>`).join('')}</div></details>`).join('');
 const markP=()=>document.querySelectorAll('#pre button').forEach(b=>b.classList.toggle('on',b.dataset.p===cp));
-$('#pre').onclick=e=>{const n=e.target.dataset.p;if(!n)return;stopN();playing=false;byp=false;p={...D,...PF[n]};cp=n;syncUI();markP();pos=0;if(buf){draw();play(0)}};
+$('#pre').onclick=e=>{const n=e.target.dataset.p;if(!n)return;stopN();playing=false;byp=false;p={...D,...PF[n]};cp=n;syncUI();markP();pos=0;if(buf){draw();if(S.auto)play(0)}};
 $('#ps').oninput=e=>{const q=e.target.value.toLowerCase();document.querySelectorAll('#pre details').forEach(d=>{let any=0;d.querySelectorAll('button').forEach(b=>{const m=b.dataset.p.toLowerCase().includes(q)||d.firstChild.textContent.toLowerCase().includes(q);b.style.display=m?'':'none';any+=m});d.style.display=any?'':'none';if(q)d.open=true})};
 $('#rst').onclick=()=>{stopN();const w=playing;playing=false;p={...D};cp='';byp=false;syncUI();markP();if(buf){draw();pos=0;if(w)play(0)}};
 $('#rev').onclick=()=>{if(!buf)return;chg(()=>{pos=cur().duration-pos;p.rev=p.rev?0:1});cp='';markP();ui()};
@@ -194,5 +208,14 @@ $('#play').onclick=()=>buf?(playing?pause():play()):toast('Load a sound first');
 $('#stop').onclick=()=>{stopN();playing=false;pos=0;ui()};
 $('#wv').onclick=e=>{if(!buf)return;const r=e.currentTarget.getBoundingClientRect(),t=(e.clientX-r.left)/r.width*cur().duration;if(playing)play(t);else pos=t};
 document.onkeydown=e=>{if(e.code=='Space'&&!/INPUT|BUTTON|SELECT/.test(e.target.tagName)){e.preventDefault();$('#play').click()}};
-addEventListener('resize',draw);syncUI();lib();
+function syncS(){$('#sth').value=S.theme;$('#sst').value=String(S.step);$('#sau').checked=S.auto;$('#ssv').checked=S.save}
+$('#gear').onclick=()=>{syncS();$('#md').hidden=false};
+$('#scl').onclick=()=>{$('#md').hidden=true};$('#md').onclick=e=>{if(e.target.id=='md')$('#md').hidden=true};
+addEventListener('keydown',e=>{if(e.key=='Escape')$('#md').hidden=true});
+$('#sth').onchange=e=>{S.theme=e.target.value;saveS();applyTheme();draw()};
+$('#sst').onchange=e=>{S.step=+e.target.value;saveS();applyStep()};
+$('#sau').onchange=e=>{S.auto=e.target.checked;saveS()};$('#ssv').onchange=e=>{S.save=e.target.checked;saveS()};
+$('#srs').onclick=()=>{S={...SD};saveS();syncS();applyTheme();applyStep();draw();toast('Settings reset')};
+let cf=0;$('#sclr').onclick=async e=>{const b=e.target;if(!cf){cf=1;b.textContent='Click again to confirm';setTimeout(()=>{cf=0;b.textContent='Clear saved library'},3000);return}cf=0;b.textContent='Clear saved library';try{await tx('readwrite',s=>s.clear());lib();toast('Library cleared')}catch(x){toast('Storage error')}};
+addEventListener('resize',draw);applyTheme();applyStep();lib();
 </script></body></html>
