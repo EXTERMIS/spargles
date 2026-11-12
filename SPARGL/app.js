@@ -15,7 +15,9 @@ const G = [
   ["Basics", [
     ["gain", "Volume", 0, 2, 1, 0.01],
     ["pan", "Pan", -1, 1, 0, 0.01],
-    ["rate", "Speed / Pitch", 0.25, 3, 1, 0.01],
+    ["speed", "Speed", 0.25, 3, 1, 0.01],
+    ["pitch", "Pitch (semitones)", -24, 24, 0, 0.1],
+    ["lock", "Lock speed & pitch", 0, 1, 0, 1, "t"],
     ["fi", "Fade in (export)", 0, 5, 0, 0.1],
     ["fo", "Fade out (export)", 0, 5, 0, 0.1]
   ]],
@@ -131,27 +133,27 @@ const PC = {
     "Robot": { rgf: 100, rgm: 0.85 },
     "Dalek": { rgf: 30, rgm: 1, drv: 20, hp: 200 },
     "Cyborg": { rgf: 150, rgm: 0.6, chd: 0.5, chb: 4, chm: 0.5 },
-    "Alien": { rgf: 400, rgm: 0.5, wd: 0.5, wr: 3, rate: 1.2 },
+    "Alien": { rgf: 400, rgm: 0.5, wd: 0.5, wr: 3, speed: 1.2, pitch: 3.16, lock: 1 },
     "Sci-Fi Comm": { hp: 500, lp: 3500, rgf: 600, rgm: 0.3, drv: 15 },
-    "Ghost": { rmx: 0.6, rsz: 4, hp: 500, chd: 0.5, chr: 0.4, chm: 0.5, dt: 0.4, dfb: 0.5, dmx: 0.3, rate: 0.9 },
-    "Deep Monster": { rate: 0.65, lo: 8, rmx: 0.3, rsz: 2, drv: 15 },
-    "Demon": { rate: 0.6, drv: 35, lo: 6, rgf: 60, rgm: 0.4, rmx: 0.3 },
-    "Chipmunk": { rate: 1.7 }
+    "Ghost": { rmx: 0.6, rsz: 4, hp: 500, chd: 0.5, chr: 0.4, chm: 0.5, dt: 0.4, dfb: 0.5, dmx: 0.3, speed: 0.9, pitch: -1.82, lock: 1 },
+    "Deep Monster": { speed: 0.65, pitch: -7.46, lock: 1, lo: 8, rmx: 0.3, rsz: 2, drv: 15 },
+    "Demon": { speed: 0.6, pitch: -8.84, lock: 1, drv: 35, lo: 6, rgf: 60, rgm: 0.4, rmx: 0.3 },
+    "Chipmunk": { speed: 1.7, pitch: 9.19, lock: 1 }
   },
   "Lo-Fi & Retro": {
-    "Lo-Fi Tape": { rate: 0.97, lp: 6000, hp: 80, bits: 10, trr: 0.8, trd: 0.2, drv: 8 },
+    "Lo-Fi Tape": { speed: 0.97, pitch: -0.53, lock: 1, lp: 6000, hp: 80, bits: 10, trr: 0.8, trd: 0.2, drv: 8 },
     "Lo-Fi Chill": { lp: 4500, hp: 100, bits: 11, vbd: 0.2, vbr: 0.5, sat: 0.6, rmx: 0.2 },
-    "Cassette Warble": { rate: 0.98, vbd: 0.3, vbr: 0.7, lp: 7000, bits: 12, sat: 0.5 },
+    "Cassette Warble": { speed: 0.98, pitch: -0.35, lock: 1, vbd: 0.3, vbr: 0.7, lp: 7000, bits: 12, sat: 0.5 },
     "Old Vinyl": { hp: 200, lp: 5000, drv: 12, bits: 12, mid: 4 },
     "Vintage Warm": { sat: 0.7, lo: 3, hi: -3, lp: 12000 },
     "8-Bit": { bits: 4, lp: 8000, drv: 10 },
     "Game Boy": { bits: 3, lp: 6000, hp: 300, drv: 8 }
   },
   "Time & Echo": {
-    "Slow-Mo": { rate: 0.5 },
-    "Half-Speed Doom": { rate: 0.5, lo: 6, rmx: 0.3 },
-    "Double Time": { rate: 1.5 },
-    "Fast Forward": { rate: 2 },
+    "Slow-Mo": { speed: 0.5, pitch: -12, lock: 1 },
+    "Half-Speed Doom": { speed: 0.5, pitch: -12, lock: 1, lo: 6, rmx: 0.3 },
+    "Double Time": { speed: 1.5, pitch: 7.02, lock: 1 },
+    "Fast Forward": { speed: 2, pitch: 12, lock: 1 },
     "Slapback": { dt: 0.12, dfb: 0.15, dmx: 0.5 },
     "Tape Echo": { dt: 0.28, dfb: 0.45, dmx: 0.4, lp: 4500, hp: 200, sat: 0.4 },
     "Echo Canyon": { dt: 0.55, dfb: 0.6, dmx: 0.6, rmx: 0.3, rsz: 3 },
@@ -210,7 +212,7 @@ const PC = {
 };
 const PF = Object.assign({}, ...Object.values(PC));
 // ---------- Settings & app state ----------
-const SD = { theme: "auto", step: 0.5, auto: true, save: true };
+const SD = { theme: "auto", step: 0.5, auto: true, save: true, sw: false };
 let S = { ...SD };
 try {
   S = { ...SD, ...JSON.parse(localStorage.getItem("spargl-set") || "{}") };
@@ -247,10 +249,82 @@ const toast = (m) => {
   toast.i = setTimeout(() => t.className = "", 2600);
 };
 const PK = ["rev", "ts", "te", "trim", "nrm", "mono", "swap", "inv", "gate"];
-const pk = () => PK.map((k) => p[k]).join();
-const R = () => byp ? 1 : p.rate;
+const pk = () => PK.map((k) => p[k]).join() + "," + effK().toFixed(3);
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const pitchRatio = (q) => Math.pow(2, q.pitch / 12);
+// Playback rate of the audio source. Locked: speed drives both speed and pitch
+// (tape-style). Unlocked: the rate only carries the pitch change.
+const prate = (q) => q.lock ? q.speed : pitchRatio(q);
+// Time-stretch factor (new length / old length) that makes speed independent of pitch.
+const kOf = (q) => q.lock ? 1 : clamp(pitchRatio(q) / q.speed, 0.25, 4);
+const effK = () => byp ? 1 : kOf(p);
+const R = () => byp ? 1 : prate(p);
+// ---------- Time stretch (WSOLA): change length without changing pitch ----------
+let stCache = null;
+function stretchBuf(b, k) {
+  if (Math.abs(k - 1) < 0.001) return b;
+  if (stCache && stCache.b === b && stCache.k === k) return stCache.o;
+  const sr = b.sampleRate;
+  const nc = b.numberOfChannels;
+  const len = b.length;
+  const N = Math.round(sr * 0.04) & ~1; // grain size (~40 ms)
+  const Hs = N / 2; // synthesis hop
+  const Ha = Hs / k; // analysis hop
+  const tol = Math.round(sr * 0.006); // search range for best grain alignment
+  const outLen = Math.ceil(len * k);
+  const X = [...Array(nc)].map((_, c) => b.getChannelData(c));
+  const Y = X.map(() => new Float32Array(outLen + N));
+  const W = new Float32Array(outLen + N);
+  const win = new Float32Array(N);
+  for (let i = 0; i < N; i++) win[i] = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / N);
+  const x0 = X[0];
+  const at = (i) => i >= 0 && i < len ? x0[i] : 0;
+  let prev = 0;
+  for (let m = 0; m * Hs < outLen; m++) {
+    let pos = Math.round(m * Ha);
+    if (m > 0) {
+      const ref = prev + Hs;
+      let best = pos;
+      let bestScore = -Infinity;
+      for (let c = Math.max(0, pos - tol); c <= pos + tol; c += 2) {
+        let dot = 0;
+        let en = 1e-9;
+        for (let i = 0; i < N; i += 8) {
+          const v = at(c + i);
+          dot += at(ref + i) * v;
+          en += v * v;
+        }
+        const score = dot / Math.sqrt(en);
+        if (score > bestScore) {
+          bestScore = score;
+          best = c;
+        }
+      }
+      pos = best;
+    }
+    prev = pos;
+    const o = m * Hs;
+    for (let c = 0; c < nc; c++) {
+      const x = X[c];
+      const y = Y[c];
+      for (let i = 0; i < N; i++) {
+        const j = pos + i;
+        if (j >= 0 && j < len) y[o + i] += win[i] * x[j];
+      }
+    }
+    for (let i = 0; i < N; i++) W[o + i] += win[i];
+  }
+  const out = new AudioBuffer({ length: outLen, numberOfChannels: nc, sampleRate: sr });
+  Y.forEach((y, c) => {
+    for (let i = 0; i < outLen; i++) y[i] = W[i] > 1e-3 ? y[i] / W[i] : 0;
+    out.copyToChannel(y.subarray(0, outLen), c);
+  });
+  stCache = { b, k, o: out };
+  return out;
+}
 // ---------- Edit tools (applied to the audio buffer) ----------
 function prep(b, p) {
+  b = stretchBuf(b, effK());
   const nc = b.numberOfChannels;
   let s = Math.floor(b.length * p.ts / 100);
   let e = Math.floor(b.length * p.te / 100);
@@ -534,7 +608,7 @@ function play(from) {
   if (pos >= b.duration - 0.01) pos = 0;
   src = c.createBufferSource();
   src.buffer = b;
-  src.playbackRate.value = q.rate;
+  src.playbackRate.value = prate(q);
   src.loop = loop;
   mk(c, q, src, oscs).connect(c.destination);
   src.start(0, pos);
@@ -558,10 +632,11 @@ function pause() {
 const chg = (f) => {
   if (playing) pos = cpos();
   const k = pk();
+  const k0 = effK();
   f();
   if (buf && k != pk()) {
     draw();
-    pos = Math.min(pos, cur().duration - 0.01);
+    pos = Math.min(pos * effK() / k0, cur().duration - 0.01);
   }
   if (playing) play(pos);
 };
@@ -605,78 +680,278 @@ function draw() {
     x.fillRect(i, (1 + mn) * h / 2, 1, Math.max(1, (mx - mn) * h / 2));
   }
 }
-function setBuf(b, n) {
+let curId = null; // library id of the loaded track (null for the demo / unsaved audio)
+function setBuf(b, n, id = null) {
   stopN();
   playing = false;
   buf = b;
   cache = null;
   name = n;
+  curId = id;
   pos = 0;
   $("#nm").textContent = n;
   draw();
   ui();
 }
-async function loadAB(ab, n, save) {
+async function loadAB(ab, n, save, sw = true, id = null) {
   const c = actx || (actx = new AudioContext());
+  let decoded;
   try {
-    setBuf(await c.decodeAudioData(ab.slice(0)), n);
+    decoded = await c.decodeAudioData(ab.slice(0));
   } catch (e) {
     return toast("Could not decode " + n);
   }
+  if (sw) setBuf(decoded, n, id);
   if (save) {
     try {
-      await tx("readwrite", (s) => s.add({ name: n, date: Date.now(), data: ab }));
+      const key = await tx("readwrite", (s) => s.add({ name: n, date: Date.now(), data: ab }));
+      if (sw) curId = key;
       lib();
-      toast("Saved to library");
+      toast(sw ? "Saved to library" : "Added to library (current track kept)");
     } catch (e) {
       toast("Browser storage unavailable");
     }
   }
 }
 // ---------- Library (IndexedDB) ----------
-const db = () => new Promise((res, rej) => {
-  const r = indexedDB.open("spargl-lab", 1);
-  r.onupgradeneeded = () => r.result.createObjectStore("a", { keyPath: "id", autoIncrement: true });
+let dbp = null;
+const db = () => dbp || (dbp = new Promise((res, rej) => {
+  const r = indexedDB.open("spargl-lab", 2);
+  r.onupgradeneeded = () => {
+    const d = r.result;
+    if (!d.objectStoreNames.contains("a")) d.createObjectStore("a", { keyPath: "id", autoIncrement: true }); // tracks
+    if (!d.objectStoreNames.contains("p")) d.createObjectStore("p", { keyPath: "id", autoIncrement: true }); // projects
+  };
   r.onsuccess = () => res(r.result);
-  r.onerror = () => rej(r.error);
-});
-async function tx(m, f) {
+  r.onerror = () => {
+    dbp = null;
+    rej(r.error);
+  };
+}));
+async function tx(m, f, store = "a") {
   const d = await db();
   return new Promise((res, rej) => {
-    const t = d.transaction("a", m);
-    const r = f(t.objectStore("a"));
+    const t = d.transaction(store, m);
+    const r = f(t.objectStore(store));
     t.oncomplete = () => res(r.result);
     t.onerror = () => rej(t.error);
   });
 }
+const savePJ = (pr) => tx("readwrite", (s) => s.put(pr), "p");
+let TR = []; // saved tracks
+let PJ = []; // projects: { id, name, ids: [trackId, ...], date }
+let libTab = "tracks";
 async function lib() {
   try {
-    const a = await tx("readonly", (s) => s.getAll());
-    $("#lib").innerHTML = a.length ? a.sort((x, y) => y.date - x.date).map((i) => `<li><b data-l="${i.id}" title="Load">${esc(i.name)}</b><small>${(i.data.byteLength / 1000000).toFixed(2)} MB</small><button data-d="${i.id}" title="Delete">✕</button></li>`).join("") : '<li class="mut">Nothing saved yet</li>';
+    TR = (await tx("readonly", (s) => s.getAll())).sort((x, y) => y.date - x.date);
+    PJ = (await tx("readonly", (s) => s.getAll(), "p")).sort((x, y) => x.date - y.date);
+    renderLib();
   } catch (e) {
     $("#lib").innerHTML = '<li class="mut">Storage unavailable</li>';
   }
 }
-$("#lib").onclick = async (e) => {
-  const l = e.target.dataset.l;
-  const d = e.target.dataset.d;
-  try {
-    if (l) {
-      const r = await tx("readonly", (s) => s.get(+l));
-      loadAB(r.data, r.name, false);
+const mb = (t) => (t.data.byteLength / 1000000).toFixed(2);
+// One track row. o.pid: row lives in that project; o.del: show "delete from library"; o.drag: draggable.
+const trackRow = (t, o = {}) => `<li class="trk"${o.drag ? ' draggable="true"' : ""} data-t="${t.id}" data-from="${o.pid ?? ""}"><b data-l="${t.id}" title="Click to load">${esc(t.name)}</b><small>${mb(t)} MB</small><button data-rn="${t.id}" title="Rename">✎</button>${o.pid != null ? `<button data-rm="${t.id}" data-pid="${o.pid}" title="Remove from project">✕</button>` : o.del ? `<button data-d="${t.id}" title="Delete from library">✕</button>` : ""}</li>`;
+function renderLib() {
+  const onT = libTab == "tracks";
+  $("#tabT").classList.toggle("on", onT);
+  $("#tabP").classList.toggle("on", !onT);
+  $("#tabT").setAttribute("aria-selected", onT);
+  $("#tabP").setAttribute("aria-selected", !onT);
+  $("#lib").hidden = !onT;
+  $("#projview").hidden = onT;
+  if (onT) {
+    $("#lib").innerHTML = TR.length ? TR.map((t) => trackRow(t, { del: true })).join("") : '<li class="mut">Nothing saved yet</li>';
+    return;
+  }
+  const byId = new Map(TR.map((t) => [t.id, t]));
+  const projects = PJ.map((pr) => {
+    const items = pr.ids.map((id) => byId.get(id)).filter(Boolean);
+    return `<div class="proj dz" data-pid="${pr.id}"><div class="ph2"><b data-pn="${pr.id}">${esc(pr.name)}</b><small>${items.length}</small><button data-prn="${pr.id}" title="Rename project">✎</button><button data-pd="${pr.id}" title="Delete project (tracks stay in the library)">✕</button></div><ul class="plist">${items.length ? items.map((t) => trackRow(t, { pid: pr.id, drag: true })).join("") : '<li class="mut hint">Drag tracks here</li>'}</ul></div>`;
+  }).join("");
+  const pool = `<div class="pool dz" data-pid=""><div class="pt">Library tracks <small>drag into a project, or drop a project track here to take it out</small></div><ul class="plist">${TR.length ? TR.map((t) => trackRow(t, { drag: true })).join("") : '<li class="mut hint">Upload audio to get started</li>'}</ul></div>`;
+  $("#pjlist").innerHTML = projects + pool;
+}
+$("#tabT").onclick = () => {
+  libTab = "tracks";
+  renderLib();
+};
+$("#tabP").onclick = () => {
+  libTab = "projects";
+  renderLib();
+};
+// Two-click confirmation for destructive buttons.
+function armed(b, fn) {
+  if (!b.dataset.c) {
+    b.dataset.c = 1;
+    b.textContent = "Sure?";
+    setTimeout(() => {
+      if (b.isConnected) {
+        b.dataset.c = "";
+        b.textContent = "✕";
+      }
+    }, 3000);
+    return;
+  }
+  fn();
+}
+// Swap a label for a text box; Enter or clicking away saves, Escape cancels.
+function renameInline(el, current, save) {
+  const inp = document.createElement("input");
+  inp.className = "rn";
+  inp.value = current;
+  inp.maxLength = 80;
+  el.replaceWith(inp);
+  inp.focus();
+  inp.select();
+  let done = false;
+  const fin = async (ok) => {
+    if (done) return;
+    done = true;
+    const v = inp.value.trim();
+    try {
+      if (ok && v && v !== current) await save(v);
+    } catch (e) {
+      toast("Storage error");
     }
-    if (d) {
-      await tx("readwrite", (s) => s.delete(+d));
+    lib();
+  };
+  inp.onkeydown = (e) => {
+    if (e.key == "Enter") fin(true);
+    else if (e.key == "Escape") fin(false);
+  };
+  inp.onblur = () => fin(true);
+}
+async function delTrack(id) {
+  await tx("readwrite", (s) => s.delete(id));
+  for (const pr of PJ) {
+    if (pr.ids.includes(id)) {
+      pr.ids = pr.ids.filter((x) => x !== id);
+      await savePJ(pr);
+    }
+  }
+  if (curId === id) curId = null;
+  lib();
+}
+$("#libbody").onclick = async (e) => {
+  const t = e.target.closest("button, b");
+  if (!t) return;
+  const ds = t.dataset;
+  try {
+    if (ds.l) {
+      const r = await tx("readonly", (s) => s.get(+ds.l));
+      loadAB(r.data, r.name, false, true, r.id);
+    } else if (ds.d) {
+      armed(t, () => delTrack(+ds.d));
+    } else if (ds.rn) {
+      const id = +ds.rn;
+      const r = TR.find((x) => x.id === id);
+      renameInline(t.parentElement.querySelector("b"), r.name, async (v) => {
+        const rec = await tx("readonly", (s) => s.get(id));
+        rec.name = v;
+        await tx("readwrite", (s) => s.put(rec));
+        if (curId === id) {
+          name = v;
+          $("#nm").textContent = v;
+        }
+      });
+    } else if (ds.rm) {
+      const pr = PJ.find((x) => x.id === +ds.pid);
+      pr.ids = pr.ids.filter((x) => x !== +ds.rm);
+      await savePJ(pr);
       lib();
+    } else if (ds.prn) {
+      const pr = PJ.find((x) => x.id === +ds.prn);
+      renameInline(t.parentElement.querySelector("b"), pr.name, async (v) => {
+        pr.name = v;
+        await savePJ(pr);
+      });
+    } else if (ds.pd) {
+      armed(t, async () => {
+        await tx("readwrite", (s) => s.delete(+ds.pd), "p");
+        lib();
+      });
     }
   } catch (x) {
     toast("Storage error");
   }
 };
-async function files(fl) {
-  for (const f of fl) await loadAB(await f.arrayBuffer(), f.name, S.save);
+async function addProject() {
+  const n = $("#pjn").value.trim() || `Project ${PJ.length + 1}`;
+  try {
+    await tx("readwrite", (s) => s.add({ name: n, ids: [], date: Date.now() }), "p");
+    $("#pjn").value = "";
+    lib();
+  } catch (e) {
+    toast("Browser storage unavailable");
+  }
 }
-$("#file").onchange = (e) => files(e.target.files);
+$("#pja").onclick = addProject;
+$("#pjn").onkeydown = (e) => {
+  if (e.key == "Enter") addProject();
+};
+// Drag tracks into, between and out of projects.
+const pv = $("#projview");
+pv.ondragstart = (e) => {
+  const li = e.target.closest("li.trk");
+  if (!li) return;
+  e.dataTransfer.setData("text/plain", JSON.stringify({ t: +li.dataset.t, from: li.dataset.from }));
+  e.dataTransfer.effectAllowed = "move";
+  li.classList.add("dragging");
+};
+pv.ondragend = () => document.querySelectorAll(".dragging, .over").forEach((x) => x.classList.remove("dragging", "over"));
+pv.ondragover = (e) => {
+  const z = e.target.closest(".dz");
+  if (!z) return;
+  e.preventDefault();
+  e.dataTransfer.dropEffect = "move";
+  z.classList.add("over");
+};
+pv.ondragleave = (e) => {
+  const z = e.target.closest(".dz");
+  if (z && !z.contains(e.relatedTarget)) z.classList.remove("over");
+};
+pv.ondrop = async (e) => {
+  const z = e.target.closest(".dz");
+  if (!z) return;
+  e.preventDefault();
+  z.classList.remove("over");
+  let d;
+  try {
+    d = JSON.parse(e.dataTransfer.getData("text/plain"));
+  } catch (x) {
+    return;
+  }
+  const to = z.dataset.pid;
+  if (to === d.from) return;
+  try {
+    if (d.from) {
+      const src = PJ.find((x) => x.id === +d.from);
+      if (src) {
+        src.ids = src.ids.filter((x) => x !== d.t);
+        await savePJ(src);
+      }
+    }
+    if (to) {
+      const dst = PJ.find((x) => x.id === +to);
+      if (!dst.ids.includes(d.t)) dst.ids.push(d.t);
+      await savePJ(dst);
+    }
+    toast(to ? (d.from ? "Moved to project" : "Added to project") : "Removed from project");
+    lib();
+  } catch (x) {
+    toast("Storage error");
+  }
+};
+async function files(fl) {
+  for (const f of fl) await loadAB(await f.arrayBuffer(), f.name, S.save, S.sw || !buf || !S.save);
+}
+$("#file").onchange = (e) => {
+  const list = [...e.target.files];
+  e.target.value = ""; // lets the same file be picked again
+  files(list);
+};
 const dr = $("#drop");
 dr.ondragover = (e) => {
   e.preventDefault();
@@ -834,15 +1109,18 @@ function zip(nm, u) {
   return o.buffer;
 }
 async function render(sr) {
+  const wasByp = byp;
+  byp = false; // always export the processed audio, never the A/B original
   const b = cur();
+  byp = wasByp;
   const rate = sr || b.sampleRate;
   const tail = (p.rmx > 0 ? p.rsz + 1 : 0) + (p.dmx > 0 ? Math.min(4, p.dt * 8) : 0);
-  const d = b.duration / p.rate;
+  const d = b.duration / prate(p);
   const len = Math.ceil((d + tail) * rate);
   const o = new OfflineAudioContext(2, len, rate);
   const s = o.createBufferSource();
   s.buffer = b;
-  s.playbackRate.value = p.rate;
+  s.playbackRate.value = prate(p);
   const out = mk(o, p, s, []);
   const f = o.createGain();
   f.gain.setValueAtTime(p.fi > 0 ? 0 : 1, 0);
@@ -940,38 +1218,106 @@ $("#fxc").onclick = (e) => {
   cs.forEach((c) => c.classList.toggle("min", !all));
   e.target.textContent = all ? "Collapse all effects" : "Expand all effects";
 };
+// Keeps speed and pitch in step while they are locked together.
+function setVal(k, v) {
+  p[k] = v;
+  if (p.lock && (k === "speed" || k === "pitch" || k === "lock")) {
+    if (k === "pitch") p.speed = clamp(Math.pow(2, v / 12), 0.25, 3);
+    p.pitch = +(12 * Math.log2(p.speed)).toFixed(2);
+  }
+}
+// Unlocked speed/pitch needs a time-stretch, so it is applied on release.
+const heavy = (k) => (k === "speed" || k === "pitch") && !p.lock;
+const later = (fn) => {
+  toast("Applying…");
+  setTimeout(fn, 30);
+};
+function apply(k, v) {
+  chg(() => setVal(k, v));
+  if (p.lock && (k === "speed" || k === "pitch" || k === "lock")) syncUI();
+  cp = "";
+  markP();
+}
 $("#fx").oninput = (e) => {
   const t = e.target;
   const k = t.dataset.k;
   if (!k) return;
   const v = t.type == "checkbox" ? +t.checked : +t.value;
-  chg(() => p[k] = v);
   if (t.type != "checkbox") t.nextElementSibling.value = +v.toFixed(3);
-  cp = "";
-  markP();
+  if (heavy(k)) return;
+  apply(k, v);
 };
 $("#fx").onchange = (e) => {
   const t = e.target;
+  if (t.dataset.k && t.type == "range" && heavy(t.dataset.k)) {
+    const k = t.dataset.k;
+    const v = +t.value;
+    return later(() => apply(k, v));
+  }
   const k = t.dataset.n;
   if (!k) return;
   let v = +t.value;
   if (t.value === "" || isNaN(v)) v = p[k];
   v = Math.min(+t.max, Math.max(+t.min, v));
-  chg(() => p[k] = v);
-  t.value = +v.toFixed(3);
-  t.previousElementSibling.value = v;
-  cp = "";
-  markP();
+  const done = () => {
+    apply(k, v);
+    t.value = +p[k].toFixed(3);
+    t.previousElementSibling.value = p[k];
+  };
+  if (heavy(k)) later(done);
+  else done();
 };
-$("#pre").innerHTML = Object.entries(PC).map(([c, o]) => `<details open><summary>${c} <small>${Object.keys(o).length}</small></summary><div class="chips">${Object.keys(o).map((k) => `<button data-p="${esc(k)}">${esc(k)}</button>`).join("")}</div></details>`).join("");
 const markP = () => document.querySelectorAll("#pre button").forEach((b) => b.classList.toggle("on", b.dataset.p === cp));
+// ---------- Custom presets (saved in localStorage) ----------
+let CUSTOM = Object.create(null);
+try {
+  Object.assign(CUSTOM, JSON.parse(localStorage.getItem("spargl-custom")) || {});
+} catch (e) {}
+const saveCustom = () => {
+  try {
+    localStorage.setItem("spargl-custom", JSON.stringify(CUSTOM));
+  } catch (e) {
+    toast("Could not store the preset in this browser");
+  }
+};
+const getPreset = (key) => key.startsWith("c:") ? CUSTOM[key.slice(2)] : PF[key];
+function renderPresets() {
+  const names = Object.keys(CUSTOM);
+  const custom = `<details open><summary>Custom Presets <small>${names.length}</small></summary>` + (names.length ? `<div class="chips">${names.map((k) => `<span class="cchip"><button data-p="c:${esc(k)}">${esc(k)}</button><button class="cx" data-cx="${esc(k)}" title="Delete preset">✕</button></span>`).join("")}</div>` : '<p class="mut hint">Nothing here yet. Adjust the effects, then press Save preset.</p>') + "</details>";
+  $("#pre").innerHTML = custom + Object.entries(PC).map(([c, o]) => `<details open><summary>${c} <small>${Object.keys(o).length}</small></summary><div class="chips">${Object.keys(o).map((k) => `<button data-p="${esc(k)}">${esc(k)}</button>`).join("")}</div></details>`).join("");
+  markP();
+  filterPresets();
+}
+function filterPresets() {
+  const q = $("#ps").value.toLowerCase();
+  document.querySelectorAll("#pre details").forEach((d) => {
+    let any = 0;
+    d.querySelectorAll(".chips button[data-p]").forEach((b) => {
+      const m = b.textContent.toLowerCase().includes(q) || d.firstChild.textContent.toLowerCase().includes(q);
+      (b.closest(".cchip") || b).style.display = m ? "" : "none";
+      any += m;
+    });
+    d.style.display = !q || any ? "" : "none";
+    if (q) d.open = true;
+  });
+}
+$("#ps").oninput = filterPresets;
 $("#pre").onclick = (e) => {
+  const cx = e.target.closest("[data-cx]");
+  if (cx) {
+    return armed(cx, () => {
+      delete CUSTOM[cx.dataset.cx];
+      saveCustom();
+      if (cp == "c:" + cx.dataset.cx) cp = "";
+      renderPresets();
+    });
+  }
   const n = e.target.dataset.p;
   if (!n) return;
   stopN();
   playing = false;
   byp = false;
-  p = { ...D, ...PF[n] };
+  p = { ...D, ...getPreset(n) };
   cp = n;
   syncUI();
   markP();
@@ -981,20 +1327,40 @@ $("#pre").onclick = (e) => {
     if (S.auto) play(0);
   }
 };
-$("#ps").oninput = (e) => {
-  const q = e.target.value.toLowerCase();
-  document.querySelectorAll("#pre details").forEach((d) => {
-    let any = 0;
-    d.querySelectorAll("button").forEach((b) => {
-      const m = b.dataset.p.toLowerCase().includes(q) || d.firstChild.textContent.toLowerCase().includes(q);
-      b.style.display = m ? "" : "none";
-      any += m;
-    });
-    d.style.display = any ? "" : "none";
-    if (q) d.open = true;
-  });
+function openSave(show) {
+  $("#psf").hidden = !show;
+  $("#psv").hidden = show;
+  if (show) {
+    $("#psn").value = "";
+    $("#psn").focus();
+  }
+}
+$("#psv").onclick = () => openSave(true);
+$("#psno").onclick = () => openSave(false);
+$("#psn").onkeydown = (e) => {
+  if (e.key == "Enter") $("#psok").click();
+  else if (e.key == "Escape") openSave(false);
 };
+$("#psok").onclick = () => {
+  const n = $("#psn").value.trim();
+  if (!n) return toast("Give your preset a name");
+  const o = {};
+  for (const k in D) if (p[k] !== D[k]) o[k] = p[k]; // store only what differs from the defaults
+  if (!Object.keys(o).length) return toast("Nothing to save yet. Adjust some effects first");
+  const had = n in CUSTOM;
+  CUSTOM[n] = o;
+  saveCustom();
+  cp = "c:" + n;
+  renderPresets();
+  openSave(false);
+  toast(had ? `Preset "${n}" updated` : `Preset "${n}" saved`);
+};
+let rstT;
 $("#rst").onclick = () => {
+  const msg = $("#rstmsg");
+  msg.hidden = false;
+  clearTimeout(rstT);
+  rstT = setTimeout(() => msg.hidden = true, 5000);
   stopN();
   const w = playing;
   playing = false;
@@ -1022,7 +1388,10 @@ $("#rev").onclick = () => {
 $("#byp").onclick = () => {
   if (!buf) return;
   if (playing) pos = cpos();
+  const od = cur().duration;
   byp = !byp;
+  pos = pos * cur().duration / od;
+  draw();
   if (playing) play(pos);
   ui();
 };
@@ -1055,6 +1424,7 @@ function syncS() {
   $("#sth").value = S.theme;
   $("#sst").value = String(S.step);
   $("#sau").checked = S.auto;
+  $("#ssw").checked = S.sw;
   $("#ssv").checked = S.save;
 }
 $("#gear").onclick = () => {
@@ -1068,7 +1438,10 @@ $("#md").onclick = (e) => {
   if (e.target.id == "md") $("#md").hidden = true;
 };
 addEventListener("keydown", (e) => {
-  if (e.key == "Escape") $("#md").hidden = true;
+  if (e.key == "Escape") {
+    $("#md").hidden = true;
+    $("#lg").hidden = true;
+  }
 });
 $("#sth").onchange = (e) => {
   S.theme = e.target.value;
@@ -1085,6 +1458,10 @@ $("#sau").onchange = (e) => {
   S.auto = e.target.checked;
   saveS();
 };
+$("#ssw").onchange = (e) => {
+  S.sw = e.target.checked;
+  saveS();
+};
 $("#ssv").onchange = (e) => {
   S.save = e.target.checked;
   saveS();
@@ -1098,6 +1475,26 @@ $("#srs").onclick = () => {
   draw();
   toast("Settings reset");
 };
+// ---------- Update log (entries are written in updates.js) ----------
+function renderLog() {
+  const rows = typeof UPDATE_LOG === "undefined" ? [] : UPDATE_LOG;
+  $("#loglist").innerHTML = rows.length ? rows.map((x) => {
+    const when = new Date(x.date + "T00:00:00");
+    const label = isNaN(when) ? esc(String(x.date)) : when.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+    return `<article class="entry"><div class="eh"><b>v${esc(String(x.v))}</b><time>${label}</time></div><ul>${x.changes.map((c) => `<li>${esc(c)}</li>`).join("")}</ul></article>`;
+  }).join("") : '<p class="mut">No updates yet.</p>';
+}
+$("#logbtn").onclick = () => {
+  renderLog();
+  $("#lg").hidden = false;
+};
+$("#lgx").onclick = () => {
+  $("#lg").hidden = true;
+};
+$("#lg").onclick = (e) => {
+  if (e.target.id == "lg") $("#lg").hidden = true;
+};
+
 let cf = 0;
 $("#sclr").onclick = async (e) => {
   const b = e.target;
@@ -1114,6 +1511,7 @@ $("#sclr").onclick = async (e) => {
   b.textContent = "Clear saved library";
   try {
     await tx("readwrite", (s) => s.clear());
+    await tx("readwrite", (s) => s.clear(), "p");
     lib();
     toast("Library cleared");
   } catch (x) {
@@ -1123,4 +1521,5 @@ $("#sclr").onclick = async (e) => {
 addEventListener("resize", draw);
 applyTheme();
 applyStep();
+renderPresets();
 lib();
