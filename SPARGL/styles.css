@@ -1,450 +1,231 @@
-/* ===== Design tokens & themes ===== */
-
-:root {
-  --bg: #f4f4f4;
-  --pn: #fff;
-  --ink: #111;
-  --mut: #666;
-  --ac: #d90429;
-  --ac2: #8d0801;
-  --ln: #ddd;
-  box-sizing: border-box;
-  padding-top: env(safe-area-inset-top,0px);
-  padding-bottom: env(safe-area-inset-bottom,0px);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #000;
-    --pn: #111;
-    --ink: #fff;
-    --mut: #a0a0a0;
-    --ac: #ff2b3d;
-    --ac2: #b3001b;
-    --ln: #2a2a2a;
-    color-scheme: dark;
-  }
-}
-
-:root[data-theme="dark"] {
-  --bg: #000;
-  --pn: #111;
-  --ink: #fff;
-  --mut: #a0a0a0;
-  --ac: #ff2b3d;
-  --ac2: #b3001b;
-  --ln: #2a2a2a;
-  color-scheme: dark;
-}
-
-/* ===== Base & layout ===== */
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font: 14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;
-}
-
-header {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--ln);
-  flex-wrap: wrap;
-}
-
-h1 {
-  margin: 0;
-  font: 800 22px/1 "Arial Black",Impact,sans-serif;
-  letter-spacing: .06em;
-  background: linear-gradient(90deg,var(--ac),var(--ac2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.tagline {
-  margin: 0;
-  color: var(--mut);
-  font-size: 12px;
-}
-
-main {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 14px;
-  padding: 14px;
-  max-width: 1550px;
-  margin: auto;
-}
-
-@media(max-width: 860px) {
-  main {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ===== Components ===== */
-
-.card {
-  background: var(--pn);
-  border: 1px solid var(--ln);
-  border-radius: 12px;
-  padding: 12px;
-}
-
-h2,
-h3 {
-  margin: 0 0 8px;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  color: var(--mut);
-}
-
-button,
-.btn,
-select {
-  font: inherit;
-  background: var(--pn);
-  color: var(--ink);
-  border: 1px solid var(--ln);
-  border-radius: 8px;
-  padding: 7px 11px;
-  cursor: pointer;
-}
-
-button:hover,
-.btn:hover,
-select:hover {
-  border-color: var(--ac);
-}
-
-button.pri {
-  background: linear-gradient(90deg,var(--ac),var(--ac2));
-  border: 0;
-  color: #fff;
-  font-weight: 700;
-}
-
-button.on {
-  border-color: var(--ac2);
-  color: var(--ac2);
-}
-
-/* ===== Library & presets ===== */
-
-#drop {
-  border: 2px dashed var(--ln);
-  border-radius: 10px;
-  padding: 14px;
-  text-align: center;
-  color: var(--mut);
-  margin-bottom: 8px;
-}
-
-#drop.h {
-  border-color: var(--ac);
-}
-
-#lib {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  max-height: 190px;
-  overflow: auto;
-}
-
-#lib li {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  padding: 5px 0;
-  border-bottom: 1px solid var(--ln);
-}
-
-#lib b {
-  flex: 1;
-  cursor: pointer;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-weight: 600;
-}
-
-#lib b:hover {
-  color: var(--ac);
-}
-
-#lib small,
-.mut {
-  color: var(--mut);
-}
-
-#lib button {
-  padding: 2px 7px;
-}
-
-#ps {
-  width: 100%;
-  margin-bottom: 8px;
-  font: inherit;
-  padding: 7px 10px;
-  border-radius: 8px;
-  border: 1px solid var(--ln);
-  background: var(--bg);
-  color: var(--ink);
-}
-
-#pre {
-  max-height: 62vh;
-  overflow: auto;
-}
-
-details {
-  border-top: 1px solid var(--ln);
-  padding: 6px 0;
-}
-
-summary {
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-  color: var(--ac);
-  padding: 3px 0;
-}
-
-summary small {
-  color: var(--mut);
-  font-weight: 400;
-}
-
-.chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  padding: 6px 0;
-}
-
-.chips button {
-  padding: 4px 9px;
-  font-size: 12px;
-  border-radius: 99px;
-}
-
-.side {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-/* ===== Player & waveform ===== */
-
-#wv {
-  position: relative;
-  height: 150px;
-  background: var(--bg);
-  border-radius: 8px;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-#wv canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-#ph {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--ac2);
-  left: 0;
-  pointer-events: none;
-}
-
-.tr {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-
-.tr .sp {
-  flex: 1;
-}
-
-.tr label {
-  font-size: 12px;
-  color: var(--mut);
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.tr label select {
-  color: var(--ink);
-  font-size: 13px;
-  padding: 6px 8px;
-}
-
-/* ===== Effects panel ===== */
-
-#fx {
-  display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(240px,1fr));
-  gap: 12px;
-  margin-top: 14px;
-  align-items: start;
-}
-
-.row {
-  display: grid;
-  grid-template-columns: 105px 1fr 64px;
-  gap: 6px;
-  align-items: center;
-  font-size: 12px;
-  margin: 4px 0;
-}
-
-.num {
-  width: 100%;
-  font: inherit;
-  font-size: 12px;
-  padding: 3px 4px;
-  border: 1px solid var(--ln);
-  border-radius: 6px;
-  background: var(--bg);
-  color: var(--ink);
-  text-align: right;
-}
-
-.row output {
-  text-align: right;
-  color: var(--ac);
-  font-variant-numeric: tabular-nums;
-}
-
-.row input[type=checkbox] {
-  justify-self: start;
-  accent-color: var(--ac);
-  width: 16px;
-  height: 16px;
-}
-
-#fx h3 {
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  user-select: none;
-}
-
-#fx h3::after {
-  content: "▾";
-  transition: .2s;
-}
-
-#fx .card.min h3 {
-  margin: 0;
-}
-
-#fx .card.min h3::after {
-  transform: rotate(-90deg);
-}
-
-#fx .card.min .body {
-  display: none;
-}
-
-input[type=range] {
-  width: 100%;
-  accent-color: var(--ac);
-}
-
-/* ===== Settings dialog & toast ===== */
-
-#md {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 20;
-  padding: 16px;
-}
-
-#md[hidden] {
-  display: none;
-}
-
-#mp {
-  width: min(420px,100%);
-}
-
-.st {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin: 12px 0;
-}
-
-.st input[type=checkbox] {
-  accent-color: var(--ac);
-  width: 18px;
-  height: 18px;
-}
-
-#toast {
-  position: fixed;
-  left: 50%;
-  bottom: calc(18px + env(safe-area-inset-bottom,0px));
-  transform: translateX(-50%);
-  background: var(--ink);
-  color: var(--bg);
-  padding: 8px 14px;
-  border-radius: 8px;
-  opacity: 0;
-  transition: .3s;
-  pointer-events: none;
-  z-index: 9;
-}
-
-#toast.s {
-  opacity: 1;
-}
-
-/* ===== Utilities ===== */
-
-.push {
-  margin-left: auto;
-}
-
-.btn-inline {
-  display: inline-block;
-}
-
-.stack {
-  margin-top: 14px;
-}
-
-.tr.flush {
-  margin-top: 0;
-}
-
-.note {
-  margin: 8px 0 0;
-  font-size: 12px;
-}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="SPARGL: AUDIO LAB - upload audio, apply effects and presets, and export MP3 or WAV in your browser.">
+    <title>SPARGL: AUDIO LAB</title>
+    <link rel="icon" href="Tab-Icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <!-- MP3 encoder (exposes the global `lamejs`) -->
+    <script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js" defer></script>
+    <script src="updates.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+
+  <body>
+    <header>
+      <h1>SPARGL: AUDIO LAB</h1>
+      <p class="tagline">Upload, sculpt, preview and export sound. Everything stays in your browser.</p>
+      <button type="button" id="logbtn" class="push">Update log</button>
+      <button type="button" id="gear">⚙ Settings</button>
+    </header>
+
+    <main>
+      <!-- Left column: library + presets -->
+      <aside class="side" aria-label="Library and presets">
+        <section class="card" aria-labelledby="lib-title">
+          <h2 id="lib-title">Library (saved in browser)</h2>
+          <div id="drop">
+            Drop audio here or
+            <label class="btn btn-inline">
+              Browse
+              <input id="file" type="file" accept="audio/*" multiple hidden>
+            </label>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Library view">
+            <button type="button" role="tab" id="tabT" class="on" aria-selected="true">Tracks</button>
+            <button type="button" role="tab" id="tabP" aria-selected="false">Projects</button>
+          </div>
+          <div id="libbody">
+            <ul id="lib"></ul>
+            <div id="projview" hidden>
+              <div class="pnew">
+                <input id="pjn" type="text" placeholder="New project name" maxlength="40" aria-label="New project name">
+                <button type="button" id="pja">Add project</button>
+              </div>
+              <div id="pjlist"></div>
+            </div>
+          </div>
+          <div class="tr">
+            <button type="button" id="demo">Load demo sound</button>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="pre-title">
+          <h2 id="pre-title">Presets</h2>
+          <input id="ps" type="search" placeholder="Search presets…" aria-label="Search presets">
+          <div class="tr flush psave">
+            <button type="button" id="psv">Save preset</button>
+            <div id="psf" class="psf" hidden>
+              <input id="psn" type="text" placeholder="Name your preset" maxlength="40" aria-label="Preset name">
+              <button type="button" id="psok" class="pri">Save</button>
+              <button type="button" id="psno">Cancel</button>
+            </div>
+          </div>
+          <div id="pre"></div>
+        </section>
+      </aside>
+
+      <!-- Right column: player, export, effects -->
+      <div class="workspace">
+        <section class="card" aria-labelledby="nm">
+          <h2 id="nm">No audio loaded</h2>
+
+          <div id="wv">
+            <canvas aria-label="Audio waveform"></canvas>
+            <div id="ph"></div>
+          </div>
+
+          <div class="tr" role="toolbar" aria-label="Transport controls">
+            <button type="button" id="play" class="pri">▶ Play</button>
+            <button type="button" id="stop">■ Stop</button>
+            <button type="button" id="loop">Loop</button>
+            <button type="button" id="rev">Reverse</button>
+            <button type="button" id="byp" title="Hear the original (bypass all effects)">A/B original</button>
+            <span id="tm" class="mut">0:00 / 0:00</span>
+            <span class="sp"></span>
+            <button type="button" id="fxc">Collapse all effects</button>
+            <span class="popwrap">
+              <button type="button" id="rst">Reset FX</button>
+              <span id="rstmsg" class="pop" role="status" hidden>Effects reset to defaults ✓</span>
+            </span>
+          </div>
+        </section>
+
+        <section class="card stack" aria-labelledby="export-title">
+          <h2 id="export-title">Export</h2>
+
+          <div class="tr flush">
+            <label>
+              Format
+              <select id="xf">
+                <option value="mp3">MP3</option>
+                <option value="wav16">WAV 16-bit</option>
+                <option value="wav24">WAV 24-bit</option>
+                <option value="wav32">WAV 32-bit float</option>
+              </select>
+            </label>
+
+            <label id="xb">
+              MP3 bitrate
+              <select id="xq">
+                <option value="128">128 kbps</option>
+                <option value="192" selected>192 kbps</option>
+                <option value="256">256 kbps</option>
+                <option value="320">320 kbps</option>
+              </select>
+            </label>
+
+            <label>
+              Channels
+              <select id="xc">
+                <option value="2">Stereo</option>
+                <option value="1">Mono</option>
+              </select>
+            </label>
+
+            <label>
+              Sample rate
+              <select id="xs">
+                <option value="0">Original</option>
+                <option value="48000">48 kHz</option>
+                <option value="44100">44.1 kHz</option>
+                <option value="32000">32 kHz</option>
+                <option value="22050">22.05 kHz</option>
+              </select>
+            </label>
+
+            <button type="button" id="ex" class="pri">Export</button>
+            <button type="button" id="sv">Save processed to library</button>
+          </div>
+
+          <p class="mut note">
+            Files download directly in a normal browser. When this page is hosted inside Claude,
+            exports arrive as a .zip containing the audio file.
+          </p>
+        </section>
+
+        <section aria-label="Effects">
+          <!-- Effect cards are generated by app.js from the `G` table -->
+          <div id="fx"></div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Settings dialog (toggled via the `hidden` attribute) -->
+    <div id="md" role="dialog" aria-modal="true" aria-labelledby="settings-title" hidden>
+      <div class="card" id="mp">
+        <h2 id="settings-title">Settings</h2>
+
+        <label class="st">
+          Theme
+          <select id="sth">
+            <option value="auto">Auto (system)</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
+
+        <label class="st">
+          Slider step
+          <select id="sst">
+            <option value="0.1">0.1</option>
+            <option value="0.25">0.25</option>
+            <option value="0.5">0.5 (default)</option>
+            <option value="1">1</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+          </select>
+        </label>
+        <small class="mut">
+          Sets how far every slider moves per step. Sliders with a range of 10 or more (dB, Hz, %)
+          use this exact value. Smaller-range sliders (0 to 1 mixes, speed) use one tenth of it so
+          they stay usable. You can always type an exact value in the box next to any slider.
+        </small>
+
+        <label class="st">
+          <span>Play when a preset is chosen</span>
+          <input type="checkbox" id="sau">
+        </label>
+
+        <label class="st">
+          <span>Save uploads to library automatically</span>
+          <input type="checkbox" id="ssv">
+        </label>
+
+        <label class="st">
+          <span>Switch to new audio when uploading</span>
+          <input type="checkbox" id="ssw">
+        </label>
+        <small class="mut">
+          Off by default: new uploads are added to the library and your current track stays loaded
+          (the first upload always loads). If automatic saving is also off, uploads load immediately.
+        </small>
+
+        <div class="tr">
+          <button type="button" id="sclr">Clear saved library</button>
+          <button type="button" id="srs">Reset settings</button>
+          <span class="sp"></span>
+          <button type="button" id="scl" class="pri">Done</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Update log dialog (toggled via the `hidden` attribute) -->
+    <div id="lg" role="dialog" aria-modal="true" aria-labelledby="log-title" hidden>
+      <div class="card" id="lp">
+        <h2 id="log-title">Update log</h2>
+        <div id="loglist"></div>
+
+        <div class="tr">
+          <span class="sp"></span>
+          <button type="button" id="lgx" class="pri">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
