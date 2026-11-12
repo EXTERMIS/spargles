@@ -31,7 +31,7 @@ const UPDATE_LOG = [
   },
   {
     v: "1.2",
-    date: "2026-11-12",
+    date: "2026",
     changes: [
       "Settings menu, red / black / white theme, collapsible effect sections",
       "Typed values for every slider and a configurable slider step"
@@ -39,7 +39,7 @@ const UPDATE_LOG = [
   },
   {
     v: "1.1",
-    date: "2026-11-12",
+    date: "2026",
     changes: [
       "MP3 and WAV export with format, bitrate, channel and sample-rate dropdowns",
       "New effects: phaser, vibrato, gate, exciter, tube warmth, stereo width, limiter and edit tools",
@@ -48,7 +48,7 @@ const UPDATE_LOG = [
   },
   {
     v: "1.0",
-    date: "2026-11-12",
+    date: "2026",
     changes: [
       "First release: upload audio and keep it in your browser library",
       "Effects chain with presets and WAV export"
