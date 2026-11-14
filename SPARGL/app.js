@@ -1314,18 +1314,9 @@ $("#pre").onclick = (e) => {
   }
   const n = e.target.dataset.p;
   if (!n) return;
-  stopN();
-  playing = false;
-  byp = false;
-  p = { ...D, ...getPreset(n) };
   cp = n;
-  syncUI();
+  applyParams({ ...D, ...getPreset(n) }, S.auto);
   markP();
-  pos = 0;
-  if (buf) {
-    draw();
-    if (S.auto) play(0);
-  }
 };
 function openSave(show) {
   $("#psf").hidden = !show;
@@ -1355,25 +1346,33 @@ $("#psok").onclick = () => {
   openSave(false);
   toast(had ? `Preset "${n}" updated` : `Preset "${n}" saved`);
 };
+// Swap in a whole new parameter set (preset or reset) without losing the playback position.
+function applyParams(np, autoplay) {
+  const was = playing;
+  if (was) pos = cpos();
+  const k0 = effK();
+  const rev0 = !!p.rev;
+  byp = false;
+  p = np;
+  if (buf) {
+    const d = cur().duration;
+    pos *= effK() / k0; // keep the same spot if the time-stretch changed
+    if (rev0 != !!p.rev) pos = d - pos; // reverse mirrors the timeline
+    pos = clamp(pos, 0, Math.max(0, d - 0.01));
+    draw();
+  }
+  syncUI();
+  if (buf && (was || autoplay)) play(pos);
+}
 let rstT;
 $("#rst").onclick = () => {
   const msg = $("#rstmsg");
   msg.hidden = false;
   clearTimeout(rstT);
   rstT = setTimeout(() => msg.hidden = true, 5000);
-  stopN();
-  const w = playing;
-  playing = false;
-  p = { ...D };
   cp = "";
-  byp = false;
-  syncUI();
+  applyParams({ ...D }, false);
   markP();
-  if (buf) {
-    draw();
-    pos = 0;
-    if (w) play(0);
-  }
 };
 $("#rev").onclick = () => {
   if (!buf) return;
