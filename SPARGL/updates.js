@@ -9,6 +9,14 @@
 // ============================================================
 const UPDATE_LOG = [
   {
+    v: "1.5",
+    date: "2026-11-13",
+    changes: [
+      "Quick update changing track playthrough settings",
+      "Effects no longer reset time on tracks"
+    ]
+  },
+  {
     v: "1.4",
     date: "2026-11-12",
     changes: [
