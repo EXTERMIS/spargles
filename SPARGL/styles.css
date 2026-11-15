@@ -724,3 +724,11 @@ input[type=range] {
   }
 }
 
+
+/* ===== Dropdown controls inside effect cards ===== */
+
+.row select {
+  width: 100%;
+  padding: 4px 6px;
+  font-size: 12px;
+}
