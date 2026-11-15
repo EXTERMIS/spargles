@@ -6,10 +6,13 @@
 // ---------- Helpers & effect definitions ----------
 const $ = (s) => document.querySelector(s);
 const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+const KEYS = ["C", "C♯/D♭", "D", "D♯/E♭", "E", "F", "F♯/G♭", "G", "G♯/A♭", "A", "A♯/B♭", "B"];
+const SCALES = ["Chromatic", "Major", "Minor", "Major pentatonic", "Minor pentatonic"];
 /**
  * Effect groups: [title, controls[]].
  * Each control: [key, label, min, max, default, step, "t"?]
  * A trailing "t" renders the control as a checkbox toggle instead of a slider.
+ * A trailing "s" plus an options array renders a dropdown (the value is the option index).
  */
 const G = [
   ["Basics", [
@@ -53,7 +56,8 @@ const G = [
   ["Echo", [
     ["dt", "Time s", 0.02, 1, 0.3, 0.01],
     ["dfb", "Feedback", 0, 0.9, 0.4, 0.01],
-    ["dmx", "Mix", 0, 1, 0, 0.01]
+    ["dmx", "Mix", 0, 1, 0, 0.01],
+    ["dpp", "Ping-pong", 0, 1, 0, 1, "t"]
   ]],
   ["Reverb", [
     ["rsz", "Size s", 0.2, 6, 2, 0.1],
@@ -89,6 +93,39 @@ const G = [
   ["Ring Mod", [
     ["rgf", "Freq Hz", 20, 2000, 200, 1],
     ["rgm", "Mix", 0, 1, 0, 0.01]
+  ]],
+  ["Glitch / Stutter", [
+    ["gla", "Amount", 0, 1, 0, 0.01],
+    ["gls", "Slice ms", 30, 500, 120, 1],
+    ["glt", "Max repeats", 2, 16, 4, 1],
+    ["gsd", "Random seed", 1, 99, 1, 1]
+  ]],
+  ["Auto-Tune", [
+    ["atm", "Strength", 0, 1, 0, 0.01],
+    ["atk", "Key", 0, 11, 0, 1, "s", KEYS],
+    ["ats", "Scale", 0, 4, 0, 1, "s", SCALES],
+    ["atr", "Smoothness (0 = hard snap)", 0, 1, 0, 0.01]
+  ]],
+  ["Vocoder", [
+    ["vcm", "Mix", 0, 1, 0, 0.01],
+    ["vcb", "Bands", 0, 2, 1, 1, "s", ["8", "16", "24"]],
+    ["vcn", "Note", 0, 11, 0, 1, "s", KEYS],
+    ["vco", "Octave", 0, 3, 1, 1, "s", ["C2", "C3", "C4", "C5"]],
+    ["vcc", "Chord", 0, 3, 2, 1, "s", ["Single", "Power (5th)", "Major", "Minor"]],
+    ["vcz", "Breath / noise", 0, 1, 0.25, 0.01]
+  ]],
+  ["Harmonizer", [
+    ["hmm", "Mix", 0, 1, 0, 0.01],
+    ["hmi", "Interval (semitones)", -12, 12, 7, 1]
+  ]],
+  ["Lo-Fi Crush & Tape", [
+    ["smp", "Sample-rate crush", 1, 64, 1, 1],
+    ["tps", "Tape stop (s)", 0, 4, 0, 0.1],
+    ["tpu", "Tape spin-up (s)", 0, 4, 0, 0.1]
+  ]],
+  ["Texture", [
+    ["crk", "Vinyl crackle", 0, 1, 0, 0.01],
+    ["his", "Tape hiss", 0, 1, 0, 0.01]
   ]],
   ["Dynamics", [
     ["th", "Comp threshold dB", -60, 0, 0, 1],
@@ -172,6 +209,28 @@ const PC = {
     "EDM Pump": { gtd: 0.7, gtr: 2, lim: -3 },
     "Stutter": { gtd: 1, gtr: 14 }
   },
+  "Creative & Glitch": {
+    "Glitch Hop": { gla: 0.5, gls: 140, glt: 6, gsd: 3 },
+    "Stutter Edit": { gla: 0.8, gls: 90, glt: 8, gsd: 7 },
+    "Broken Tape": { gla: 0.35, gls: 200, glt: 4, gsd: 11, tps: 1.5, crk: 0.4, his: 0.15, lp: 6000 },
+    "T-Pain Auto-Tune": { atm: 1, atr: 0, atk: 0, ats: 0 },
+    "Gentle Tune (C Major)": { atm: 0.7, atr: 0.3, atk: 0, ats: 1 },
+    "Pentatonic Tune": { atm: 1, atr: 0.15, atk: 0, ats: 3 },
+    "Vocoder Classic": { vcm: 1, vcb: 1, vcc: 0, vcn: 0, vco: 1, vcz: 0.2 },
+    "Robot Choir": { vcm: 1, vcb: 1, vcc: 2, vco: 1, vcz: 0.15, rmx: 0.25, rsz: 2 },
+    "Whisper Vocoder": { vcm: 1, vcb: 2, vcc: 0, vco: 2, vcz: 1 },
+    "Dark Vocoder": { vcm: 1, vcb: 1, vcc: 3, vcn: 9, vco: 0, vcz: 0.2, drv: 15 },
+    "Glitch Vocoder": { vcm: 0.7, vcc: 2, gla: 0.4, gls: 110, glt: 5, gsd: 5 },
+    "Octave Up Double": { hmm: 0.5, hmi: 12 },
+    "Octave Down Double": { hmm: 0.6, hmi: -12 },
+    "Fifth Harmony": { hmm: 0.5, hmi: 7 },
+    "Shimmer Verb": { hmm: 0.6, hmi: 12, rmx: 0.55, rsz: 4, rdc: 2 },
+    "Tape Stop Outro": { tps: 2 },
+    "Tape Spin-Up": { tpu: 1.5 },
+    "Crushed Rate": { smp: 14, bits: 8, drv: 10 },
+    "Vinyl Crackle": { crk: 0.6, his: 0.2, lp: 7000, hp: 120 },
+    "Ping-Pong Echo": { dpp: 1, dt: 0.33, dfb: 0.5, dmx: 0.5 }
+  },
   "Music Mixing": {
     "Vocal Polish": { hp: 90, lo: -2, mid: 3, mf: 3500, air: 4, des: -4, th: -20, ratio: 3, mk: 3, sat: 0.2, rmx: 0.12, rsz: 1.2 },
     "Vocal Air": { air: 8, hi: 2, hp: 100 },
@@ -248,8 +307,8 @@ const toast = (m) => {
   clearTimeout(toast.i);
   toast.i = setTimeout(() => t.className = "", 2600);
 };
-const PK = ["rev", "ts", "te", "trim", "nrm", "mono", "swap", "inv", "gate"];
-const pk = () => PK.map((k) => p[k]).join() + "," + effK().toFixed(3);
+const PK = ["rev", "ts", "te", "trim", "nrm", "mono", "swap", "inv", "gate", "smp", "gla", "gls", "glt", "gsd", "tps", "tpu", "crk", "his", "atm", "atk", "ats", "atr", "hmi", "hmm"];
+const pk = () => PK.map((k) => p[k]).join() + "," + effK().toFixed(3) + (byp ? "b" : "");
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const pitchRatio = (q) => Math.pow(2, q.pitch / 12);
 // Playback rate of the audio source. Locked: speed drives both speed and pitch
@@ -322,9 +381,248 @@ function stretchBuf(b, k) {
   stCache = { b, k, o: out };
   return out;
 }
+// ---------- Creative effects (buffer level) ----------
+// Small seeded random generator so glitches and crackle sound the same on every render.
+function mulberry32(a) {
+  return () => {
+    a |= 0;
+    a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+// Glitch / stutter: each slice is kept, or randomly stuttered, reversed, dropped or replaced by the previous slice.
+function glitchFx(A, sr, amt, ms, rep, seed) {
+  const n = A[0].length;
+  const L = Math.max(64, Math.round(sr * ms / 1000));
+  const rnd = mulberry32(seed * 7919 + 13);
+  const out = A.map(() => new Float32Array(n));
+  let prev = 0;
+  for (let s = 0; s < n; s += L) {
+    const len = Math.min(L, n - s);
+    const act = rnd() < amt ? 1 + Math.floor(rnd() * 4) : 0;
+    const k = 2 + Math.floor(rnd() * Math.max(1, rep - 1));
+    const piece = Math.max(32, Math.floor(len / k));
+    A.forEach((x, c) => {
+      const y = out[c];
+      for (let i = 0; i < len; i++) {
+        if (act == 0) y[s + i] = x[s + i]; // untouched
+        else if (act == 1) y[s + i] = x[s + i % piece]; // stutter: repeat the slice start
+        else if (act == 2) y[s + i] = x[s + len - 1 - i]; // reverse the slice
+        else if (act == 4) y[s + i] = x[Math.min(n - 1, prev + i % L)]; // repeat the previous slice
+      } // act 3: silence (drop-out)
+    });
+    prev = s;
+  }
+  return out;
+}
+// Sample-rate crush: hold every Nth sample.
+function crushFx(A, f) {
+  f = Math.max(1, Math.round(f));
+  A.forEach((x) => {
+    for (let i = 0; i < x.length; i++) if (i % f) x[i] = x[i - i % f];
+  });
+}
+// Tape stop: the last `secs` slow down to a halt.
+function tapeStopFx(A, sr, secs) {
+  const n = A[0].length;
+  const T = Math.min(n, Math.round(secs * sr));
+  if (T < 2) return;
+  const st = n - T;
+  A.forEach((x) => {
+    const src = x.slice(st);
+    for (let j = 0; j < T; j++) {
+      const pos = j - j * j / (2 * T);
+      const i0 = Math.floor(pos);
+      const fr = pos - i0;
+      x[st + j] = src[i0] * (1 - fr) + src[Math.min(T - 1, i0 + 1)] * fr;
+    }
+  });
+}
+// Tape spin-up: the start speeds up from a standstill (the rest of the audio is delayed to match).
+function spinUpFx(A, sr, secs) {
+  const n = A[0].length;
+  const T = Math.min(Math.floor(n / 2), Math.round(secs * sr));
+  if (T < 2) return;
+  A.forEach((x) => {
+    const src = x.slice();
+    for (let j = 0; j < n; j++) {
+      const pos = j < T ? j * j / (2 * T) : j - T / 2;
+      const i0 = Math.floor(pos);
+      const fr = pos - i0;
+      x[j] = i0 + 1 < n ? src[i0] * (1 - fr) + src[i0 + 1] * fr : 0;
+    }
+  });
+}
+// Vinyl crackle (random pops) and tape hiss.
+function textureFx(A, crk, his) {
+  const rnd = mulberry32(4242);
+  const n = A[0].length;
+  const pop = new Float32Array(n);
+  let e = 0;
+  for (let i = 0; i < n; i++) {
+    e *= 0.92;
+    if (rnd() < crk * 0.0012) e += (rnd() * 2 - 1) * (0.15 + rnd() * 0.5) * crk;
+    pop[i] = e;
+  }
+  A.forEach((x) => {
+    for (let i = 0; i < n; i++) x[i] += pop[i] + (rnd() * 2 - 1) * his * 0.04;
+  });
+}
+// ---------- Pitch detection, auto-tune and harmonizer ----------
+const SCALE_NOTES = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], [0, 2, 4, 5, 7, 9, 11], [0, 2, 3, 5, 7, 8, 10], [0, 2, 4, 7, 9], [0, 3, 5, 7, 10]];
+// Autocorrelation pitch tracker. Returns the frequency (Hz, 0 = unvoiced) for every `hop` samples.
+function detectPitch(x, sr) {
+  const dec = 2;
+  const fs = sr / dec;
+  const m = Math.floor(x.length / dec);
+  const d = new Float32Array(m);
+  for (let i = 0; i < m; i++) d[i] = (x[i * dec] + x[i * dec + 1]) * 0.5;
+  const sq = new Float64Array(m + 1);
+  for (let i = 0; i < m; i++) sq[i + 1] = sq[i] + d[i] * d[i];
+  const W = 640;
+  const hop = 512;
+  const minLag = Math.floor(fs / 800);
+  const maxLag = Math.floor(fs / 70);
+  const nf = Math.max(0, Math.floor((m - W - maxLag - 2) / hop) + 1);
+  const f0 = new Float32Array(nf);
+  const r = new Float32Array(maxLag + 2);
+  for (let f = 0; f < nf; f++) {
+    const s = f * hop;
+    const e0 = sq[s + W] - sq[s];
+    if (e0 < 0.0001 * W) continue;
+    let best = 0;
+    let bestLag = minLag;
+    for (let l = minLag; l <= maxLag; l++) {
+      let dot = 0;
+      for (let i = 0; i < W; i += 2) dot += d[s + i] * d[s + i + l];
+      const el = sq[s + l + W] - sq[s + l];
+      r[l] = 2 * dot / Math.sqrt(e0 * el + 1e-9);
+      if (r[l] > best) {
+        best = r[l];
+        bestLag = l;
+      }
+    }
+    if (best < 0.55) continue;
+    let lag = bestLag;
+    for (let l = minLag + 1; l < maxLag; l++) {
+      if (r[l] >= 0.9 * best && r[l] >= r[l - 1] && r[l] >= r[l + 1]) {
+        lag = l; // prefer the shortest strong period to avoid octave errors
+        break;
+      }
+    }
+    const a = r[lag - 1];
+    const b = r[lag];
+    const c = r[lag + 1];
+    const den = a - 2 * b + c;
+    f0[f] = fs / (lag + (den ? 0.5 * (a - c) / den : 0));
+  }
+  return { hop: hop * dec, f0 };
+}
+// Semitone correction for each frame: nearest note in the chosen key/scale, scaled by strength and smoothed.
+function tuneOffsets(f0, key, scale, strength, smooth) {
+  const out = new Float32Array(f0.length);
+  const alpha = 1 - 0.95 * smooth;
+  const mask = SCALE_NOTES[scale];
+  let cur = 0;
+  for (let f = 0; f < f0.length; f++) {
+    let target = 0;
+    if (f0[f] > 0) {
+      const midi = 69 + 12 * Math.log2(f0[f] / 440);
+      let best = Math.round(midi);
+      let bd = 99;
+      for (let n = Math.round(midi) - 6; n <= Math.round(midi) + 6; n++) {
+        if (!mask.includes(((n - key) % 12 + 12) % 12)) continue;
+        const dd = Math.abs(n - midi);
+        if (dd < bd) {
+          bd = dd;
+          best = n;
+        }
+      }
+      target = (best - midi) * strength;
+    }
+    cur += (target - cur) * alpha;
+    out[f] = cur;
+  }
+  return out;
+}
+// Pitch-synchronous overlap-add (PSOLA): shifts pitch and keeps the duration.
+// Two-period grains are cut at spacing = the detected pitch period, then laid back
+// down at period / ratio, repeating or skipping grains so timing stays put.
+// semiAt(sample, voiced) gives the shift in semitones at that point.
+function psola(X, sr, f0, hop, semiAt) {
+  const len = X[0].length;
+  const nc = X.length;
+  const frame = (t) => clamp(Math.floor((t - 640) / hop), 0, f0.length - 1);
+  const pitchAt = (t) => f0.length ? f0[frame(t)] : 0;
+  const mt = []; // analysis marks (sample positions)
+  const mT = []; // local period at each mark
+  for (let t = 0; t < len + 2000;) {
+    const f = pitchAt(t);
+    const T = f > 0 ? sr / f : sr * 0.008;
+    mt.push(t);
+    mT.push(T);
+    t += T;
+  }
+  const Y = X.map(() => new Float32Array(len));
+  const W = new Float32Array(len);
+  let k = 0;
+  for (let s = 0; s < len;) {
+    while (k + 1 < mt.length && Math.abs(mt[k + 1] - s) < Math.abs(mt[k] - s)) k++;
+    const T = mT[k];
+    const a = Math.round(mt[k]);
+    const ratio = Math.pow(2, semiAt(s, pitchAt(a) > 0) / 12);
+    const half = Math.max(2, Math.round(T));
+    const c0 = Math.round(s);
+    for (let i = -half; i < half; i++) {
+      const o = c0 + i;
+      if (o < 0 || o >= len) continue;
+      const w = 0.5 + 0.5 * Math.cos(Math.PI * i / half);
+      W[o] += w;
+      const src = a + i;
+      if (src >= 0 && src < len) for (let c = 0; c < nc; c++) Y[c][o] += w * X[c][src];
+    }
+    s += T / ratio;
+  }
+  for (const y of Y) for (let i = 0; i < len; i++) y[i] = W[i] > 0.001 ? y[i] / W[i] : 0;
+  return Y;
+}
+const monoOf = (X) => {
+  const m = new Float32Array(X[0].length);
+  X.forEach((x) => {
+    for (let i = 0; i < x.length; i++) m[i] += x[i] / X.length;
+  });
+  return m;
+};
+// Auto-tune + harmonizer on the whole buffer (slow, so the result is cached).
+let ctCache = null;
+function creativeStage(b, p) {
+  if (!(p.atm > 0 || p.hmm > 0)) return b;
+  const key = [p.atm, p.atk, p.ats, p.atr, p.hmi, p.hmm].join();
+  if (ctCache && ctCache.b === b && ctCache.key === key) return ctCache.o;
+  const sr = b.sampleRate;
+  const nc = b.numberOfChannels;
+  let Y = [...Array(nc)].map((_, c) => b.getChannelData(c));
+  if (p.atm > 0) {
+    const { hop, f0 } = detectPitch(monoOf(Y), sr);
+    const off = tuneOffsets(f0, p.atk, p.ats, p.atm, p.atr);
+    Y = psola(Y, sr, f0, hop, (t, voiced) => voiced && off.length ? off[clamp(Math.floor((t - 640) / hop), 0, off.length - 1)] : 0);
+  }
+  if (p.hmm > 0) {
+    const { hop, f0 } = detectPitch(monoOf(Y), sr);
+    const H = psola(Y, sr, f0, hop, () => p.hmi);
+    Y = Y.map((y, c) => y.map((v, i) => v + H[c][i] * p.hmm));
+  }
+  const o = new AudioBuffer({ length: b.length, numberOfChannels: nc, sampleRate: sr });
+  Y.forEach((y, c) => o.copyToChannel(y, c));
+  ctCache = { b, key, o };
+  return o;
+}
 // ---------- Edit tools (applied to the audio buffer) ----------
 function prep(b, p) {
   b = stretchBuf(b, effK());
+  if (!byp) b = creativeStage(b, p);
   const nc = b.numberOfChannels;
   let s = Math.floor(b.length * p.ts / 100);
   let e = Math.floor(b.length * p.te / 100);
@@ -350,6 +648,8 @@ function prep(b, p) {
   if (p.inv) A.forEach((x) => {
     for (let i = 0; i < x.length; i++) x[i] = -x[i];
   });
+  if (!byp && p.smp > 1) crushFx(A, p.smp);
+  if (!byp && p.gla > 0) A = glitchFx(A, b.sampleRate, p.gla, p.gls, p.glt, p.gsd);
   if (p.gate > -80) {
     const th = Math.pow(10, p.gate / 20);
     const n = A[0].length;
@@ -364,6 +664,11 @@ function prep(b, p) {
     }
   }
   if (p.rev) A.forEach((x) => x.reverse());
+  if (!byp) {
+    if (p.tps > 0) tapeStopFx(A, b.sampleRate, p.tps);
+    if (p.tpu > 0) spinUpFx(A, b.sampleRate, p.tpu);
+    if (p.crk > 0 || p.his > 0) textureFx(A, p.crk, p.his);
+  }
   if (p.nrm) {
     let m = 0;
     A.forEach((x) => {
@@ -398,6 +703,8 @@ const curve = (f) => {
   for (let i = 0; i < 2048; i++) c[i] = f(i / 1023.5 - 1);
   return c;
 };
+const VOC_GAIN = 10; // envelope makeup gain
+const ABS_CURVE = curve((x) => Math.abs(x)); // full-wave rectifier for the vocoder
 function mk(c, p, inp, L) {
   let n = inp;
   const add = (x) => {
@@ -518,6 +825,53 @@ function mk(c, p, inp, L) {
     i.connect(r);
     r.connect(o);
   });
+  par(p.vcm, 1, (i, o) => {
+    // Vocoder: the audio shapes a synth (saw chord + noise) through matching band-pass filters.
+    const nb = [8, 16, 24][p.vcb];
+    const base = 65.41 * Math.pow(2, p.vco) * Math.pow(2, p.vcn / 12);
+    const carrier = G_(0.3);
+    [[1], [1, 1.5], [1, 1.25, 1.5], [1, 1.2, 1.5]][p.vcc].forEach((r) => {
+      const os = c.createOscillator();
+      os.type = "sawtooth";
+      os.frequency.value = base * r;
+      os.start();
+      L.push(os);
+      os.connect(carrier);
+    });
+    if (p.vcz > 0) {
+      const nbuf = c.createBuffer(1, c.sampleRate, c.sampleRate);
+      const nd = nbuf.getChannelData(0);
+      for (let k = 0; k < nd.length; k++) nd[k] = Math.random() * 2 - 1;
+      const ns = c.createBufferSource();
+      ns.buffer = nbuf;
+      ns.loop = true;
+      ns.start();
+      L.push(ns);
+      const ng = G_(p.vcz * 0.5);
+      ns.connect(ng);
+      ng.connect(carrier);
+    }
+    const bw = Math.log2(80) / nb;
+    const q = 1 / (2 * Math.sinh(Math.LN2 / 2 * bw));
+    for (let k = 0; k < nb; k++) {
+      const f = 100 * Math.pow(80, k / (nb - 1));
+      const m = bq("bandpass", f, null, q);
+      const rect = c.createWaveShaper();
+      rect.curve = ABS_CURVE;
+      const env = bq("lowpass", 40, null, 0.7);
+      const amp = G_(VOC_GAIN);
+      const cf = bq("bandpass", f, null, q);
+      const band = G_(0);
+      i.connect(m);
+      m.connect(rect);
+      rect.connect(env);
+      env.connect(amp);
+      amp.connect(band.gain);
+      carrier.connect(cf);
+      cf.connect(band);
+      band.connect(o);
+    }
+  });
   if (p.chd > 0) par(p.chm, 0, (i, o) => {
     const d = c.createDelay(0.1);
     d.delayTime.value = p.chb / 1000;
@@ -537,6 +891,25 @@ function mk(c, p, inp, L) {
     n = m;
   }
   par(p.dmx, 0, (i, o) => {
+    if (p.dpp) {
+      // Ping-pong: echoes bounce right, left, right...
+      const d1 = c.createDelay(2);
+      const d2 = c.createDelay(2);
+      const f1 = G_(p.dfb);
+      const f2 = G_(p.dfb);
+      const m = c.createChannelMerger(2);
+      d1.delayTime.value = p.dt;
+      d2.delayTime.value = p.dt;
+      i.connect(d1);
+      d1.connect(m, 0, 1);
+      d1.connect(f1);
+      f1.connect(d2);
+      d2.connect(m, 0, 0);
+      d2.connect(f2);
+      f2.connect(d1);
+      m.connect(o);
+      return;
+    }
     const d = c.createDelay(2);
     const f = G_(p.dfb);
     d.delayTime.value = p.dt;
@@ -879,9 +1252,9 @@ $("#libbody").onclick = async (e) => {
 };
 async function addProject() {
   const n = $("#pjn").value.trim() || `Project ${PJ.length + 1}`;
+  $("#pjn").value = ""; // clear right away so quick follow-up typing isn't wiped
   try {
     await tx("readwrite", (s) => s.add({ name: n, ids: [], date: Date.now() }), "p");
-    $("#pjn").value = "";
     lib();
   } catch (e) {
     toast("Browser storage unavailable");
@@ -1188,9 +1561,10 @@ $("#sv").onclick = async () => {
 };
 // ---------- UI wiring ----------
 function syncUI() {
-  document.querySelectorAll("input[data-k]").forEach((i) => {
+  document.querySelectorAll("#fx [data-k]").forEach((i) => {
     const v = p[i.dataset.k];
     if (i.type == "checkbox") i.checked = !!v;
+    else if (i.tagName == "SELECT") i.value = v;
     else {
       i.value = v;
       i.nextElementSibling.value = +(+v).toFixed(3);
@@ -1207,7 +1581,7 @@ function applyStep() {
   });
   syncUI();
 }
-$("#fx").innerHTML = G.map((g) => `<section class="card"><h3>${g[0]}</h3><div class="body">${g[1].map((c) => c[6] ? `<div class="row"><label>${c[1]}</label><input type="checkbox" data-k="${c[0]}"><span></span></div>` : `<div class="row"><label>${c[1]}</label><input type="range" data-k="${c[0]}" min="${c[2]}" max="${c[3]}" step="${stepFor(c)}" value="${c[4]}"><input type="number" class="num" data-n="${c[0]}" min="${c[2]}" max="${c[3]}" step="any" value="${c[4]}"></div>`).join("")}</div></section>`).join("");
+$("#fx").innerHTML = G.map((g) => `<section class="card"><h3>${g[0]}</h3><div class="body">${g[1].map((c) => c[6] == "s" ? `<div class="row"><label>${c[1]}</label><select data-k="${c[0]}">${c[7].map((o, i) => `<option value="${i}">${o}</option>`).join("")}</select><span></span></div>` : c[6] ? `<div class="row"><label>${c[1]}</label><input type="checkbox" data-k="${c[0]}"><span></span></div>` : `<div class="row"><label>${c[1]}</label><input type="range" data-k="${c[0]}" min="${c[2]}" max="${c[3]}" step="${stepFor(c)}" value="${c[4]}"><input type="number" class="num" data-n="${c[0]}" min="${c[2]}" max="${c[3]}" step="any" value="${c[4]}"></div>`).join("")}</div></section>`).join("");
 $("#fx").onclick = (e) => {
   const h = e.target.closest("h3");
   if (h) h.parentElement.classList.toggle("min");
@@ -1227,7 +1601,9 @@ function setVal(k, v) {
   }
 }
 // Unlocked speed/pitch needs a time-stretch, so it is applied on release.
-const heavy = (k) => (k === "speed" || k === "pitch") && !p.lock;
+// Auto-tune and harmonizer rebuild the whole audio, so like unlocked speed/pitch they apply on release.
+const HEAVY = ["atm", "atk", "ats", "atr", "hmi", "hmm"];
+const heavy = (k) => HEAVY.includes(k) || (k === "speed" || k === "pitch") && !p.lock;
 const later = (fn) => {
   toast("Applying…");
   setTimeout(fn, 30);
@@ -1243,13 +1619,13 @@ $("#fx").oninput = (e) => {
   const k = t.dataset.k;
   if (!k) return;
   const v = t.type == "checkbox" ? +t.checked : +t.value;
-  if (t.type != "checkbox") t.nextElementSibling.value = +v.toFixed(3);
+  if (t.type == "range") t.nextElementSibling.value = +v.toFixed(3);
   if (heavy(k)) return;
   apply(k, v);
 };
 $("#fx").onchange = (e) => {
   const t = e.target;
-  if (t.dataset.k && t.type == "range" && heavy(t.dataset.k)) {
+  if (t.dataset.k && (t.type == "range" || t.tagName == "SELECT") && heavy(t.dataset.k)) {
     const k = t.dataset.k;
     const v = +t.value;
     return later(() => apply(k, v));
