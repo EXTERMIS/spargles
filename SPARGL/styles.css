@@ -732,3 +732,44 @@ input[type=range] {
   padding: 4px 6px;
   font-size: 12px;
 }
+
+/* ===== Export panel ===== */
+
+.xgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--mut);
+}
+
+.field select {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.xactions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.xactions button {
+  padding: 11px 14px;
+  font-size: 14px;
+}
+
+@media (max-width: 520px) {
+  .xactions {
+    grid-template-columns: 1fr;
+  }
+}
