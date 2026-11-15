@@ -682,3 +682,45 @@ input[type=range] {
   padding: 4px 8px;
   color: var(--mut);
 }
+
+/* ===== Custom scrollbars ===== */
+
+/* Firefox and any browser without ::-webkit-scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ac2) transparent;
+}
+
+/* Chrome, Edge, Safari: rounded accent thumb that brightens on hover */
+@supports selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
+
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--ac2);
+    background-clip: padding-box;
+    border: 3px solid transparent;
+    border-radius: 99px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--ac);
+    background-clip: padding-box;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
+
