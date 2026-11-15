@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="color-scheme" content="light dark">
-    <meta name="description" content="SPARGL: AUDIO LAB">
-    <title>SPARGL: Audio Lab</title>
+    <meta name="description" content="SPARGL: AUDIO LAB - upload audio, apply effects and presets, and export MP3 or WAV in your browser.">
+    <title>SPARGL: AUDIO LAB</title>
     <link rel="icon" href="Tab-Icon-2.png">
     <link rel="stylesheet" href="styles.css">
     <!-- MP3 encoder (exposes the global `lamejs`) -->
@@ -17,7 +17,7 @@
   <body>
     <header>
       <h1>SPARGL: AUDIO LAB</h1>
-      <p class="tagline">Audio Effects Tool</p>
+      <p class="tagline">Upload, sculpt, preview and export sound. Everything stays in your browser.</p>
       <button type="button" id="logbtn" class="push">Update log</button>
       <button type="button" id="gear">⚙ Settings</button>
     </header>
@@ -97,8 +97,8 @@
         <section class="card stack" aria-labelledby="export-title">
           <h2 id="export-title">Export</h2>
 
-          <div class="tr flush">
-            <label>
+          <div class="xgrid">
+            <label class="field">
               Format
               <select id="xf">
                 <option value="mp3">MP3</option>
@@ -108,7 +108,7 @@
               </select>
             </label>
 
-            <label id="xb">
+            <label class="field" id="xb">
               MP3 bitrate
               <select id="xq">
                 <option value="128">128 kbps</option>
@@ -118,7 +118,7 @@
               </select>
             </label>
 
-            <label>
+            <label class="field">
               Channels
               <select id="xc">
                 <option value="2">Stereo</option>
@@ -126,7 +126,7 @@
               </select>
             </label>
 
-            <label>
+            <label class="field">
               Sample rate
               <select id="xs">
                 <option value="0">Original</option>
@@ -136,13 +136,16 @@
                 <option value="22050">22.05 kHz</option>
               </select>
             </label>
+          </div>
 
+          <div class="xactions">
             <button type="button" id="ex" class="pri">Export</button>
-            <button type="button" id="sv">Save processed to library</button>
+            <button type="button" id="sv" class="pri" title="Save the processed audio to your library as a WAV">Save to library</button>
           </div>
 
           <p class="mut note">
-            Export audio to downloads folder.
+            Files download directly in a normal browser. When this page is hosted inside Claude,
+            exports arrive as a .zip containing the audio file.
           </p>
         </section>
 
