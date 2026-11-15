@@ -9,6 +9,15 @@
 // ============================================================
 const UPDATE_LOG = [
   {
+    v: "1.6",
+    date: "2026-11-13",
+    changes: [
+      "New custom scrollbars",
+      "Added new effects, Glitch, Auto-Tune (Work in Progress), Vocoder (Work in Progress), Harmonizer, Crush and Tape, and Texture"
+      "Re-did the export tabs UI"
+    ]
+  },
+  {
     v: "1.5",
     date: "2026-11-13",
     changes: [
@@ -20,9 +29,9 @@ const UPDATE_LOG = [
     v: "1.4",
     date: "2026-11-12",
     changes: [
-      "Update log entries are now written in updates.js instead of in the browser",
-      "Rename saved tracks with the pencil button in the library",
-      "New Projects tab in the library: create projects and drag tracks in, between and out of them",
+      "Update logs now written in updates.js instead of in the browser",
+      "Rename tracks with the pencil button in library",
+      "New Projects tab in the library: create projects and drag tracks in, between, and out of them",
       "Save preset button: name and keep your own effect settings under Custom Presets"
     ]
   },
