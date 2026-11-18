@@ -810,3 +810,22 @@ button:disabled:hover {
   border-color: var(--ln);
 }
 
+/* ===== Track name glow ===== */
+
+#nm {
+  color: var(--mut);
+  text-shadow: 0 0 0 transparent;
+  transition: color .5s, text-shadow .5s;
+}
+
+#nm.on {
+  color: var(--ac);
+  text-shadow: 0 0 6px var(--ac), 0 0 14px var(--ac), 0 0 28px var(--ac2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #nm {
+    transition: none;
+  }
+}
+
