@@ -13,7 +13,7 @@ const UPDATE_LOG = [
     date: "2026-11-13",
     changes: [
       "New custom scrollbars",
-      "Added new effects, Glitch, Auto-Tune (Work in Progress), Vocoder (Work in Progress), Harmonizer, Crush and Tape, and Texture"
+      "Added new effects, Glitch, Auto-Tune (Work in Progress), Vocoder (Work in Progress), Harmonizer, Crush and Tape, and Texture",
       "Re-did the export tabs UI"
     ]
   },
