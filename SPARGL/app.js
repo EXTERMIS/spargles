@@ -1043,6 +1043,7 @@ const fmt = (s) => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStar
     $("#tm").textContent = fmt(x) + " / " + fmt(d);
     updateSelBox();
   }
+  $("#nm").classList.toggle("on", playing && !!buf); // red glow while playing
   requestAnimationFrame(tick);
 })();
 // ---------- Waveform & loading ----------
