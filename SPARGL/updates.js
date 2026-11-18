@@ -9,7 +9,19 @@
 // ============================================================
 const UPDATE_LOG = [
   {
-    v: "1.6",
+    v: "1.0.7",
+    date: "2026-11-13",
+    changes: [
+      "New track editing features",
+      "Added ability to  select part of a track and apply effects to that sections specifically!",
+      "Copy, Cut, Paste and Delete parts of a track",
+      "Undo and Redo for effects and edits",
+      " ",
+      "Fine controls for track selection coming in the next update!"
+    ]
+  },
+  {
+    v: "1.0.6",
     date: "2026-11-13",
     changes: [
       "New custom scrollbars",
@@ -18,7 +30,7 @@ const UPDATE_LOG = [
     ]
   },
   {
-    v: "1.5",
+    v: "1.0.5",
     date: "2026-11-13",
     changes: [
       "Quick update changing track playthrough settings",
@@ -26,7 +38,7 @@ const UPDATE_LOG = [
     ]
   },
   {
-    v: "1.4",
+    v: "1.0.4",
     date: "2026-11-12",
     changes: [
       "Update logs now written in updates.js instead of in the browser",
@@ -36,7 +48,7 @@ const UPDATE_LOG = [
     ]
   },
   {
-    v: "1.3",
+    v: "1.0.3",
     date: "2026-11-12",
     changes: [
       "Setting to switch to newly uploaded audio (off by default: uploads are added to the library and the current track stays loaded)",
@@ -47,7 +59,7 @@ const UPDATE_LOG = [
     ]
   },
   {
-    v: "1.2",
+    v: "1.0.2",
     date: "2026.",
     changes: [
       "Settings menu, red / black / white theme, collapsible effect sections",
@@ -55,7 +67,7 @@ const UPDATE_LOG = [
     ]
   },
   {
-    v: "1.1",
+    v: "1.0.1",
     date: "2026.",
     changes: [
       "MP3 and WAV export with format, bitrate, channel and sample-rate dropdowns",
@@ -64,7 +76,7 @@ const UPDATE_LOG = [
     ]
   },
   {
-    v: "1.0",
+    v: "1.0.0",
     date: "2026.",
     changes: [
       "First release: upload audio and keep it in your browser library",
