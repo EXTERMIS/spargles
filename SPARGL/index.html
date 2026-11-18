@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="color-scheme" content="light dark">
-    <meta name="description" content="SPARGL: Audio Lab.">
+    <meta name="description" content="SPARGL: AUDIO LAB - upload audio, apply effects and presets, and export MP3 or WAV in your browser.">
     <title>SPARGL: AUDIO LAB</title>
     <link rel="icon" href="Tab-Icon-2.png">
     <link rel="stylesheet" href="styles.css">
@@ -17,7 +17,7 @@
   <body>
     <header>
       <h1>SPARGL: AUDIO LAB</h1>
-      <p class="tagline">Unique Audio Lab</p>
+      <p class="tagline">Unique Audio Lab.</p>
       <button type="button" id="logbtn" class="push">Update log</button>
       <button type="button" id="gear">⚙ Settings</button>
     </header>
@@ -75,6 +75,7 @@
 
           <div id="wv">
             <canvas aria-label="Audio waveform"></canvas>
+            <div id="sel" hidden></div>
             <div id="ph"></div>
           </div>
 
@@ -91,6 +92,22 @@
               <button type="button" id="rst">Reset FX</button>
               <span id="rstmsg" class="pop" role="status" hidden>Effects reset to defaults ✓</span>
             </span>
+          </div>
+
+          <div class="selrow">
+            <span id="selinfo" class="mut">Load audio to start editing</span>
+          </div>
+          <div class="tr editbar" role="toolbar" aria-label="Selection and editing">
+            <button type="button" id="eAll" title="Select the whole track">Select all</button>
+            <button type="button" id="ePlay" title="Play only the selection (with the live effects)">Play selection</button>
+            <button type="button" id="eCopy" title="Copy (Ctrl+C)">Copy</button>
+            <button type="button" id="eCut" title="Cut (Ctrl+X)">Cut</button>
+            <button type="button" id="ePaste" title="Paste (Ctrl+V). Where it lands is set in Settings">Paste</button>
+            <button type="button" id="eDel" title="Delete the selection and close the gap (Delete)">Delete</button>
+            <button type="button" id="eFx" class="pri" title="Apply the current effects to the selection only, then reset the live effects">Apply FX to selection</button>
+            <span class="sp"></span>
+            <button type="button" id="eUndo" title="Undo (Ctrl+Z)">Undo</button>
+            <button type="button" id="eRedo" title="Redo (Ctrl+Shift+Z)">Redo</button>
           </div>
         </section>
 
@@ -144,7 +161,7 @@
           </div>
 
           <p class="mut note">
-            Files download directly in a normal browser.
+            Files download directly in browser.
           </p>
         </section>
 
@@ -185,6 +202,14 @@
           use this exact value. Smaller-range sliders (0 to 1 mixes, speed) use one tenth of it so
           they stay usable. You can always type an exact value in the box next to any slider.
         </small>
+
+        <label class="st">
+          Paste position
+          <select id="spp">
+            <option value="after">After selected range</option>
+            <option value="playhead">At playhead</option>
+          </select>
+        </label>
 
         <label class="st">
           <span>Play when a preset is chosen</span>
