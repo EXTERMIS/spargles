@@ -41,46 +41,44 @@ const UPDATE_LOG = [
     v: "1.0.4",
     date: "2026-11-12",
     changes: [
-      "Update logs now written in updates.js instead of in the browser",
-      "Rename tracks with the pencil button in library",
-      "New Projects tab in the library: create projects and drag tracks in, between, and out of them",
-      "Save preset button: name and keep your own effect settings under Custom Presets"
+      "Rename tracks in library",
+      "New Projects tab in the library",
+      "Save preset button"
     ]
   },
   {
     v: "1.0.3",
     date: "2026-11-12",
     changes: [
-      "Setting to switch to newly uploaded audio (off by default: uploads are added to the library and the current track stays loaded)",
+      "Setting to switch to newly uploaded audio (off by default, uploads are added to the library and the current track stays loaded)",
       "Confirmation popup beside Reset FX",
-      "Speed and pitch are now separate controls, with a lock toggle that links them like before",
+      "Speed and pitch are now separate controls, but can be locked together",
       "Fixed the Slider step dropdown not showing the current selection",
-      "Added the update log"
+      "Added update log"
     ]
   },
   {
     v: "1.0.2",
     date: "2026.",
     changes: [
-      "Settings menu, red / black / white theme, collapsible effect sections",
-      "Typed values for every slider and a configurable slider step"
+      "Settings menu, New theme, and collapsible effect sections",
+      "Typed values now allowed for each slider"
     ]
   },
   {
     v: "1.0.1",
     date: "2026.",
     changes: [
-      "MP3 and WAV export with format, bitrate, channel and sample-rate dropdowns",
+      "New export settings",
       "New effects: phaser, vibrato, gate, exciter, tube warmth, stereo width, limiter and edit tools",
-      "About 100 presets in 9 categories with search"
+      "Many new presets"
     ]
   },
   {
     v: "1.0.0",
     date: "2026.",
     changes: [
-      "First release: upload audio and keep it in your browser library",
-      "Effects chain with presets and WAV export"
+      "First release"
     ]
   }
 ];
