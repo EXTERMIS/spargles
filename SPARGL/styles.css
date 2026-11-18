@@ -773,3 +773,40 @@ input[type=range] {
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== Waveform selection & editing ===== */
+
+#wv {
+  cursor: crosshair;
+  touch-action: none;
+  user-select: none;
+}
+
+#sel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: color-mix(in srgb, var(--ac) 22%, transparent);
+  border-left: 2px solid var(--ac);
+  border-right: 2px solid var(--ac);
+  pointer-events: none;
+}
+
+.selrow {
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.editbar {
+  margin-top: 6px;
+}
+
+button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  border-color: var(--ln);
+}
+
