@@ -271,7 +271,7 @@ const PC = {
 };
 const PF = Object.assign({}, ...Object.values(PC));
 // ---------- Settings & app state ----------
-const SD = { theme: "auto", step: 0.5, auto: true, save: true, sw: false };
+const SD = { theme: "auto", step: 0.5, auto: true, save: true, sw: false, paste: "after" };
 let S = { ...SD };
 try {
   S = { ...SD, ...JSON.parse(localStorage.getItem("spargl-set") || "{}") };
@@ -620,8 +620,9 @@ function creativeStage(b, p) {
   return o;
 }
 // ---------- Edit tools (applied to the audio buffer) ----------
+let prepInfo = null; // how the last prepped buffer maps back to the source (used by region editing)
 function prep(b, p) {
-  b = stretchBuf(b, effK());
+  b = stretchBuf(b, byp ? 1 : kOf(p));
   if (!byp) b = creativeStage(b, p);
   const nc = b.numberOfChannels;
   let s = Math.floor(b.length * p.ts / 100);
@@ -631,12 +632,14 @@ function prep(b, p) {
     s = Math.max(0, e - 64);
   }
   let A = [...Array(nc)].map((_, c) => b.getChannelData(c).slice(s, e));
+  let trimOff = 0;
   if (p.trim) {
     let a = 0;
     let z = A[0].length - 1;
     const hit = (i) => A.some((x) => Math.abs(x[i]) > 0.01);
     while (a < z && !hit(a)) a++;
     while (z > a && !hit(z)) z--;
+    trimOff = a;
     A = A.map((x) => x.slice(a, z + 1));
   }
   if (p.mono && nc > 1) {
@@ -681,11 +684,12 @@ function prep(b, p) {
   }
   const o = new AudioBuffer({ length: A[0].length, numberOfChannels: nc, sampleRate: b.sampleRate });
   A.forEach((x, c) => o.copyToChannel(x, c));
+  prepInfo = { s, a: trimOff, rev: !!p.rev, k: byp ? 1 : kOf(p), sr: b.sampleRate, n: A[0].length };
   return o;
 }
 function cur() {
   const k = pk();
-  if (!cache || cache.k != k || cache.b !== buf) cache = { k, b: buf, o: prep(buf, p) };
+  if (!cache || cache.k != k || cache.b !== buf) cache = { k, b: buf, o: prep(buf, p), info: prepInfo };
   return cache.o;
 }
 // ---------- Effects chain (Web Audio) ----------
@@ -968,6 +972,10 @@ const cpos = () => {
   const d = cur().duration;
   if (!playing) return pos;
   let t = (actx.currentTime - startT) * R();
+  if (rng) {
+    if (loop && t >= rng.b) t = rng.a + (t - rng.a) % (rng.b - rng.a);
+    return Math.min(t, rng.b);
+  }
   return loop ? t % d : Math.min(t, d);
 };
 function play(from) {
@@ -978,18 +986,24 @@ function play(from) {
   const b = cur();
   const q = byp ? D : p;
   if (from != null) pos = from;
-  if (pos >= b.duration - 0.01) pos = 0;
+  if (rng && (pos < rng.a || pos >= rng.b - 0.01)) pos = rng.a;
+  if (!rng && pos >= b.duration - 0.01) pos = 0;
   src = c.createBufferSource();
   src.buffer = b;
   src.playbackRate.value = prate(q);
   src.loop = loop;
+  if (rng) {
+    src.loopStart = rng.a;
+    src.loopEnd = rng.b;
+  }
   mk(c, q, src, oscs).connect(c.destination);
-  src.start(0, pos);
+  if (rng && !loop) src.start(0, pos, Math.max(0.01, rng.b - pos));
+  else src.start(0, pos);
   startT = c.currentTime - pos / R();
   playing = true;
   src.onended = () => {
     playing = false;
-    pos = 0;
+    pos = rng ? rng.a : 0;
     ui();
   };
   ui();
@@ -1027,6 +1041,7 @@ const fmt = (s) => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStar
     const x = cpos();
     $("#ph").style.left = x / d * 100 + "%";
     $("#tm").textContent = fmt(x) + " / " + fmt(d);
+    updateSelBox();
   }
   requestAnimationFrame(tick);
 })();
@@ -1062,7 +1077,8 @@ function setBuf(b, n, id = null) {
   name = n;
   curId = id;
   pos = 0;
-  $("#nm").textContent = n;
+  resetHist();
+  showName();
   draw();
   ui();
 }
@@ -1086,6 +1102,302 @@ async function loadAB(ab, n, save, sw = true, id = null) {
     }
   }
 }
+// ---------- Selection & editing (cut, copy, paste, delete, apply FX to a range) ----------
+let sel = null; // selected range { s, e } in seconds of the working audio (before the live effects)
+let clip = null; // clipboard (AudioBuffer)
+let hist = []; // undo history of the working audio
+let hi = -1;
+let rng = null; // range being auditioned: { a, b } in display seconds
+const FADE = 64; // samples; softens the seams of cuts and pastes
+const ft = (t) => Math.floor(t / 60) + ":" + (t % 60).toFixed(2).padStart(5, "0");
+function showName() {
+  $("#nm").textContent = buf ? name + (hi > 0 ? " (edited)" : "") : "No audio loaded";
+}
+// The waveform shows the processed audio (trim, reverse, stretch...), the selection is stored on the
+// source audio. These two convert between them.
+function dispToSrc(t) {
+  cur();
+  const i = cache.info;
+  const j = t * i.sr;
+  const m = i.s + i.a + (i.rev ? i.n - j : j);
+  return clamp(m / i.k / i.sr, 0, buf.duration);
+}
+function srcToDisp(t) {
+  const d = cur().duration;
+  const i = cache.info;
+  const j = t * i.sr * i.k - i.s - i.a;
+  return clamp((i.rev ? i.n - j : j) / i.sr, 0, d);
+}
+const chData = (b) => [...Array(b.numberOfChannels)].map((_, c) => b.getChannelData(c));
+function mkBuf(A, sr) {
+  const o = new AudioBuffer({ length: A[0].length, numberOfChannels: A.length, sampleRate: sr });
+  A.forEach((x, c) => o.copyToChannel(x, c));
+  return o;
+}
+const samp = (b, t) => clamp(Math.round(t * b.sampleRate), 0, b.length);
+const sliceBuf = (b, s, e) => mkBuf(chData(b).map((x) => x.slice(samp(b, s), samp(b, e))), b.sampleRate);
+// Briefly fade both sides of a join so cuts and pastes do not click.
+function smoothJoin(y, j) {
+  for (let i = 0; i < FADE; i++) {
+    if (j - 1 - i >= 0 && j - 1 - i < y.length) y[j - 1 - i] *= i / FADE;
+    if (j + i < y.length) y[j + i] *= i / FADE;
+  }
+}
+function matchCh(b, nc) {
+  const X = chData(b);
+  if (X.length == nc) return X;
+  if (nc == 1) {
+    const m = new Float32Array(b.length);
+    X.forEach((x) => x.forEach((v, i) => m[i] += v / X.length));
+    return [m];
+  }
+  return [...Array(nc)].map((_, c) => X[Math.min(c, X.length - 1)]);
+}
+function cutRange(b, s, e) {
+  const i0 = samp(b, s);
+  const i1 = samp(b, e);
+  return mkBuf(chData(b).map((x) => {
+    const y = new Float32Array(x.length - (i1 - i0));
+    y.set(x.subarray(0, i0));
+    y.set(x.subarray(i1), i0);
+    smoothJoin(y, i0);
+    return y;
+  }), b.sampleRate);
+}
+function insertAt(b, at, cl) {
+  const i = samp(b, at);
+  const C = matchCh(cl, b.numberOfChannels);
+  return mkBuf(chData(b).map((x, c) => {
+    const y = new Float32Array(x.length + C[c].length);
+    y.set(x.subarray(0, i));
+    y.set(C[c], i);
+    y.set(x.subarray(i), i + C[c].length);
+    smoothJoin(y, i);
+    smoothJoin(y, i + C[c].length);
+    return y;
+  }), b.sampleRate);
+}
+// Replace [i0, i1) with a processed segment; its effect tail is mixed over whatever follows.
+function spliceSeg(b, i0, i1, seg, tail, orig) {
+  const F = Math.min(FADE, seg[0].length, orig[0].length);
+  return mkBuf(chData(b).map((x, c) => {
+    const sg = seg[c].slice();
+    for (let i = 0; i < F; i++) {
+      const w = i / F; // crossfade into / out of the processed segment
+      sg[i] = orig[c][i] * (1 - w) + sg[i] * w;
+      const j = sg.length - 1 - i;
+      sg[j] = orig[c][orig[c].length - 1 - i] * (1 - w) + sg[j] * w;
+    }
+    const t = tail[c];
+    const ext = i1 >= x.length ? t.length : 0;
+    const y = new Float32Array(x.length - (i1 - i0) + sg.length + ext);
+    y.set(x.subarray(0, i0));
+    y.set(sg, i0);
+    y.set(x.subarray(i1), i0 + sg.length);
+    for (let i = 0; i < t.length && i0 + sg.length + i < y.length; i++) y[i0 + sg.length + i] += t[i];
+    return y;
+  }), b.sampleRate);
+}
+function resetHist() {
+  hist = [buf];
+  hi = 0;
+  sel = null;
+  rng = null;
+  updateEditUI();
+}
+function useBuf(nb, nsel) {
+  stopN();
+  playing = false;
+  rng = null;
+  buf = nb;
+  cache = null;
+  sel = nsel;
+  draw();
+  showName();
+  updateEditUI();
+  ui();
+}
+function commit(nb, nsel) {
+  hist = hist.slice(0, hi + 1);
+  hist.push(nb);
+  if (hist.length > 10) hist.shift();
+  hi = hist.length - 1;
+  useBuf(nb, nsel);
+}
+function undoRedo(dir) {
+  const n = hi + dir;
+  if (!buf || n < 0 || n >= hist.length) return;
+  hi = n;
+  pos = 0;
+  useBuf(hist[hi], null);
+}
+function updateEditUI() {
+  const has = !!buf;
+  const hs = has && !!sel;
+  [["#eAll", has], ["#ePlay", hs], ["#eCopy", hs], ["#eCut", hs], ["#eDel", hs], ["#eFx", hs], ["#ePaste", has && !!clip], ["#eUndo", hi > 0], ["#eRedo", hi >= 0 && hi < hist.length - 1]].forEach(([id, on]) => $(id).disabled = !on);
+  let t = sel ? `Selected ${ft(sel.s)} – ${ft(sel.e)} (${(sel.e - sel.s).toFixed(2)} s)` : has ? "Drag across the waveform to select a range" : "Load audio to start editing";
+  if (clip) t += ` · Clipboard ${clip.duration.toFixed(2)} s`;
+  $("#selinfo").textContent = t;
+}
+function updateSelBox() {
+  const el = $("#sel");
+  if (!buf || !sel) {
+    el.hidden = true;
+    return;
+  }
+  const d = cur().duration;
+  const a = srcToDisp(sel.s);
+  const b = srcToDisp(sel.e);
+  el.hidden = false;
+  el.style.left = Math.min(a, b) / d * 100 + "%";
+  el.style.width = Math.abs(b - a) / d * 100 + "%";
+}
+// Set the selection from two points on the waveform (display seconds).
+function setSel(a, b) {
+  const lo = Math.min(a, b);
+  const hi2 = Math.max(a, b);
+  if (hi2 - lo < 0.005) sel = null;
+  else {
+    const s1 = dispToSrc(lo);
+    const s2 = dispToSrc(hi2);
+    sel = { s: Math.min(s1, s2), e: Math.max(s1, s2) };
+  }
+  updateEditUI();
+}
+const wv = $("#wv");
+let drag = null;
+const xToDisp = (x) => clamp((x - wv.getBoundingClientRect().left) / wv.clientWidth, 0, 1) * cur().duration;
+const selEdges = () => {
+  const a = srcToDisp(sel.s);
+  const b = srcToDisp(sel.e);
+  return [Math.min(a, b), Math.max(a, b)];
+};
+const edgeAt = (t) => {
+  if (!sel) return null;
+  const [lo, hi2] = selEdges();
+  const tol = 8 / wv.clientWidth * cur().duration;
+  return Math.abs(t - lo) < tol ? "lo" : Math.abs(t - hi2) < tol ? "hi" : null;
+};
+wv.onpointerdown = (e) => {
+  if (!buf) return;
+  wv.setPointerCapture(e.pointerId);
+  const t = xToDisp(e.clientX);
+  const edge = edgeAt(t);
+  const [lo, hi2] = sel ? selEdges() : [0, 0];
+  drag = { x0: e.clientX, t0: t, edge, lo, hi: hi2, moved: false };
+};
+wv.onpointermove = (e) => {
+  if (!buf) return;
+  if (!drag) {
+    wv.style.cursor = edgeAt(xToDisp(e.clientX)) ? "ew-resize" : "";
+    return;
+  }
+  if (!drag.moved && Math.abs(e.clientX - drag.x0) < 4) return;
+  drag.moved = true;
+  const t = xToDisp(e.clientX);
+  if (drag.edge == "lo") setSel(t, drag.hi);
+  else if (drag.edge == "hi") setSel(drag.lo, t);
+  else setSel(drag.t0, t);
+};
+wv.onpointerup = () => {
+  if (!drag) return;
+  if (!drag.moved) {
+    // a plain click moves the playhead and clears the selection
+    rng = null;
+    sel = null;
+    updateEditUI();
+    if (playing) play(drag.t0);
+    else pos = drag.t0;
+  }
+  drag = null;
+};
+function doCopy() {
+  if (!buf || !sel) return;
+  clip = sliceBuf(buf, sel.s, sel.e);
+  updateEditUI();
+  toast(`Copied ${clip.duration.toFixed(2)} s`);
+}
+function doDelete(silent) {
+  if (!buf || !sel) return;
+  const i0 = samp(buf, sel.s);
+  const i1 = samp(buf, sel.e);
+  if (i1 - i0 >= buf.length - 64) return toast("Select less than the whole track to delete it");
+  const at = sel.s;
+  const secs = (i1 - i0) / buf.sampleRate;
+  commit(cutRange(buf, sel.s, sel.e), null);
+  pos = srcToDisp(at);
+  if (!silent) toast(`Deleted ${secs.toFixed(2)} s`);
+}
+function doCut() {
+  if (!buf || !sel) return;
+  doCopy();
+  doDelete(true);
+  toast(`Cut ${clip.duration.toFixed(2)} s`);
+}
+function doPaste() {
+  if (!buf || !clip) return;
+  if (clip.sampleRate != buf.sampleRate) return toast("Sample rates differ, cannot paste");
+  const at = S.paste == "after" && sel ? sel.e : dispToSrc(playing ? cpos() : pos);
+  commit(insertAt(buf, at, clip), { s: at, e: at + clip.duration });
+  pos = srcToDisp(at);
+  toast(`Pasted ${clip.duration.toFixed(2)} s`);
+}
+// Bake the current effects into the selected range only, then reset the live effects so the rest is untouched.
+async function applyToSelection() {
+  if (!buf || !sel) return;
+  toast("Applying effects to the selection…");
+  await new Promise((r) => setTimeout(r, 30));
+  stopN();
+  playing = false;
+  const sr = buf.sampleRate;
+  const st = mkBuf(matchCh(buf, 2), sr);
+  const i0 = samp(st, sel.s);
+  const i1 = samp(st, sel.e);
+  const piece = sliceBuf(st, sel.s, sel.e);
+  const q = { ...p, ts: 0, te: 100, trim: 0 };
+  const wasByp = byp;
+  byp = false;
+  let pb;
+  let out;
+  try {
+    pb = prep(piece, q);
+    out = await renderBuffer(pb, q, sr);
+  } catch (e) {
+    byp = wasByp;
+    return toast("Could not apply the effects");
+  }
+  byp = wasByp;
+  const bodyLen = Math.max(1, Math.round(pb.duration / prate(q) * sr));
+  const O = chData(out);
+  const nb = spliceSeg(st, i0, i1, O.map((x) => x.slice(0, bodyLen)), O.map((x) => x.slice(bodyLen)), chData(piece));
+  const s0 = sel.s;
+  commit(nb, { s: s0, e: s0 + bodyLen / sr });
+  p = { ...D };
+  cp = "";
+  syncUI();
+  markP();
+  pos = srcToDisp(s0);
+  toast("Effects applied to the selection (live effects reset)");
+}
+$("#eAll").onclick = () => {
+  if (!buf) return;
+  sel = { s: 0, e: buf.duration };
+  updateEditUI();
+};
+$("#ePlay").onclick = () => {
+  if (!sel) return;
+  const a = srcToDisp(sel.s);
+  const b = srcToDisp(sel.e);
+  rng = { a: Math.min(a, b), b: Math.max(a, b) };
+  play(rng.a);
+};
+$("#eCopy").onclick = doCopy;
+$("#eCut").onclick = doCut;
+$("#ePaste").onclick = doPaste;
+$("#eDel").onclick = () => doDelete();
+$("#eFx").onclick = applyToSelection;
+$("#eUndo").onclick = () => undoRedo(-1);
+$("#eRedo").onclick = () => undoRedo(1);
 // ---------- Library (IndexedDB) ----------
 let dbp = null;
 const db = () => dbp || (dbp = new Promise((res, rej) => {
@@ -1226,7 +1538,7 @@ $("#libbody").onclick = async (e) => {
         await tx("readwrite", (s) => s.put(rec));
         if (curId === id) {
           name = v;
-          $("#nm").textContent = v;
+          showName();
         }
       });
     } else if (ds.rm) {
@@ -1481,31 +1793,34 @@ function zip(nm, u) {
   w(0);
   return o.buffer;
 }
-async function render(sr) {
-  const wasByp = byp;
-  byp = false; // always export the processed audio, never the A/B original
-  const b = cur();
-  byp = wasByp;
+async function renderBuffer(b, q, sr) {
   const rate = sr || b.sampleRate;
-  const tail = (p.rmx > 0 ? p.rsz + 1 : 0) + (p.dmx > 0 ? Math.min(4, p.dt * 8) : 0);
-  const d = b.duration / prate(p);
+  const tail = (q.rmx > 0 ? q.rsz + 1 : 0) + (q.dmx > 0 ? Math.min(4, q.dt * 8) : 0);
+  const d = b.duration / prate(q);
   const len = Math.ceil((d + tail) * rate);
   const o = new OfflineAudioContext(2, len, rate);
   const s = o.createBufferSource();
   s.buffer = b;
-  s.playbackRate.value = prate(p);
-  const out = mk(o, p, s, []);
+  s.playbackRate.value = prate(q);
+  const out = mk(o, q, s, []);
   const f = o.createGain();
-  f.gain.setValueAtTime(p.fi > 0 ? 0 : 1, 0);
-  if (p.fi > 0) f.gain.linearRampToValueAtTime(1, p.fi);
-  if (p.fo > 0) {
-    f.gain.setValueAtTime(1, Math.max(p.fi, d - p.fo));
+  f.gain.setValueAtTime(q.fi > 0 ? 0 : 1, 0);
+  if (q.fi > 0) f.gain.linearRampToValueAtTime(1, q.fi);
+  if (q.fo > 0) {
+    f.gain.setValueAtTime(1, Math.max(q.fi, d - q.fo));
     f.gain.linearRampToValueAtTime(0, d);
   }
   out.connect(f);
   f.connect(o.destination);
   s.start();
   return o.startRendering();
+}
+async function render(sr) {
+  const wasByp = byp;
+  byp = false; // always export the processed audio, never the A/B original
+  const b = cur();
+  byp = wasByp;
+  return renderBuffer(b, p, sr);
 }
 const base = () => (name || "spargl").replace(/\.[^.]+$/, "") + "-fx";
 async function saveFile(fn, blob) {
@@ -1775,24 +2090,41 @@ $("#loop").onclick = () => {
   if (src) src.loop = loop;
   ui();
 };
-$("#play").onclick = () => buf ? playing ? pause() : play() : toast("Load a sound first");
+$("#play").onclick = () => buf ? playing ? pause() : (rng = null, play()) : toast("Load a sound first");
 $("#stop").onclick = () => {
+  rng = null;
   stopN();
   playing = false;
   pos = 0;
   ui();
 };
-$("#wv").onclick = (e) => {
-  if (!buf) return;
-  const r = e.currentTarget.getBoundingClientRect();
-  const t = (e.clientX - r.left) / r.width * cur().duration;
-  if (playing) play(t);
-  else pos = t;
-};
 document.onkeydown = (e) => {
-  if (e.code == "Space" && !/INPUT|BUTTON|SELECT/.test(e.target.tagName)) {
+  const typing = /INPUT|TEXTAREA|SELECT/.test(e.target.tagName);
+  if (e.code == "Space" && !typing && e.target.tagName != "BUTTON") {
     e.preventDefault();
     $("#play").click();
+  }
+  if (typing) return;
+  const mod = e.ctrlKey || e.metaKey;
+  const k = e.key.toLowerCase();
+  if ((e.key == "Delete" || e.key == "Backspace") && sel) {
+    e.preventDefault();
+    doDelete();
+  } else if (mod && k == "c" && sel) {
+    e.preventDefault();
+    doCopy();
+  } else if (mod && k == "x" && sel) {
+    e.preventDefault();
+    doCut();
+  } else if (mod && k == "v" && clip) {
+    e.preventDefault();
+    doPaste();
+  } else if (mod && k == "z") {
+    e.preventDefault();
+    undoRedo(e.shiftKey ? 1 : -1);
+  } else if (mod && k == "y") {
+    e.preventDefault();
+    undoRedo(1);
   }
 };
 function syncS() {
@@ -1800,6 +2132,7 @@ function syncS() {
   $("#sst").value = String(S.step);
   $("#sau").checked = S.auto;
   $("#ssw").checked = S.sw;
+  $("#spp").value = S.paste;
   $("#ssv").checked = S.save;
 }
 $("#gear").onclick = () => {
@@ -1828,6 +2161,10 @@ $("#sst").onchange = (e) => {
   S.step = +e.target.value;
   saveS();
   applyStep();
+};
+$("#spp").onchange = (e) => {
+  S.paste = e.target.value;
+  saveS();
 };
 $("#sau").onchange = (e) => {
   S.auto = e.target.checked;
