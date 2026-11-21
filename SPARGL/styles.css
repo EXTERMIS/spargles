@@ -829,3 +829,152 @@ button:disabled:hover {
   }
 }
 
+/* ===== Preset sections, chips, pins, folders ===== */
+
+.psave {
+  gap: 6px;
+}
+
+.psave button {
+  padding: 5px 9px;
+  font-size: 12px;
+}
+
+.psave button.on {
+  background: linear-gradient(90deg, var(--ac), var(--ac2));
+  border-color: transparent;
+  color: #fff;
+}
+
+.psf {
+  flex-wrap: wrap;
+  margin: 0 0 8px;
+}
+
+.psf input {
+  flex: 1 1 100%;
+  width: auto;
+}
+
+.psf select {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 8px;
+}
+
+.psec {
+  border-top: 1px solid var(--ln);
+  padding: 6px 0;
+}
+
+.psh {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.psh .tg {
+  border: 0;
+  background: none;
+  padding: 0 4px;
+  color: var(--ac);
+  transition: transform .15s;
+}
+
+.psec.min .tg {
+  transform: rotate(-90deg);
+}
+
+.psec.min:not(.force) .chips,
+.psec.min:not(.force) .hint {
+  display: none;
+}
+
+.pst {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--ac);
+}
+
+.psh small {
+  color: var(--mut);
+}
+
+.pa2 {
+  padding: 1px 6px;
+  font-size: 11px;
+  border-radius: 6px;
+}
+
+.pchip {
+  display: inline-flex;
+  align-items: center;
+  background: var(--pn);
+  border: 1px solid var(--ln);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.pchip:hover {
+  border-color: var(--ac);
+}
+
+.pchip.cur {
+  border-color: var(--ac2);
+}
+
+.pchip button {
+  border: 0;
+  border-radius: 0;
+  background: none;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.pchip .pin {
+  padding: 4px 2px 4px 8px;
+  color: var(--mut);
+}
+
+.pchip.pinned .pin,
+.pchip .pin:hover {
+  color: var(--ac);
+}
+
+.pchip .pb {
+  padding-left: 4px;
+}
+
+.pchip .pb.on {
+  color: var(--ac2);
+}
+
+.pm {
+  display: none;
+}
+
+#pre.manage .pm {
+  display: inline-flex;
+}
+
+.pm button {
+  padding: 4px 6px;
+  color: var(--mut);
+}
+
+.pm button:hover {
+  color: var(--ac);
+}
+
+.mvsel {
+  padding: 3px 6px;
+  font-size: 12px;
+}
+
