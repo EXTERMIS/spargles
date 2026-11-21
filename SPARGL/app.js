@@ -1483,7 +1483,7 @@ function armed(b, fn) {
   fn();
 }
 // Swap a label for a text box; Enter or clicking away saves, Escape cancels.
-function renameInline(el, current, save) {
+function renameInline(el, current, save, after = lib) {
   const inp = document.createElement("input");
   inp.className = "rn";
   inp.value = current;
@@ -1501,7 +1501,7 @@ function renameInline(el, current, save) {
     } catch (e) {
       toast("Storage error");
     }
-    lib();
+    after();
   };
   inp.onkeydown = (e) => {
     if (e.key == "Enter") fin(true);
@@ -1959,11 +1959,21 @@ $("#fx").onchange = (e) => {
   if (heavy(k)) later(done);
   else done();
 };
-const markP = () => document.querySelectorAll("#pre button").forEach((b) => b.classList.toggle("on", b.dataset.p === cp));
-// ---------- Custom presets (saved in localStorage) ----------
-let CUSTOM = Object.create(null);
+const markP = () => document.querySelectorAll("#pre button[data-p]").forEach((b) => {
+  const on = b.dataset.p === cp;
+  b.classList.toggle("on", on);
+  b.closest(".pchip")?.classList.toggle("cur", on);
+});
+// ---------- Presets: custom folders, pins, import / export (.spgl) ----------
+let CUSTOM = Object.create(null); // custom presets: name -> settings that differ from the defaults
 try {
   Object.assign(CUSTOM, JSON.parse(localStorage.getItem("spargl-custom")) || {});
+} catch (e) {}
+// META: folders (names, in creation order), where[name] = folder of a custom preset, pins = preset keys
+let META = { folders: [], where: Object.create(null), pins: [] };
+try {
+  const m = JSON.parse(localStorage.getItem("spargl-meta"));
+  if (m) META = { folders: m.folders || [], where: Object.assign(Object.create(null), m.where), pins: m.pins || [] };
 } catch (e) {}
 const saveCustom = () => {
   try {
@@ -1972,51 +1982,241 @@ const saveCustom = () => {
     toast("Could not store the preset in this browser");
   }
 };
+const saveMeta = () => {
+  try {
+    localStorage.setItem("spargl-meta", JSON.stringify(META));
+  } catch (e) {
+    toast("Could not store the folders in this browser");
+  }
+};
+const COLL = new Set(); // collapsed sections
+let lastFolder = ""; // folder chosen in the save form
+const UNFILED = "Custom Presets";
+// A preset key is its name for built-in presets and "c:" + name for custom ones.
 const getPreset = (key) => key.startsWith("c:") ? CUSTOM[key.slice(2)] : PF[key];
+const isPinned = (k) => META.pins.includes(k);
+const folderOf = (n) => META.folders.includes(META.where[n]) ? META.where[n] : "";
+const nameOfKey = (k) => k.startsWith("c:") ? k.slice(2) : k;
+function togglePin(k) {
+  META.pins = isPinned(k) ? META.pins.filter((x) => x != k) : [...META.pins, k];
+  saveMeta();
+}
+function chip(key, custom) {
+  const pin = isPinned(key);
+  const n = esc(nameOfKey(key));
+  const k = esc(key);
+  return `<span class="pchip${pin ? " pinned" : ""}"><button class="pin" data-pin="${k}" title="${pin ? "Unpin" : "Pin to the top of its section"}">${pin ? "★" : "☆"}</button><button class="pb" data-p="${k}">${n}</button><span class="pm"><button data-px="${k}" title="Export this preset (.spgl)">⤓</button>${custom ? `<button data-pmv="${n}" title="Move to a folder">⇄</button><button class="cx" data-cx="${n}" title="Delete preset">✕</button>` : ""}</span></span>`;
+}
+// Pinned presets float to the top of their own section.
+function section(id, title, keys, o = {}) {
+  const ordered = [...keys.filter(isPinned), ...keys.filter((k) => !isPinned(k))];
+  const body = ordered.length ? `<div class="chips">${ordered.map((k) => chip(k, o.custom)).join("")}</div>` : `<p class="mut hint">${o.empty}</p>`;
+  return `<div class="psec${COLL.has(id) ? " min" : ""}" data-sec="${esc(id)}"><div class="psh"><button class="tg" data-tg="${esc(id)}" title="Collapse or expand">▾</button><span class="pst">${esc(title)}</span><small>${keys.length}</small>${o.actions || ""}</div>${body}</div>`;
+}
 function renderPresets() {
-  const names = Object.keys(CUSTOM);
-  const custom = `<details open><summary>Custom Presets <small>${names.length}</small></summary>` + (names.length ? `<div class="chips">${names.map((k) => `<span class="cchip"><button data-p="c:${esc(k)}">${esc(k)}</button><button class="cx" data-cx="${esc(k)}" title="Delete preset">✕</button></span>`).join("")}</div>` : '<p class="mut hint">Nothing here yet. Adjust the effects, then press Save preset.</p>') + "</details>";
-  $("#pre").innerHTML = custom + Object.entries(PC).map(([c, o]) => `<details open><summary>${c} <small>${Object.keys(o).length}</small></summary><div class="chips">${Object.keys(o).map((k) => `<button data-p="${esc(k)}">${esc(k)}</button>`).join("")}</div></details>`).join("");
+  const st = $("#pre").scrollTop;
+  const mine = (f) => Object.keys(CUSTOM).filter((n) => folderOf(n) == f).map((n) => "c:" + n);
+  let html = section("sec:custom", UNFILED, mine(""), { custom: 1, empty: "Nothing here yet. Adjust the effects, then press Save preset." });
+  html += META.folders.map((f) => section("f:" + f, f, mine(f), { custom: 1, empty: "Empty folder. Save a preset into it.", actions: `<button class="pa2" data-fr="${esc(f)}" title="Rename folder">✎</button><button class="pa2" data-fd="${esc(f)}" title="Delete folder (its presets move to Custom Presets)">✕</button>` })).join("");
+  html += Object.entries(PC).map(([c, o]) => section("b:" + c, c, Object.keys(o))).join("");
+  $("#pre").innerHTML = html;
   markP();
   filterPresets();
+  refreshFolderSelect();
+  $("#pre").scrollTop = st;
+}
+function refreshFolderSelect() {
+  if (lastFolder && !META.folders.includes(lastFolder)) lastFolder = "";
+  $("#psfld").innerHTML = `<option value="">${UNFILED}</option>` + META.folders.map((f) => `<option value="${esc(f)}">${esc(f)}</option>`).join("");
+  $("#psfld").value = lastFolder;
 }
 function filterPresets() {
   const q = $("#ps").value.toLowerCase();
-  document.querySelectorAll("#pre details").forEach((d) => {
+  document.querySelectorAll("#pre .psec").forEach((sec) => {
+    const title = sec.querySelector(".pst").textContent.toLowerCase();
     let any = 0;
-    d.querySelectorAll(".chips button[data-p]").forEach((b) => {
-      const m = b.textContent.toLowerCase().includes(q) || d.firstChild.textContent.toLowerCase().includes(q);
-      (b.closest(".cchip") || b).style.display = m ? "" : "none";
+    sec.querySelectorAll(".pchip").forEach((c) => {
+      const m = c.querySelector(".pb").textContent.toLowerCase().includes(q) || title.includes(q);
+      c.style.display = m ? "" : "none";
       any += m;
     });
-    d.style.display = !q || any ? "" : "none";
-    if (q) d.open = true;
+    sec.style.display = !q || any ? "" : "none";
+    sec.classList.toggle("force", !!q);
   });
 }
 $("#ps").oninput = filterPresets;
-$("#pre").onclick = (e) => {
-  const cx = e.target.closest("[data-cx]");
-  if (cx) {
-    return armed(cx, () => {
-      delete CUSTOM[cx.dataset.cx];
-      saveCustom();
-      if (cp == "c:" + cx.dataset.cx) cp = "";
-      renderPresets();
-    });
+// ---- folders ----
+function folderError(v, except) {
+  if (!v) return "Give the folder a name";
+  if (v.toLowerCase() == UNFILED.toLowerCase() || PC[v]) return "That name is already used by a built-in section";
+  if (META.folders.some((f) => f.toLowerCase() == v.toLowerCase() && f != except)) return "A folder with that name already exists";
+  return "";
+}
+function openForm(id) {
+  ["#psf", "#pff"].forEach((x) => $(x).hidden = x != id);
+  if (id) {
+    const inp = $(id).querySelector("input");
+    inp.value = "";
+    inp.focus();
   }
-  const n = e.target.dataset.p;
-  if (!n) return;
-  cp = n;
-  applyParams({ ...D, ...getPreset(n) }, S.auto);
+}
+$("#pnf").onclick = () => openForm("#pff");
+$("#pfno").onclick = () => openForm(null);
+$("#pfn").onkeydown = (e) => {
+  if (e.key == "Enter") $("#pfok").click();
+  else if (e.key == "Escape") openForm(null);
+};
+$("#pfok").onclick = () => {
+  const v = $("#pfn").value.trim().slice(0, 30);
+  const err = folderError(v);
+  if (err) return toast(err);
+  META.folders.push(v);
+  lastFolder = v;
+  saveMeta();
+  openForm(null);
+  renderPresets();
+  toast(`Folder "${v}" created`);
+};
+function renameFolder(f, v) {
+  v = v.trim().slice(0, 30);
+  const err = folderError(v, f);
+  if (err) return toast(err);
+  META.folders = META.folders.map((x) => x == f ? v : x);
+  for (const n of Object.keys(META.where)) if (META.where[n] == f) META.where[n] = v;
+  if (lastFolder == f) lastFolder = v;
+  if (COLL.delete("f:" + f)) COLL.add("f:" + v);
+  saveMeta();
+}
+function deleteFolder(f) {
+  META.folders = META.folders.filter((x) => x != f);
+  for (const n of Object.keys(META.where)) if (META.where[n] == f) META.where[n] = "";
+  saveMeta();
+  renderPresets();
+  toast(`Folder "${f}" deleted (its presets moved to ${UNFILED})`);
+}
+function moveInline(chipEl, name) {
+  const sel = document.createElement("select");
+  sel.className = "mvsel";
+  sel.innerHTML = `<option value="">${UNFILED}</option>` + META.folders.map((f) => `<option value="${esc(f)}">${esc(f)}</option>`).join("");
+  sel.value = folderOf(name);
+  chipEl.replaceWith(sel);
+  sel.focus();
+  sel.onchange = () => {
+    META.where[name] = sel.value;
+    saveMeta();
+    renderPresets();
+    toast(`Moved "${name}" to ${sel.value || UNFILED}`);
+  };
+  sel.onblur = renderPresets;
+}
+function deleteCustom(n) {
+  delete CUSTOM[n];
+  delete META.where[n];
+  META.pins = META.pins.filter((k) => k != "c:" + n);
+  saveCustom();
+  saveMeta();
+  if (cp == "c:" + n) cp = "";
+  renderPresets();
+}
+// ---- export / import (.spgl = JSON) ----
+function entryFor(key) {
+  if (key.startsWith("c:")) {
+    const n = key.slice(2);
+    return { name: n, settings: { ...CUSTOM[n] }, folder: folderOf(n) || UNFILED, pinned: isPinned(key) };
+  }
+  const cat = Object.keys(PC).find((c) => key in PC[c]);
+  return { name: key, settings: { ...PC[cat][key] }, folder: cat, pinned: isPinned(key) };
+}
+const allKeys = () => [...Object.keys(CUSTOM).map((n) => "c:" + n), ...Object.values(PC).flatMap(Object.keys)];
+function exportPresets(keys, fname) {
+  const data = { app: "SPARGL: AUDIO LAB", type: "presets", version: 1, presets: keys.map(entryFor) };
+  saveFile(fname, new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }));
+}
+const fileSafe = (n) => n.replace(/[^\w\- ]+/g, "_").trim() || "preset";
+function cleanSettings(o) {
+  const out = {};
+  if (o && typeof o == "object") {
+    for (const k in o) {
+      const v = +o[k];
+      if (k in D && Number.isFinite(v)) out[k] = CM[k] ? clamp(v, CM[k][2], CM[k][3]) : v;
+    }
+  }
+  return out;
+}
+async function importFile(f) {
+  let data;
+  try {
+    data = JSON.parse(await f.text());
+  } catch (e) {
+    return toast("That is not a valid .spgl file");
+  }
+  const list = data && Array.isArray(data.presets) ? data.presets : null;
+  if (!list) return toast("No presets found in that file");
+  let added = 0;
+  let pinned = 0;
+  for (const e of list) {
+    if (!e || typeof e.name != "string" || !e.name.trim()) continue;
+    const name = e.name.trim().slice(0, 40);
+    const folder = typeof e.folder == "string" ? e.folder.trim() : "";
+    if (PC[folder] && name in PC[folder]) {
+      // a built-in preset: only its pin carries over
+      if (!!e.pinned != isPinned(name)) togglePin(name);
+      if (e.pinned) pinned++;
+      continue;
+    }
+    let f2 = "";
+    if (folder && folder.toLowerCase() != UNFILED.toLowerCase() && !PC[folder]) {
+      f2 = META.folders.find((x) => x.toLowerCase() == folder.toLowerCase()) || folder.slice(0, 30);
+      if (!META.folders.includes(f2)) META.folders.push(f2);
+    }
+    CUSTOM[name] = cleanSettings(e.settings);
+    META.where[name] = f2;
+    if (!!e.pinned != isPinned("c:" + name)) togglePin("c:" + name);
+    if (e.pinned) pinned++;
+    added++;
+  }
+  saveCustom();
+  saveMeta();
+  renderPresets();
+  toast(`Imported ${added} preset${added == 1 ? "" : "s"}${pinned ? `, ${pinned} pinned` : ""}`);
+}
+$("#pexp").onclick = () => exportPresets(allKeys(), "spargl-presets.spgl");
+$("#pimp").onclick = () => $("#pfile").click();
+$("#pfile").onchange = async (e) => {
+  const f = e.target.files[0];
+  e.target.value = "";
+  if (f) await importFile(f);
+};
+$("#pman").onclick = () => {
+  const on = $("#pre").classList.toggle("manage");
+  $("#pman").classList.toggle("on", on);
+};
+// ---- clicks on the preset list ----
+$("#pre").onclick = (e) => {
+  const t = e.target.closest("button");
+  if (!t) return;
+  const ds = t.dataset;
+  if (ds.tg) {
+    COLL.has(ds.tg) ? COLL.delete(ds.tg) : COLL.add(ds.tg);
+    return t.closest(".psec").classList.toggle("min");
+  }
+  if (ds.pin) {
+    togglePin(ds.pin);
+    return renderPresets();
+  }
+  if (ds.px) return exportPresets([ds.px], fileSafe(nameOfKey(ds.px)) + ".spgl");
+  if (ds.pmv) return moveInline(t.closest(".pchip"), ds.pmv);
+  if (ds.cx) return armed(t, () => deleteCustom(ds.cx));
+  if (ds.fr) return renameInline(t.closest(".psh").querySelector(".pst"), ds.fr, (v) => renameFolder(ds.fr, v), renderPresets);
+  if (ds.fd) return armed(t, () => deleteFolder(ds.fd));
+  if (!ds.p) return;
+  cp = ds.p;
+  applyParams({ ...D, ...getPreset(ds.p) }, S.auto);
   markP();
 };
+// ---- saving the current settings as a custom preset ----
 function openSave(show) {
-  $("#psf").hidden = !show;
-  $("#psv").hidden = show;
-  if (show) {
-    $("#psn").value = "";
-    $("#psn").focus();
-  }
+  openForm(show ? "#psf" : null);
 }
 $("#psv").onclick = () => openSave(true);
 $("#psno").onclick = () => openSave(false);
@@ -2030,13 +2230,18 @@ $("#psok").onclick = () => {
   const o = {};
   for (const k in D) if (p[k] !== D[k]) o[k] = p[k]; // store only what differs from the defaults
   if (!Object.keys(o).length) return toast("Nothing to save yet. Adjust some effects first");
+  const f = $("#psfld").value;
   const had = n in CUSTOM;
   CUSTOM[n] = o;
+  META.where[n] = f;
+  lastFolder = f;
+  COLL.delete(f ? "f:" + f : "sec:custom");
   saveCustom();
+  saveMeta();
   cp = "c:" + n;
   renderPresets();
   openSave(false);
-  toast(had ? `Preset "${n}" updated` : `Preset "${n}" saved`);
+  toast(`Preset "${n}" ${had ? "updated" : "saved"}${f ? ` in ${f}` : ""}`);
 };
 // Swap in a whole new parameter set (preset or reset) without losing the playback position.
 function applyParams(np, autoplay) {
