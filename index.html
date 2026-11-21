@@ -18,6 +18,7 @@
   <div class="navbar">
     <span class="navbar-title">BobTo Games Arcade - Spargles Games</span>
     <div class="navbar-right">
+      <button class="news-toggle" id="news-toggle" type="button" aria-label="Open news"><img src="icons1/news.png" alt=""></button>
       <a class="social-toggle" href="https://www.youtube.com/@BobToBEAT/featured" target="_blank" rel="noopener noreferrer" aria-label="Visit BobToBEAT on YouTube"><img src="icons1/youtube.png" alt=""></a>
       <a class="social-toggle" href="https://x.com/BobTo_BEAT" target="_blank" rel="noopener noreferrer" aria-label="Visit BobTo_BEAT on X"><img src="icons1/twitter.png" alt=""></a>
       <button class="account-toggle" id="account-toggle" type="button" aria-label="Open account menu"><img src="icons1/accounts.png" alt=""></button>
@@ -30,10 +31,14 @@
           <input id="rainbow-toggle" type="checkbox" checked>
           <span>Rainbow text</span>
         </label>
-        <label class="setting-row">
-          <input id="mute-toggle" type="checkbox">
-          <span>Mute site</span>
-        </label>
+        <div class="setting-row audio-setting">
+          <span class="audio-label">Audio</span>
+          <div class="audio-controls">
+            <button class="audio-step" id="audio-volume-down" type="button" aria-label="Decrease audio volume"><img src="icons1/left_arrow.png" alt=""></button>
+            <strong id="audio-volume">100%</strong>
+            <button class="audio-step" id="audio-volume-up" type="button" aria-label="Increase audio volume"><img src="icons1/right_arrow.png" alt=""></button>
+          </div>
+        </div>
         <label class="setting-row">
           <input id="bottom-bar-toggle" type="checkbox">
           <span>Hide bottom bar</span>
@@ -71,29 +76,17 @@
   <h2 class="category-title">New Releases &amp; Newly Updated</h2>
   <div class="slider-row">
     <div class="arcade-container slider" id="row1">
-      <div class="game-card"><span class="new-game-badge">New Stuff</span><img src="icons1/Mee Mee Bug Trials.png" alt="Mee Mee Bug Trials"><div class="game-title">Mee Mee Bug Trials</div><div class="game-desc">Bite sized Mee Mee Bug adventures!</div><button class="play-btn" onclick="showGame('bug-trials')">Play</button></div>
-      <div class="game-card"><span class="new-game-badge">New Stuff</span><img src="icons1/MusicBox PuzzleBox.png" alt="MusicBox PuzzleBox"><div class="game-title">MusicBox: PuzzleBox</div><div class="game-desc">Enter the CYBERSPACE and solve puzzles as MB.</div><button class="play-btn" onclick="showGame('musicbox-puzzlebox')">Play</button></div>
+      <div class="game-card"><span class="new-game-badge">New Release</span><img src="icons1/MusicBox PuzzleBox.png" alt="MusicBox PuzzleBox"><div class="game-title">MusicBox: PuzzleBox</div><div class="game-desc">Enter the CYBERSPACE and solve puzzles as MB.</div><button class="play-btn" onclick="showGame('musicbox-puzzlebox')">Play</button></div>
+      <div class="game-card"><span class="new-game-badge">New Stuff</span><img src="icons1/Mee Mee Bug Rush.png" alt="Mee Mee Bug Rush"><div class="game-title">Mee Mee Bug Rush</div><div class="game-desc">Rush to collect with Freedom!</div><button class="play-btn" onclick="showGame('bug-rush')">Play</button></div>
     </div>
   </div>
 
-  <h2 class="category-title">Platformers</h2>
-  <div class="slider-row">
-    <div class="arcade-container slider" id="row2">
-      <div class="game-card"><img src="icons1/Mee Mee Bug Trials.png" alt="Mee Mee Bug Trials"><div class="game-title">Mee Mee Bug Trials</div><div class="game-desc">Bite sized Mee Mee Bug adventures!</div><button class="play-btn" onclick="showGame('bug-trials')">Play</button></div>
-      <div class="game-card"><img src="icons1/Runno Origins.png" alt="Runno Origins"><div class="game-title">Runno Origins</div><div class="game-desc">Revisit the origins of Runno!</div><button class="play-btn" onclick="showGame('runno-origins')">Play</button></div>
-    </div>
-  </div>
-
-  <h2 class="category-title">Puzzle Games</h2>
-  <div class="slider-row">
-    <div class="arcade-container slider" id="row3">
-      <div class="game-card"><img src="icons1/MusicBox PuzzleBox.png" alt="MusicBox PuzzleBox"><div class="game-title">MusicBox: PuzzleBox</div><div class="game-desc">Enter the CYBERSPACE and solve puzzles as MB.</div><button class="play-btn" onclick="showGame('musicbox-puzzlebox')">Play</button></div>
-    </div>
-  </div>
-
-  <h2 class="category-title">Arcade Games</h2>
+  <h2 class="category-title">Our Games</h2>
   <div class="slider-row">
     <div class="arcade-container slider" id="row4">
+      <div class="game-card"><img src="icons1/Mee Mee Bug Trials.png" alt="Mee Mee Bug Trials"><div class="game-title">Mee Mee Bug Trials</div><div class="game-desc">Bite sized Mee Mee Bug adventures!</div><button class="play-btn" onclick="showGame('bug-trials')">Play</button></div>
+      <div class="game-card"><img src="icons1/MusicBox PuzzleBox.png" alt="MusicBox PuzzleBox"><div class="game-title">MusicBox: PuzzleBox</div><div class="game-desc">Enter the CYBERSPACE and solve puzzles as MB.</div><button class="play-btn" onclick="showGame('musicbox-puzzlebox')">Play</button></div>
+      <div class="game-card"><img src="icons1/Runno Origins.png" alt="Runno Origins"><div class="game-title">Runno Origins</div><div class="game-desc">Revisit the origins of Runno!</div><button class="play-btn" onclick="showGame('runno-origins')">Play</button></div>
       <div class="game-card"><img src="icons1/Mee Mee Bug Rush.png" alt="Mee Mee Bug Rush"><div class="game-title">Mee Mee Bug Rush</div><div class="game-desc">Rush to collect with Freedom!</div><button class="play-btn" onclick="showGame('bug-rush')">Play</button></div>
     </div>
   </div>
@@ -173,6 +166,20 @@
     </div>
   </div>
 
+  <div id="news-menu-overlay" class="game-menu-overlay" style="display:none;">
+    <div class="game-menu news-menu" role="dialog" aria-modal="true" aria-labelledby="news-menu-title">
+      <div class="game-menu-right news-menu-content">
+        <div class="game-menu-header">
+          <div class="news-menu-title" id="news-menu-title">Bobto Games News</div>
+          <button class="game-menu-close" id="news-menu-close" type="button" aria-label="Close news"><img src="icons1/exit.png" alt=""></button>
+        </div>
+        <div class="game-menu-changelog-wrap">
+          <div class="game-menu-changelog news-content" id="news-content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="game-modal-overlay" class="game-modal-overlay" style="display:none;">
     <div id="game-modal" class="game-modal">
       <div class="modal-controls">
@@ -196,8 +203,18 @@
         image: 'icons1/Mee Mee Bug Trials.png',
         description: 'Bite sized Mee Mee Bug adventures!',
         released: '4/3/26',
-        updated: '9/5/26',
+        updated: '9/6/26',
         updates: [
+          {
+            name: 'V1.1.5',
+            date: '09/06/26',
+            items: [
+              'Level design changes to decrease trial difficulty',
+              'Balloon Nay Nay Bug starting size has been increased by 50%',
+              'King Nay Nay and Balloon Nay Nay Bug hitboxes tweaked',
+              'Giant Classic GB Nay Nay Bugs now have a chance to spawn Banunus on defeat'
+            ]
+          },
           {
             name: 'V.1.1.1',
             date: '9/6/26',
@@ -265,6 +282,11 @@
         released: '4/3/26',
         updated: '9/6/26',
         updates: [
+          {
+            name: 'V2.0',
+            date: '9/7/26',
+            items: ['5 new stages added', 'Spawn rarities tweaked', 'New start and end match sounds', 'Death penalty system implimented', 'Stage selection UI reworked', 'Multiplayer framework being tested', 'New gameplay features, including more vertical mobility options, stage-unique quirks, new score items, and a brand new power-up on the new Corrupt Factory stage', '"Pause" menu added to stages; accessed via the tab key']
+          },
           {
             name: 'V1.1',
             date: '9/6/26',
@@ -398,6 +420,47 @@
       document.body.classList.remove('menu-open');
     }
 
+    const newsData = [
+            {
+        name: 'Some Site Updates',
+        date: '9/7/26',
+        paragraphs: [
+          'Hello there. Some changes have been rolled out on the site.',
+          '<strong style="color: gold;">Audio</strong> has been added for button presses (enable mee-mee mode for a certified terrible time™), and the <strong style="color: gold;">game rows have been consolidated</strong> as of now, until the arcade grows to include more content. The sound of button presses can be controlled in settings (which should save to local storage now btw), so if you dont like them, feel free to mute it.',
+          'There were also some issues with being able to spam the banner carousel buttons faster than it could keep up, so <strong style="color: gold;">the buttons for manually navigating it have now been changed</strong> to grey out during the transition between banners.',
+          '<strong style="color: gold;">Mee Mee Bug Rush</strong> has just recieved a massive content drop btw, and is now an actually decent game to play! So check that out if you want :D'
+        ]
+      },
+      {
+        name: 'Welcome to the Arcade',
+        date: '9/6/26',
+        paragraphs: [
+          'News updates will appear here as the arcade grows.',
+          'More announcements are coming whenever.'
+        ]
+      }
+    ];
+
+    function showNews() {
+      const newsContent = document.getElementById('news-content');
+      newsContent.innerHTML = newsData.map(update => `
+        <div class="update-group">
+          <div class="update-header">
+            <span class="update-name">${update.name}</span>
+            <span class="update-date">${update.date}</span>
+          </div>
+          ${update.paragraphs.map(paragraph => `<p class="news-paragraph">${paragraph}</p>`).join('')}
+        </div>
+      `).join('');
+      document.getElementById('news-menu-overlay').style.display = 'flex';
+      document.body.classList.add('menu-open');
+    }
+
+    function closeNews() {
+      document.getElementById('news-menu-overlay').style.display = 'none';
+      document.body.classList.remove('menu-open');
+    }
+
     function openGameEmbed(gameId) {
       const overlay = document.getElementById('game-modal-overlay');
       const modalContent = document.getElementById('game-modal-content');
@@ -436,21 +499,46 @@
 
     document.addEventListener('DOMContentLoaded', function() {
       const menuOverlay = document.getElementById('game-menu-overlay');
+      const newsMenuOverlay = document.getElementById('news-menu-overlay');
       const modalOverlay = document.getElementById('game-modal-overlay');
+      const newsToggle = document.getElementById('news-toggle');
+      const newsClose = document.getElementById('news-menu-close');
       const settingsToggle = document.getElementById('settings-toggle');
       const settingsMenu = document.getElementById('settings-menu');
       const accountToggle = document.getElementById('account-toggle');
       const accountMenu = document.getElementById('account-menu');
       const rainbowToggle = document.getElementById('rainbow-toggle');
-      const muteToggle = document.getElementById('mute-toggle');
+      const meeMeeModeToggle = document.getElementById('mee-mee-mode-toggle');
+      const audioVolume = document.getElementById('audio-volume');
+      const audioVolumeDown = document.getElementById('audio-volume-down');
+      const audioVolumeUp = document.getElementById('audio-volume-up');
+      const fullscreenButton = document.getElementById('fullscreen-btn');
+      const closeGameButton = document.getElementById('close-btn');
       const bottomBarToggle = document.getElementById('bottom-bar-toggle');
       const sparglesHome = document.getElementById('spargles-home');
       const featuredBannerTrack = document.getElementById('featured-banner-track');
       const bannerPrev = document.getElementById('banner-prev');
       const bannerNext = document.getElementById('banner-next');
       const bannerDots = document.querySelectorAll('.banner-dot');
+      const settingsStorageKey = 'bobto-arcade-settings';
+      const playClickSound = new Audio('sound/click1.mp3');
+      const buttonClickSound = new Audio('sound/click2.mp3');
+      const meeMeeSound = new Audio('sound/meemee.mp3');
       let featuredBannerIndex = 1;
       let bannerIsAnimating = false;
+
+      function loadSavedSettings() {
+        try {
+          const savedSettings = JSON.parse(localStorage.getItem(settingsStorageKey) || '{}');
+          if (typeof savedSettings.rainbow === 'boolean') rainbowToggle.checked = savedSettings.rainbow;
+          if (typeof savedSettings.meeMeeMode === 'boolean') meeMeeModeToggle.checked = savedSettings.meeMeeMode;
+          if (typeof savedSettings.volume === 'number') {
+            audioVolume.dataset.value = String(Math.max(0, Math.min(100, savedSettings.volume)));
+          }
+          if (typeof savedSettings.bottomBarHidden === 'boolean') bottomBarToggle.checked = savedSettings.bottomBarHidden;
+        } catch {
+        }
+      }
 
       function updateBannerDots() {
         const activeIndex = (featuredBannerIndex - 1 + 3) % 3;
@@ -461,9 +549,16 @@
         });
       }
 
+      function setBannerControlsDisabled(disabled) {
+        bannerPrev.disabled = disabled;
+        bannerNext.disabled = disabled;
+        bannerDots.forEach((dot) => { dot.disabled = disabled; });
+      }
+
       function moveBanner(index, animate = true) {
         if (index < 0 || index > 4 || (animate && bannerIsAnimating)) return;
         bannerIsAnimating = animate;
+        setBannerControlsDisabled(animate);
         featuredBannerTrack.style.transition = animate ? '' : 'none';
         featuredBannerIndex = index;
         featuredBannerTrack.style.transform = `translateX(-${featuredBannerIndex * 20}%)`;
@@ -498,14 +593,40 @@
           featuredBannerTrack.style.transition = '';
         }
         bannerIsAnimating = false;
+        setBannerControlsDisabled(false);
       });
 
       function applySiteSettings() {
+        const volume = Number(audioVolume.dataset.value || 100);
         document.body.classList.toggle('rainbow-disabled', !rainbowToggle.checked);
         document.body.classList.toggle('bottom-bar-hidden', bottomBarToggle.checked);
         document.querySelectorAll('audio, video').forEach((media) => {
-          media.muted = muteToggle.checked;
+          media.volume = volume / 100;
+          media.muted = volume === 0;
         });
+        audioVolume.textContent = volume + '%';
+        playClickSound.volume = volume / 100;
+        buttonClickSound.volume = volume / 100;
+        meeMeeSound.volume = volume / 100;
+        localStorage.setItem(settingsStorageKey, JSON.stringify({
+          rainbow: rainbowToggle.checked,
+          meeMeeMode: meeMeeModeToggle.checked,
+          volume,
+          bottomBarHidden: bottomBarToggle.checked
+        }));
+      }
+
+      function changeAudioVolume(amount) {
+        const currentVolume = Number(audioVolume.dataset.value || 100);
+        audioVolume.dataset.value = String(Math.max(0, Math.min(100, currentVolume + amount)));
+        applySiteSettings();
+      }
+
+      function playUtilityClick() {
+        if (Number(audioVolume.dataset.value || 100) === 0) return;
+        const clickSound = meeMeeModeToggle.checked ? meeMeeSound : buttonClickSound;
+        clickSound.currentTime = 0;
+        clickSound.play().catch(() => {});
       }
 
       scheduleBannerAutoAdvance();
@@ -539,14 +660,32 @@
         accountMenu.toggleAttribute('hidden', !isHidden);
       });
 
+      newsToggle.addEventListener('click', showNews);
+      newsClose.addEventListener('click', closeNews);
+
       rainbowToggle.addEventListener('change', applySiteSettings);
-      muteToggle.addEventListener('change', applySiteSettings);
+      rainbowToggle.addEventListener('change', playUtilityClick);
+      audioVolumeDown.addEventListener('click', () => changeAudioVolume(-5));
+      audioVolumeUp.addEventListener('click', () => changeAudioVolume(5));
+      fullscreenButton.addEventListener('click', playUtilityClick);
+      closeGameButton.addEventListener('click', playUtilityClick);
       bottomBarToggle.addEventListener('change', applySiteSettings);
+      bottomBarToggle.addEventListener('change', playUtilityClick);
+      meeMeeModeToggle.addEventListener('change', applySiteSettings);
+      meeMeeModeToggle.addEventListener('change', playUtilityClick);
       sparglesHome.addEventListener('click', function() {
         window.location.href = 'https://spargles.com/';
       });
 
       document.addEventListener('click', function(event) {
+        const clickedButton = event.target.closest('button');
+        if (clickedButton && !clickedButton.classList.contains('modal-btn') && Number(audioVolume.dataset.value || 100) > 0) {
+          const clickSound = meeMeeModeToggle.checked
+            ? meeMeeSound
+            : clickedButton.classList.contains('play-btn') ? playClickSound : buttonClickSound;
+          clickSound.currentTime = 0;
+          clickSound.play().catch(() => {});
+        }
         if (!settingsMenu.hasAttribute('hidden')) {
           if (!event.target.closest('.settings-toggle') && !event.target.closest('.settings-menu')) {
             settingsMenu.setAttribute('hidden', 'hidden');
@@ -565,6 +704,12 @@
         }
       });
 
+      newsMenuOverlay.addEventListener('click', function(e) {
+        if (e.target === newsMenuOverlay) {
+          closeNews();
+        }
+      });
+
       modalOverlay.addEventListener('click', function(e) {
         if (e.target === modalOverlay) {
           closeGameModal();
@@ -574,12 +719,14 @@
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
           closeGameMenu();
+          closeNews();
           closeGameModal();
           settingsMenu.setAttribute('hidden', 'hidden');
           accountMenu.setAttribute('hidden', 'hidden');
         }
       });
 
+      loadSavedSettings();
       applySiteSettings();
     });
 
