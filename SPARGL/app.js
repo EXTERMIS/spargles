@@ -1236,10 +1236,60 @@ function updateEditUI() {
   const has = !!buf;
   const hs = has && !!sel;
   [["#eAll", has], ["#ePlay", hs], ["#eCopy", hs], ["#eCut", hs], ["#eDel", hs], ["#eFx", hs], ["#ePaste", has && !!clip], ["#eUndo", hi > 0], ["#eRedo", hi >= 0 && hi < hist.length - 1]].forEach(([id, on]) => $(id).disabled = !on);
-  let t = sel ? `Selected ${ft(sel.s)} – ${ft(sel.e)} (${(sel.e - sel.s).toFixed(2)} s)` : has ? "Drag across the waveform to select a range" : "Load audio to start editing";
+  let t = sel ? `Length ${(sel.e - sel.s).toFixed(2)} s` : has ? selMode == "range" ? "Drag across the waveform to select a range" : "Click the waveform to place the playhead" : "Load audio to start editing";
   if (clip) t += ` · Clipboard ${clip.duration.toFixed(2)} s`;
   $("#selinfo").textContent = t;
+  [["#selS", sel && sel.s], ["#selE", sel && sel.e]].forEach(([id, v]) => {
+    const el = $(id);
+    el.disabled = !has;
+    if (document.activeElement !== el) el.value = sel ? v.toFixed(2) : "";
+  });
 }
+// Type exact selection times (seconds, or m:ss.xx) down to 0.01 s. Up/Down nudge by 0.01 (Shift: 0.1).
+const parseT = (v) => {
+  v = v.trim();
+  if (!v) return NaN;
+  if (v.includes(":")) {
+    const [m, sec] = v.split(":");
+    return +m * 60 + +sec;
+  }
+  return +v;
+};
+const r2 = (v) => Math.round(v * 100) / 100;
+function applyTimes(which, delta = 0) {
+  if (!buf) return;
+  const dur = r2(buf.duration);
+  let s = parseT($("#selS").value);
+  let e = parseT($("#selE").value);
+  if (which == "selS") {
+    if (!Number.isFinite(s)) return updateEditUI();
+    if (!Number.isFinite(e)) e = sel ? sel.e : dur;
+    s = clamp(r2(s + delta), 0, Math.max(0, dur - 0.01));
+    if (e <= s) e = Math.min(dur, r2(s + 0.01));
+  } else {
+    if (!Number.isFinite(e)) return updateEditUI();
+    if (!Number.isFinite(s)) s = sel ? sel.s : 0;
+    e = clamp(r2(e + delta), 0.01, dur);
+    if (s >= e) s = Math.max(0, r2(e - 0.01));
+  }
+  sel = { s: r2(s), e: r2(e) };
+  rng = null;
+  $("#selS").value = sel.s.toFixed(2);
+  $("#selE").value = sel.e.toFixed(2);
+  updateEditUI();
+}
+["selS", "selE"].forEach((id) => {
+  $("#" + id).onchange = () => applyTimes(id);
+  $("#" + id).onkeydown = (e) => {
+    if (e.key == "ArrowUp" || e.key == "ArrowDown") {
+      e.preventDefault();
+      applyTimes(id, (e.key == "ArrowUp" ? 1 : -1) * (e.shiftKey ? 0.1 : 0.01));
+    } else if (e.key == "Enter") {
+      applyTimes(id);
+      e.target.blur();
+    }
+  };
+});
 function updateSelBox() {
   const el = $("#sel");
   if (!buf || !sel) {
@@ -1279,10 +1329,27 @@ const edgeAt = (t) => {
   const tol = 8 / wv.clientWidth * cur().duration;
   return Math.abs(t - lo) < tol ? "lo" : Math.abs(t - hi2) < tol ? "hi" : null;
 };
+let selMode = "range"; // "range": drag to select. "click": click to place the playhead.
+function setMode(m) {
+  selMode = m;
+  wv.classList.toggle("click", m == "click");
+  $("#mRange").classList.toggle("on", m == "range");
+  $("#mClick").classList.toggle("on", m == "click");
+  $("#mRange").setAttribute("aria-pressed", m == "range");
+  $("#mClick").setAttribute("aria-pressed", m == "click");
+}
+$("#mRange").onclick = () => setMode("range");
+$("#mClick").onclick = () => setMode("click");
 wv.onpointerdown = (e) => {
   if (!buf) return;
   wv.setPointerCapture(e.pointerId);
   const t = xToDisp(e.clientX);
+  if (selMode == "click") {
+    // click mode: place (or scrub) the playhead, selection untouched
+    drag = { click: true, t };
+    if (!playing) pos = t;
+    return;
+  }
   const edge = edgeAt(t);
   const [lo, hi2] = sel ? selEdges() : [0, 0];
   drag = { x0: e.clientX, t0: t, edge, lo, hi: hi2, moved: false };
@@ -1290,7 +1357,12 @@ wv.onpointerdown = (e) => {
 wv.onpointermove = (e) => {
   if (!buf) return;
   if (!drag) {
-    wv.style.cursor = edgeAt(xToDisp(e.clientX)) ? "ew-resize" : "";
+    wv.style.cursor = selMode == "range" && edgeAt(xToDisp(e.clientX)) ? "ew-resize" : "";
+    return;
+  }
+  if (drag.click) {
+    drag.t = xToDisp(e.clientX);
+    if (!playing) pos = drag.t;
     return;
   }
   if (!drag.moved && Math.abs(e.clientX - drag.x0) < 4) return;
@@ -1302,6 +1374,13 @@ wv.onpointermove = (e) => {
 };
 wv.onpointerup = () => {
   if (!drag) return;
+  if (drag.click) {
+    rng = null;
+    if (playing) play(drag.t);
+    else pos = drag.t;
+    drag = null;
+    return;
+  }
   if (!drag.moved) {
     // a plain click moves the playhead and clears the selection
     rng = null;
