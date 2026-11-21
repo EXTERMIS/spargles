@@ -349,6 +349,31 @@ body.menu-open .bottom-bar {
   background: #181b20;
 }
 
+.news-menu {
+  width: min(96vw, 920px);
+  min-height: 520px;
+}
+
+.news-menu-content {
+  width: 100%;
+}
+
+.news-menu-title {
+  flex: 1;
+  color: #fff;
+  font-family: 'RasterForge', 'Roboto', 'Segoe UI', Arial, sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.news-paragraph {
+  margin: 0 0 14px;
+  color: #dfe7f6;
+  font-size: 1.1rem;
+  line-height: 1.55;
+}
+
 .game-menu-header {
   display: flex;
   align-items: flex-start;
@@ -384,8 +409,9 @@ body.menu-open .bottom-bar {
 }
 
 .game-menu-close {
-  width: 100px;
-  min-height: 76px;
+  width: 76px;
+  height: 76px;
+  flex: 0 0 76px;
   border: 2px solid #00b3ff;
   background: #292d35;
   font-size: 4rem;
@@ -579,6 +605,19 @@ body {
   margin: 0;
   padding: 0 0 64px;
   min-height: 100vh;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+img {
+  -webkit-user-drag: none;
+}
+
+input,
+button,
+a {
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 body.bottom-bar-hidden .bottom-bar {
@@ -643,7 +682,8 @@ body.menu-open .bottom-bar {
 
 .settings-toggle img,
 .account-toggle img,
-.social-toggle img {
+.social-toggle img,
+.news-toggle img {
   width: 26px;
   height: 26px;
   object-fit: contain;
@@ -669,6 +709,25 @@ body.menu-open .bottom-bar {
   border-radius: 0;
   margin-right: 8px;
   box-sizing: border-box;
+}
+
+.news-toggle {
+  background: #23283a;
+  border: 2px solid #00b3ff;
+  color: #fff;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  margin-right: 8px;
+  box-sizing: border-box;
+}
+
+.news-toggle:hover {
+  background: #00b3ff;
 }
 
 .account-toggle {
@@ -731,6 +790,49 @@ body.menu-open .bottom-bar {
 
 .setting-row input {
   accent-color: #0d6efd;
+}
+
+.audio-setting {
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.audio-setting strong {
+  color: #00b3ff;
+  min-width: 48px;
+  font-size: 1rem;
+  line-height: 30px;
+}
+
+.audio-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.audio-step {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: #23283a;
+  border: 2px solid #00b3ff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.audio-step:hover {
+  background: #00b3ff;
+}
+
+.audio-step img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
 }
 
 .settings-link {
@@ -842,6 +944,13 @@ body.rainbow-disabled .bottom-bar-title {
 
 .banner-nav-button:hover {
   background: #00b3ff;
+}
+
+.banner-nav-button:disabled,
+.banner-dot:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .banner-nav-button img {
