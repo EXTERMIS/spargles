@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="color-scheme" content="light dark">
-    <meta name="description" content="SPARGL: AUDIO LAB - upload audio, apply effects and presets, and export MP3 or WAV in your browser.">
+    <meta name="description" content="SPARGL: AUDIO LAB">
     <title>SPARGL: AUDIO LAB</title>
     <link rel="icon" href="Tab-Icon-2.png">
     <link rel="stylesheet" href="styles.css">
@@ -57,12 +57,23 @@
           <h2 id="pre-title">Presets</h2>
           <input id="ps" type="search" placeholder="Search presets…" aria-label="Search presets">
           <div class="tr flush psave">
-            <button type="button" id="psv">Save preset</button>
-            <div id="psf" class="psf" hidden>
-              <input id="psn" type="text" placeholder="Name your preset" maxlength="40" aria-label="Preset name">
-              <button type="button" id="psok" class="pri">Save</button>
-              <button type="button" id="psno">Cancel</button>
-            </div>
+            <button type="button" id="psv" title="Save the current effect settings as a custom preset">Save preset</button>
+            <button type="button" id="pnf" title="Create a custom preset folder">New folder</button>
+            <button type="button" id="pimp" title="Import presets from a .spgl file">Import</button>
+            <button type="button" id="pexp" title="Export every preset (built-in and custom) as a .spgl file">Export all</button>
+            <button type="button" id="pman" title="Show export, move and delete buttons on each preset">Manage</button>
+            <input id="pfile" type="file" accept=".spgl,.json,application/json" hidden>
+          </div>
+          <div id="psf" class="psf" hidden>
+            <input id="psn" type="text" placeholder="Name your preset" maxlength="40" aria-label="Preset name">
+            <select id="psfld" aria-label="Save into folder"></select>
+            <button type="button" id="psok" class="pri">Save</button>
+            <button type="button" id="psno">Cancel</button>
+          </div>
+          <div id="pff" class="psf" hidden>
+            <input id="pfn" type="text" placeholder="Folder name" maxlength="30" aria-label="Folder name">
+            <button type="button" id="pfok" class="pri">Create</button>
+            <button type="button" id="pfno">Cancel</button>
           </div>
           <div id="pre"></div>
         </section>
