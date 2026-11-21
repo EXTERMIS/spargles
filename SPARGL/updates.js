@@ -10,7 +10,19 @@
 const UPDATE_LOG = [
   {
     v: "1.0.7",
-    date: "2026-11-13",
+    date: "2026-11-21",
+    changes: [
+      "Ability to pin preset to the top of its section",
+      "Export presets (.spgl files, single preset or all current presets option)",
+      "New creatable custom preset folders",
+      "Save presets to custom folders",
+      " ",
+      "Fine controls for track selection coming in the next update!"
+    ]
+  },
+  {
+    v: "1.0.7",
+    date: "2026-11-18",
     changes: [
       "New track editing features",
       "Added ability to  select part of a track and apply effects to that sections specifically!",
