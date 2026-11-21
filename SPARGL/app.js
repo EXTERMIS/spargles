@@ -1329,7 +1329,7 @@ const edgeAt = (t) => {
   const tol = 8 / wv.clientWidth * cur().duration;
   return Math.abs(t - lo) < tol ? "lo" : Math.abs(t - hi2) < tol ? "hi" : null;
 };
-let selMode = "range"; // "range": drag to select. "click": click to place the playhead.
+let selMode = "click"; // "range": drag to select. "click": click to place the playhead.
 function setMode(m) {
   selMode = m;
   wv.classList.toggle("click", m == "click");
