@@ -9,15 +9,16 @@
 // ============================================================
 const UPDATE_LOG = [
   {
-    v: "1.0.7",
+    v: "1.0.8",
     date: "2026-11-21",
     changes: [
       "Ability to pin preset to the top of its section",
       "Export presets (.spgl files, single preset or all current presets option)",
       "New creatable custom preset folders",
       "Save presets to custom folders",
-      " ",
-      "Fine controls for track selection coming in the next update!"
+      "Fine control for track selection (Input start and end selection time, down to .01s)",
+      "Buttons to switch between range selection and single click on tracks",
+      "Speed and Pitch lock now ON by default"
     ]
   },
   {
