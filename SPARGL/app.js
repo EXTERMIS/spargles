@@ -20,7 +20,7 @@ const G = [
     ["pan", "Pan", -1, 1, 0, 0.01],
     ["speed", "Speed", 0.25, 3, 1, 0.01],
     ["pitch", "Pitch (semitones)", -24, 24, 0, 0.1],
-    ["lock", "Lock speed & pitch", 0, 1, 0, 1, "t"],
+    ["lock", "Lock speed & pitch", 0, 1, 1, 1, "t"],
     ["fi", "Fade in (export)", 0, 5, 0, 0.1],
     ["fo", "Fade out (export)", 0, 5, 0, 0.1]
   ]],
