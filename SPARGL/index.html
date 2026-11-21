@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="color-scheme" content="light dark">
-    <meta name="description" content="SPARGL: AUDIO LAB">
+    <meta name="description" content="SPARGL: AUDIO LAB - upload audio, apply effects and presets, and export MP3 or WAV in your browser.">
     <title>SPARGL: AUDIO LAB</title>
-    <link rel="icon" href="Tab-Icon-2.png">
+    <link rel="icon" type="image/png" href="Tab-Icon-2.png">
     <link rel="stylesheet" href="styles.css">
     <!-- MP3 encoder (exposes the global `lamejs`) -->
     <script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js" defer></script>
@@ -106,6 +106,18 @@
           </div>
 
           <div class="selrow">
+            <div class="seg" role="group" aria-label="Waveform mouse mode">
+              <button type="button" id="mRange" class="on" aria-pressed="true" title="Drag on the waveform to select a range">Range</button>
+              <button type="button" id="mClick" aria-pressed="false" title="Click on the waveform to place the playhead (no selection)">Click</button>
+            </div>
+            <label class="tf" title="Selection start in seconds (or m:ss.xx). Up/Down nudges by 0.01 s, Shift by 0.1 s">
+              Start
+              <input id="selS" type="text" inputmode="decimal" autocomplete="off" placeholder="0.00" aria-label="Selection start (seconds)" disabled>
+            </label>
+            <label class="tf" title="Selection end in seconds (or m:ss.xx). Up/Down nudges by 0.01 s, Shift by 0.1 s">
+              End
+              <input id="selE" type="text" inputmode="decimal" autocomplete="off" placeholder="0.00" aria-label="Selection end (seconds)" disabled>
+            </label>
             <span id="selinfo" class="mut">Load audio to start editing</span>
           </div>
           <div class="tr editbar" role="toolbar" aria-label="Selection and editing">
@@ -171,9 +183,7 @@
             <button type="button" id="sv" class="pri" title="Save the processed audio to your library as a WAV">Save to library</button>
           </div>
 
-          <p class="mut note">
-            Files download directly in browser.
-          </p>
+          <p class="mut note">Files download directly in browser.</p>
         </section>
 
         <section aria-label="Effects">
